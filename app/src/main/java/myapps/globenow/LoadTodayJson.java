@@ -207,6 +207,10 @@ public class LoadTodayJson {
                             // Facebook Event
                             urlList.add("https://www.facebook.com/events/" + jo_inside.getString("tweetid"));
                             idList.add(id);
+                        }else if(eventsource.equals("Instagram")){
+                            // Facebook Event
+                            urlList.add(jo_inside.getString("url"));
+                            idList.add(id);
                         }else{
                             // unimplemented event
                             urlList.add("");
