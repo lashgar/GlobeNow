@@ -76,7 +76,7 @@
                 android:layout_weight="0.05"
                 android:background="@android:color/transparent"
                 android:baselineAlignBottom="false"
-                app:srcCompat="@mipmap/location" />
+                android:src="@mipmap/location" />
 
             <ImageButton
                 android:id="@+id/imageButton3"
@@ -85,7 +85,7 @@
                 android:layout_weight="0.05"
                 android:background="@android:color/transparent"
                 android:baselineAlignBottom="false"
-                app:srcCompat="@mipmap/explore" />
+                android:src="@mipmap/explore" />
 
             <ImageButton
                 android:id="@+id/imageButton"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.05"
                 android:background="@android:color/transparent"
-                app:srcCompat="@mipmap/calendar" />
+                android:src="@mipmap/calendar" />
         </LinearLayout>
 
     </LinearLayout>

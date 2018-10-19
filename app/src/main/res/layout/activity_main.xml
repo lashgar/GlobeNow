@@ -35,6 +35,6 @@
         android:id="@+id/imageViewb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/worldmapcoloredb" />
+        android:src="@mipmap/worldmapcoloredb" />
 
 </LinearLayout>

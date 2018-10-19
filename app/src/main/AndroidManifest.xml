@@ -7,13 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <resources>
-        <string android:name="com.twitter.sdk.android.CONSUMER_KEY">XXXXXXXXXXX
-        </string>
-        <string android:name="com.twitter.sdk.android.CONSUMER_SECRET">XXXXXXXXXXX
-        </string>
-    </resources>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -39,7 +32,7 @@
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Tweet"></activity>
+        <!-- <activity android:name=".Tweet"></activity> !-->
     </application>
 
 </manifest>
