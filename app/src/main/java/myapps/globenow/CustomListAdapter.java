@@ -64,7 +64,7 @@ public class CustomListAdapter extends ArrayAdapter {
         gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         gradientDrawable.setSize(800,80);
-    };
+    }
     public View getView(int position, View view, ViewGroup parent) {
         if(!mediaURLs[position].equals("") && !mediaURLs[position].equals("none")){
             // With image
@@ -77,9 +77,9 @@ public class CustomListAdapter extends ArrayAdapter {
             View rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
 
             //this code gets references to objects in the listview_row_withimage.xml file
-            TextView nameTextField = (TextView) rowView.findViewById(R.id.textView8);
-            TextView infoTextField = (TextView) rowView.findViewById(R.id.textView9);
-            ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView6);
+            TextView nameTextField = rowView.findViewById(R.id.textView8);
+            TextView infoTextField = rowView.findViewById(R.id.textView9);
+            ImageView imageView = rowView.findViewById(R.id.imageView6);
             //ImageView imageGradient = (ImageView) rowView.findViewById(R.id.imageView2);
 
             //this code sets the values of the objects to values from the arrays
@@ -106,8 +106,8 @@ public class CustomListAdapter extends ArrayAdapter {
             View rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout
 
             //this code gets references to objects in the listview_row_noimage.xml file
-            TextView nameTextField = (TextView) rowView.findViewById(R.id.textView2);
-            TextView infoTextField = (TextView) rowView.findViewById(R.id.textView3);
+            TextView nameTextField = rowView.findViewById(R.id.textView2);
+            TextView infoTextField = rowView.findViewById(R.id.textView3);
 
             //this code sets the values of the objects to values from the arrays
             nameTextField.setText(nameArray[position]);
@@ -117,10 +117,5 @@ public class CustomListAdapter extends ArrayAdapter {
             // rowView.setBackgroundColor(0xB0610627);
             return rowView;
         }
-    };
-    /*
-    public void refresh(){
-        this.notifyDataSetChanged();
     }
-    */
 }

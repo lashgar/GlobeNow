@@ -123,23 +123,23 @@ public class LoadTodayJson {
             try{
                 String fileToLook = params[0]; // new SimpleDateFormat("yyyy-MM-dd").format(new Date())+".json";
                 String encodedURL = serverAddr+fileToLook; //2017-11-20.json";
-                Log.d("doInBackground", encodedURL);
+                // Log.d("doInBackground", encodedURL);
                 URL url = new URL(encodedURL);
                 // Read all the text returned by the server
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                 String str = "";
                 while ((str = in.readLine()) != null) {
-                    Log.d("doInBackground", str);
+                    // Log.d("doInBackground", str);
                     // str is one line of text; readLine() strips the newline character(s)
                     json+=str;
                 }
                 in.close();
-                Log.d("doInBackground", json);
+                // Log.d("doInBackground", json);
             } catch (MalformedURLException ex) {
-                Log.d("doInBackground", ex.toString());
+                // Log.d("doInBackground", ex.toString());
                 return ex.toString();
             } catch (IOException ex) {
-                Log.d("doInBackground", ex.toString());
+                // Log.d("doInBackground", ex.toString());
                 // ex.printStackTrace();
                 return ex.toString();
             }
@@ -160,6 +160,7 @@ public class LoadTodayJson {
                         progressBar.setProgress(0);
                     }
                 });
+                boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
                 for (int i = 0; i < length; i++) {
                     context.runOnUiThread(new Runnable() {
                         public void run() {
@@ -171,7 +172,7 @@ public class LoadTodayJson {
                     JSONObject jo_inside = jsonArrayEvents.getJSONObject(i);
                     //Log.d("Details-->", jo_inside.getString("formule"));
                     String status = jo_inside.getString("status");
-                    if(status.equals("merged")){
+                    if(status.equals("merged") || status.equals("dead")){
                         // redundant; no need to include this entry
                         continue;
                     }
@@ -197,7 +198,7 @@ public class LoadTodayJson {
                         BigInteger id = new BigInteger(jo_inside.getString("tweetid"));
                         if(eventsource.equals("Twitter")) {
                             // Event extracted from Twitter tweets
-                            if (isTwitterAppInstalled()) {
+                            if (bIsTwitterAppInstalled) {
                                 urlList.add("https://twitter.com/statuses/" + jo_inside.getString("tweetid"));
                             } else {
                                 urlList.add("https://twitter.com/i/web/status/" + jo_inside.getString("tweetid"));
@@ -262,7 +263,7 @@ public class LoadTodayJson {
             Bitmap[] bitmapArray = bitmapList.toArray(new Bitmap[bitmapList.size()]);
             Integer[] imageArray = imageList.toArray(new Integer[imageList.size()]);
             final String[] urlArray = urlList.toArray(new String[urlList.size()]);
-            final BigInteger[] idArray = idList.toArray(new BigInteger[idList.size()]);
+            // final BigInteger[] idArray = idList.toArray(new BigInteger[idList.size()]);
 
             CustomListAdapter whatever = new CustomListAdapter(context, textArray, authorArray, imageArray, mediaArray, bitmapArray);
             listview.setAdapter(whatever);
@@ -272,9 +273,10 @@ public class LoadTodayJson {
                                         long id) {
                     String sourceurl = urlArray[position];
                     if(sourceurl.equals("")){
-                        Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();;
+                        Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
                     }else {
                         // Open a URL
+                        // TODO: Use In-App browser
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
                         view.getContext().startActivity(browserIntent);
                     }

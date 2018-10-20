@@ -300,7 +300,7 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    };
+    }
 
     public void refreshListViewLocation(String citycode, String cityName, float distance){
         currentLocationCode = citycode;
@@ -318,7 +318,7 @@ public class Main2Activity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Our app is not tailored for this area, we show results of the closest city: "+cityName +" ("+Float.toString(distance)+" km away)", Toast.LENGTH_LONG).show();
         }
         townName.setText(cityName);
-    };
+    }
 
     public void refreshListViewDate(Date dateToLoad){
         currentDate = dateToLoad;
@@ -338,7 +338,7 @@ public class Main2Activity extends AppCompatActivity
         dateTextView.setOutAnimation(out);
 
         dateTextView.setText(formattedDate);
-    };
+    }
 
     private void CacheNewLocation(float lat, float lng)
     {
