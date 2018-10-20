@@ -56,20 +56,16 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     public static double deg2rad(double deg) {
-        return deg * (Math.PI/180);
+        return Math.toRadians(deg);
     }
     public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2) {
-        double R = 6371.0; // Radius of the earth in km
-        double dLat = deg2rad(lat2-lat1);  // deg2rad below
-        double dLon = deg2rad(lon2-lon1);
-        double a =
-                Math.sin(dLat/2) * Math.sin(dLat/2) +
-                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                                Math.sin(dLon/2) * Math.sin(dLon/2)
-                ;
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        double d = R * c; // Distance in km
-        return d;
+        Location locA = new Location("Source");
+        locA.setLatitude(lat1);
+        locA.setLongitude(lon1);
+        Location locB = new Location("Destination");
+        locB.setLatitude(lat2);
+        locB.setLongitude(lon2);
+        return Math.abs(locA.distanceTo(locB)/1000.0f);
     }
 
     public static String[] getClosestCity(double latitude, double longitude){
@@ -144,33 +140,33 @@ public class GPSTracker extends Service implements LocationListener {
                 "yyj",
                 "yyz"};
         double[] lats = {
-                40.703129470358384,
-                34.049701073519905,
-                37.76789229972227,
-                37.33893677039791,
-                53.54411393062082,
-                43.243802230314806,
-                44.64901353557669,
-                43.47115990069644,
-                45.42142647027999,
-                49.272912086405164,
-                49.89519560311849,
+                40.703129470358384, // JFK
+                34.049701073519905, // LAX
+                37.76789229972227,  // SFO
+                37.33893677039791,  // SJC
+                53.54411393062082,  // YEG
+                43.243802230314806, // YHM
+                44.64901353557669,  // YHZ
+                43.47115990069644,  // YKF
+                45.42142647027999,  // YOW
+                49.272912086405164, // YVR
+                49.89519560311849,  //
                 52.13307446184987,
                 42.98335257355123,
                 51.048498082007974,
                 48.4207253242786,
                 43.728833909894526};
         double[] lngs = {
-                -73.98852545768023,
-                -118.24200441129506,
-                -122.44152825325727,
-                -121.92242424935102,
-                -113.48993682913715,
-                -79.80084230192006,
-                -63.57588958766428,
-                -80.36718746647239,
-                -75.69715690638986,
-                -123.1314697349444,
+                -73.98852545768023,  // JFK
+                -118.24200441129506, // LAX
+                -122.44152825325727, // SFO
+                -121.92242424935102, // SJC
+                -113.48993682913715, // YEG
+                -79.80084230192006,  // YHM
+                -63.57588958766428,  // YHZ
+                -80.36718746647239,  // YKF
+                -75.69715690638986,  // YOW
+                -123.1314697349444,  // YVR
                 -97.1384782793757,
                 -106.67053413417307,
                 -81.24169908463955,
@@ -200,15 +196,16 @@ public class GPSTracker extends Service implements LocationListener {
         for(int i=1; i<lngs.length; ++i){
             // double dist = Math.sqrt(Math.pow(latitude-lats[i],2)+Math.pow(longitude-lngs[i],2));;
             double dist = GPSTracker.getDistanceFromLatLonInKm(latitude, longitude, lats[i], lngs[i]);
+            // Log.d("GPS", "Distance from "+names[i]+" "+Double.toString(dist));
             if(dist<mindistance){
                 mindistance = dist;
                 minidx = i;
             }
         }
         // Toast.makeText(getApplicationContext(), "Returning location", Toast.LENGTH_LONG).show();
-        Log.d("GPS", "Distance from the closest city is "+Double.toString(mindistance));
-        Log.d("GPS", "city coordinates> "+Double.toString(lats[minidx])+" "+Double.toString(lngs[minidx]));
-        Log.d("GPS", "user coordinates> "+Double.toString(latitude)+" "+Double.toString(longitude));
+        // Log.d("GPS", "Distance from the closest city is "+Double.toString(mindistance));
+        // Log.d("GPS", "city coordinates> "+Double.toString(lats[minidx])+" "+Double.toString(lngs[minidx]));
+        // Log.d("GPS", "user coordinates> "+Double.toString(latitude)+" "+Double.toString(longitude));
         String[] result = {citycodes[minidx], names[minidx], Double.toString(mindistance)};
         return result;
     }

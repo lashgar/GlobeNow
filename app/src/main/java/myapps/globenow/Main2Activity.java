@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -58,9 +59,7 @@ public class Main2Activity extends AppCompatActivity
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
-    // ListView eventListings;
     LoadTodayJson jsonLoader;
-    // TextView townName;
     TextSwitcher townName;
     ProgressBar progressBar;
     TextSwitcher dateTextView;
@@ -68,13 +67,23 @@ public class Main2Activity extends AppCompatActivity
     // Current view
     Date currentDate;
     String currentLocationCode;
+    String currentLocationName;
 
-    // GPSTracker gps;
+    // Caching
+    String k_preferenceName = "Timeline";
+    String k_sPLastGeoLat = "LastGeoLat";
+    String k_sPLastGeoLng = "LastGeoLng";
 
     private void initializeMainActivity(){
+        // Load cache
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
+        Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
+        Float longitude = sharedPreferences.getFloat(k_sPLastGeoLng,-123.38951110839844f);
+        String[] closetsTown = GPSTracker.getClosestCity(latitude, longitude);
+        currentLocationCode = closetsTown[0];
+        currentLocationName = closetsTown[1];
 
         currentDate = new Date();
-        currentLocationCode = "yyj";
         dateTextView = (TextSwitcher) findViewById(R.id.TextBoxDate);
         dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
@@ -117,7 +126,7 @@ public class Main2Activity extends AppCompatActivity
         });
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        refreshListViewLocation(currentLocationCode, "Victoria", (float)0.0);
+        refreshListViewLocation(currentLocationCode, currentLocationName, (float)0.0);
 
         // taskbar setup
         final View buttonlocation = findViewById(R.id.imageButton2);
@@ -126,16 +135,9 @@ public class Main2Activity extends AppCompatActivity
                 // check if GPS enabled
                 GPSTracker gps = new GPSTracker(Main2Activity.this);
                 if(gps.canGetLocation()){
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-                    String[] closetsTown = GPSTracker.getClosestCity(latitude, longitude);
-                    String cityCode = closetsTown[0];
-                    String cityName = closetsTown[1];
-                    float distance = Float.parseFloat(closetsTown[2]);
-                    // \n is for new line
-                    // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude + "\n " + cityName, Toast.LENGTH_LONG).show();
-                    gps.stopUsingGPS();
-                    refreshListViewLocation(cityCode, cityName, distance);
+                    float latitude = (float)gps.getLatitude();
+                    float longitude = (float)gps.getLongitude();
+                    Update_(latitude, longitude);
                 }else{
                     // can't get location
                     // GPS or Network is not enabled
@@ -152,10 +154,8 @@ public class Main2Activity extends AppCompatActivity
                         Calendar newCldr = Calendar.getInstance();
                         newCldr.set(year, monthOfYear, dayOfMonth);
                         Date newDate = newCldr.getTime();
-                        // activitydate.setText(dateFormatter.format(newDate.getTime()));
                         refreshListViewDate(newDate);
                     }
-
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         final View buttoncalendar = findViewById(R.id.imageButton);
@@ -185,7 +185,6 @@ public class Main2Activity extends AppCompatActivity
                     // Log.d("LocationPicker", "Repairable Exception");
                     e.printStackTrace();
                 }
-
             }
         });
     }
@@ -208,15 +207,9 @@ public class Main2Activity extends AppCompatActivity
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
-                // StringBuilder stBuilder = new StringBuilder();
-                // String placename = String.format("%s", place.getName());
-                String latitude = String.valueOf(place.getLatLng().latitude);
-                String longitude = String.valueOf(place.getLatLng().longitude);
-                String[] closetsTown = GPSTracker.getClosestCity(Float.parseFloat(latitude), Float.parseFloat(longitude));
-                String cityCode = closetsTown[0];
-                String cityName = closetsTown[1];
-                float distance = Float.parseFloat(closetsTown[2]);
-                refreshListViewLocation(cityCode, cityName, distance);
+                float latitude = (float)place.getLatLng().latitude;
+                float longitude = (float)place.getLatLng().longitude;
+                Update_(latitude, longitude);
                 /*
                 String address = String.format("%s", place.getAddress());
                 stBuilder.append("Name: ");
@@ -347,4 +340,26 @@ public class Main2Activity extends AppCompatActivity
         dateTextView.setText(formattedDate);
     };
 
+    private void CacheNewLocation(float lat, float lng)
+    {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(k_sPLastGeoLat, lat);
+        editor.putFloat(k_sPLastGeoLng, lng);
+        editor.commit();
+    }
+
+    private void Update_(float lat, float lng)
+    {
+        String[] closetsTown = GPSTracker.getClosestCity(lat, lng);
+        String cityCode = closetsTown[0];
+        String cityName = closetsTown[1];
+
+        // Cache last location
+        CacheNewLocation(lat, lng);
+
+        // Update view
+        float distance = Float.parseFloat(closetsTown[2]);
+        refreshListViewLocation(cityCode, cityName, distance);
+    }
 }
