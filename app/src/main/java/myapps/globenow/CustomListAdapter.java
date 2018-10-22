@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Random;
-
-/**
- * Created by Roshe on 2017-11-28.
- */
 
 public class CustomListAdapter extends ArrayAdapter {
     //to reference the Activity
@@ -68,10 +65,6 @@ public class CustomListAdapter extends ArrayAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         if(!mediaURLs[position].equals("") && !mediaURLs[position].equals("none")){
             // With image
-            //configurations
-            Random rand = new Random();
-            int transparency = rand.nextInt((90 - 40) + 1) + 40;
-
             // inflate the row
             LayoutInflater inflater=context.getLayoutInflater();
             View rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
@@ -80,25 +73,12 @@ public class CustomListAdapter extends ArrayAdapter {
             TextView nameTextField = rowView.findViewById(R.id.textView8);
             TextView infoTextField = rowView.findViewById(R.id.textView9);
             ImageView imageView = rowView.findViewById(R.id.imageView6);
-            //ImageView imageGradient = (ImageView) rowView.findViewById(R.id.imageView2);
 
             //this code sets the values of the objects to values from the arrays
             nameTextField.setText(nameArray[position]);
             String author = "by "+infoArray[position];
             infoTextField.setText(author);
             imageView.setImageBitmap(bitmapArray[position]);
-            // Matrix m = new Matrix();
-            // Point p = new Point();
-            // context.getWindowManager().getDefaultDisplay().getSize(p);
-            // float rate = p.x/(float)bitmapArray[position].getWidth();
-            // m.postScale(rate, rate);
-            // imageView.setImageMatrix(m);
-            // Drawable backgroundImg = new BitmapDrawable(this.context.getResources(), bitmapArray[position]);
-            // backgroundImg.setAlpha(transparency);
-            // nameTextField.setBackground(backgroundImg);
-            // rowView.setBackgroundColor(0x80610627);
-            // imageGradient.setImageDrawable(gradientDrawable);
-            // infoTextField.setBackground(gradientDrawable);
             return rowView;
         }else {
             // without image
@@ -114,7 +94,6 @@ public class CustomListAdapter extends ArrayAdapter {
             String author = "By "+infoArray[position];
             infoTextField.setText(author);
 
-            // rowView.setBackgroundColor(0xB0610627);
             return rowView;
         }
     }

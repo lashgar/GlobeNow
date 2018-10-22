@@ -1,35 +1,33 @@
 package myapps.globenow;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -48,8 +46,16 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -59,12 +65,18 @@ public class Main2Activity extends AppCompatActivity
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
+    // Timeline and data loader
     LoadTodayJson jsonLoader;
+    LoadImageUrlToBmp bmpLoader;
+    EventListAdapter eventListAdapter;
+    ArrayList<EventInstance> eventListArray;
+    ListView timeLineListView;
+
     TextSwitcher townName;
     ProgressBar progressBar;
     TextSwitcher dateTextView;
 
-    // Current view
+    // Current view configuration
     Date currentDate;
     String currentLocationCode;
     String currentLocationName;
@@ -75,6 +87,7 @@ public class Main2Activity extends AppCompatActivity
     String k_sPLastGeoLng = "LastGeoLng";
 
     private void initializeMainActivity(){
+        Log.d("LOADER", "Initializing");
         // Load cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
         Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
@@ -83,7 +96,7 @@ public class Main2Activity extends AppCompatActivity
         currentLocationCode = closetsTown[0];
         currentLocationName = closetsTown[1];
 
-        currentDate = new Date();
+        currentDate = new Date(); // default to Today
         dateTextView = (TextSwitcher) findViewById(R.id.TextBoxDate);
         dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
@@ -105,9 +118,14 @@ public class Main2Activity extends AppCompatActivity
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
-        // Set ListView
-        jsonLoader = new LoadTodayJson(this, (ListView)findViewById(R.id.ListView1));
-        // townName = (TextView)findViewById(R.id.textView4);
+        // Set ListView Adapter
+        eventListArray = new ArrayList<EventInstance>();
+        eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.textView2, eventListArray);
+        timeLineListView = (ListView)findViewById(R.id.ListView1);
+        timeLineListView.setAdapter(eventListAdapter);
+        jsonLoader = new LoadTodayJson(this, timeLineListView);
+        bmpLoader = new LoadImageUrlToBmp(this);
+
         townName = (TextSwitcher)findViewById(R.id.textView4);
         townName.setFactory(new ViewSwitcher.ViewFactory() {
 
@@ -124,6 +142,23 @@ public class Main2Activity extends AppCompatActivity
                 return myText;
             }
         });
+
+        /*
+        timeLineListView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (
+                        timeLineListView!=null &&
+                        timeLineListView.getAdapter()!=null &&
+                        timeLineListView.getLastVisiblePosition() == timeLineListView.getAdapter().getCount() -1 &&
+                        timeLineListView.getChildAt(timeLineListView.getChildCount() - 1)!=null &&
+                        timeLineListView.getChildAt(timeLineListView.getChildCount() - 1).getBottom() <= timeLineListView.getHeight())
+                {
+                    Toast.makeText(getApplicationContext(), "Scrolled all the way down", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        */
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         refreshListViewLocation(currentLocationCode, currentLocationName, (float)0.0);
@@ -187,6 +222,7 @@ public class Main2Activity extends AppCompatActivity
                 }
             }
         });
+        Log.d("LOADER", "Initialized");
     }
 
     @Override
@@ -230,7 +266,6 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(getApplicationContext(), "connection failed", Toast.LENGTH_LONG).show();
@@ -243,7 +278,6 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         initializeMainActivity();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -327,7 +361,6 @@ public class Main2Activity extends AppCompatActivity
         String formattedDate = new SimpleDateFormat("EEE MMM, dd").format(currentDate);
         Date today = new Date();
         if(today.getTime()==dateToLoad.getTime()){
-            // FIXME
             formattedDate = "Today";
         }
         Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
@@ -361,5 +394,135 @@ public class Main2Activity extends AppCompatActivity
         // Update view
         float distance = Float.parseFloat(closetsTown[2]);
         refreshListViewLocation(cityCode, cityName, distance);
+    }
+
+    private boolean isTwitterAppInstalled(){
+        try{
+            ApplicationInfo info = this.getPackageManager().
+                    getApplicationInfo("com.twitter.android", 0 );
+            return true;
+        } catch( PackageManager.NameNotFoundException e ){
+            return false;
+        }
+    }
+
+    private Bitmap GenDummyBmp_(){
+        byte[] data = new byte[4];
+        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, 3);
+        return bmp;
+    }
+
+    public void ReceiveBmpListAsync(ArrayList<Bitmap> bmpList){
+        for(int i = 0; i < bmpList.size(); i++){
+            EventInstance eventInstance = eventListArray.get(i);
+            eventInstance.bmp = bmpList.get(i);
+            eventListArray.set(i, eventInstance);
+        }
+        eventListAdapter.notifyDataSetChanged();
+    }
+
+    public void ReceiveJsonResponseAsync(String json){
+        // process the json
+        Log.d("LOADER", json);
+        try {
+            eventListArray.clear();
+            JSONObject obj = new JSONObject(json);
+            JSONArray jsonArrayEvents = obj.getJSONArray("data");
+            JSONArray jsonArrayAuthors = new JSONArray();
+            boolean jsonHasAuthors = obj.has("authors");
+            if(jsonHasAuthors){
+                jsonArrayAuthors = obj.getJSONArray("authors");
+            }
+            final int length = Math.min(jsonArrayEvents.length(),24);
+
+            boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
+            String[] mediaUrls = new String[length];
+            for (int i = 0; i < length; i++) {
+                JSONObject jo_inside = jsonArrayEvents.getJSONObject(i);
+                String status = jo_inside.getString("status");
+                if(status.equals("merged") || status.equals("dead")){
+                    // redundant; no need to include this entry
+                    continue;
+                }
+
+                // get author, text, and media
+                String author = jo_inside.getString("prettyauthor");
+                String text = jo_inside.getString("prettytext");
+                List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(",")); // FIXME: not tested
+                String media = allmedia.get(0);
+                int authorId = -1;
+                if((media.equals("") || media.equals("none")) && jsonHasAuthors && jo_inside.has("authorid") && jo_inside.getInt("authorid")!=-1){
+                    // lack of media, use the author cover photo
+                    authorId = jo_inside.getInt("authorid");
+                    media = jsonArrayAuthors.getJSONObject(authorId).getString("coverphoto");
+                    // Log.d("MediaURL", "has authorid> "+author);
+                }
+
+                // get callback URL
+                String eventsource = jo_inside.getString("source");
+                Object thing = jo_inside.get("tweetid");
+                BigInteger id = BigInteger.ZERO;
+                String url = "";
+                if(thing instanceof String){
+                    id = new BigInteger(jo_inside.getString("tweetid"));
+                    if(eventsource.equals("Twitter")) {
+                        // Event extracted from Twitter tweets
+                        if (bIsTwitterAppInstalled) {
+                            url = "https://twitter.com/statuses/" + jo_inside.getString("tweetid");
+                        } else {
+                            url = "https://twitter.com/i/web/status/" + jo_inside.getString("tweetid");
+                        }
+                    }else if(eventsource.equals("FBEvent")){
+                        // Facebook Event
+                        url = "https://www.facebook.com/events/" + jo_inside.getString("tweetid");
+                    }else if(eventsource.equals("Instagram")){
+                        // Facebook Event
+                        url = jo_inside.getString("url");
+                    }else{
+                        // unimplemented event
+                    }
+                }
+                // Will load the batch asyncly
+                mediaUrls[i] = media;
+
+                // Create entry
+                EventInstance newEntry = new EventInstance();
+                newEntry.status = status;
+                newEntry.url = url;
+                newEntry.media = media;
+                newEntry.prettytext = text;
+                newEntry.tweetid = id;
+                newEntry.source = eventsource;
+                newEntry.authorid = authorId;
+                newEntry.ml_rating = 0.0f; // FIXME: Get from request
+                newEntry.prettyauthor = author;
+                newEntry.bmp = GenDummyBmp_();
+                // Push to Array
+                eventListArray.add(newEntry);
+            }
+            // Invoke image loader and fetch images
+            bmpLoader.Load(mediaUrls);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        Log.d("LOADER", "Notifying adapter");
+        eventListAdapter.notifyDataSetChanged();
+        Log.d("LOADER", "Notified adapter");
+
+        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventInstance eventInstance = eventListArray.get(position);
+                String sourceurl = eventInstance.url;
+                if(sourceurl.equals("")){
+                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
+                }else {
+                    // Open a URL
+                    // TODO: Use In-App browser
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
+                    view.getContext().startActivity(browserIntent);
+                }
+            }
+        });
     }
 }
