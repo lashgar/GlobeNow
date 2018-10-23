@@ -6,7 +6,6 @@ import java.math.BigInteger;
 
 public class EventInstance {
     public String status;
-    public String author;
     public String url;
     public String media;
     public String prettytext;

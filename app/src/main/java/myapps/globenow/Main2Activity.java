@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.util.Calendar;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -87,8 +88,18 @@ public class Main2Activity extends AppCompatActivity
     String k_sPLastGeoLat = "LastGeoLat";
     String k_sPLastGeoLng = "LastGeoLng";
 
+    // Dynamic loading / paging
+    JSONArray jsonArrayEvents;
+    JSONArray jsonArrayAuthors;
+    Boolean bPendingJsonLoader;
+    Boolean bPendingBmpLoader;
+    AsyncTask<String, Void, String> asyncTaskJsonLoader;
+    AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
+
+    /*
+    @brief called from OnCreate to initialize modules
+     */
     private void initializeMainActivity(){
-        Log.d("LOADER", "Initializing");
         // Load cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
         Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
@@ -144,25 +155,12 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-        /*
-        timeLineListView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                if (
-                        timeLineListView!=null &&
-                        timeLineListView.getAdapter()!=null &&
-                        timeLineListView.getLastVisiblePosition() == timeLineListView.getAdapter().getCount() -1 &&
-                        timeLineListView.getChildAt(timeLineListView.getChildCount() - 1)!=null &&
-                        timeLineListView.getChildAt(timeLineListView.getChildCount() - 1).getBottom() <= timeLineListView.getHeight())
-                {
-                    Toast.makeText(getApplicationContext(), "Scrolled all the way down", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        */
+        // Dynamic loading / paging initialize
+        bPendingJsonLoader = false;
+        bPendingBmpLoader = false;
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        refreshListViewLocation(currentLocationCode, currentLocationName, (float)0.0);
+        RefreshListViewFromCurrent_();
 
         // taskbar setup
         final View buttonlocation = findViewById(R.id.imageButton2);
@@ -173,7 +171,7 @@ public class Main2Activity extends AppCompatActivity
                 if(gps.canGetLocation()){
                     float latitude = (float)gps.getLatitude();
                     float longitude = (float)gps.getLongitude();
-                    Update_(latitude, longitude);
+                    RefreshListViewFromGeo_(latitude, longitude);
                 }else{
                     // can't get location
                     // GPS or Network is not enabled
@@ -190,7 +188,7 @@ public class Main2Activity extends AppCompatActivity
                         Calendar newCldr = Calendar.getInstance();
                         newCldr.set(year, monthOfYear, dayOfMonth);
                         Date newDate = newCldr.getTime();
-                        refreshListViewDate(newDate);
+                        RefreshListViewFromDate_(newDate);
                     }
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -223,6 +221,24 @@ public class Main2Activity extends AppCompatActivity
                 }
             }
         });
+
+        timeLineListView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if ( (!bPendingJsonLoader) && // No pending JSon to Load
+                     (!bPendingBmpLoader) &&  // No pending BMP to load
+                     timeLineListView!=null &&
+                     timeLineListView.getAdapter()!=null &&
+                     timeLineListView.getLastVisiblePosition() == timeLineListView.getAdapter().getCount() -1 &&
+                     timeLineListView.getChildAt(timeLineListView.getChildCount() - 1)!=null &&
+                     timeLineListView.getChildAt(timeLineListView.getChildCount() - 1).getBottom() <= timeLineListView.getHeight())
+                {
+                    bPendingJsonLoader = Boolean.TRUE;
+                    Toast.makeText(getApplicationContext(), "Scrolled all the way down", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         Log.d("LOADER", "Initialized");
     }
 
@@ -246,7 +262,7 @@ public class Main2Activity extends AppCompatActivity
                 Place place = PlacePicker.getPlace(data, this);
                 float latitude = (float)place.getLatLng().latitude;
                 float longitude = (float)place.getLatLng().longitude;
-                Update_(latitude, longitude);
+                RefreshListViewFromGeo_(latitude, longitude);
                 /*
                 String address = String.format("%s", place.getAddress());
                 stBuilder.append("Name: ");
@@ -337,53 +353,48 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
-    public void refreshListViewLocation(String citycode, String cityName, float distance){
-        currentLocationCode = citycode;
-        jsonLoader.updateListView(currentLocationCode, currentDate);
+    private void RefreshListViewFromCurrent_(){
+        RefreshListViewFromCityCode_(currentLocationCode, currentLocationName, (float)0.0);
+    }
 
-        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
-        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.slide_out_right);
+    public void RefreshListViewFromCityCode_(String citycode, String cityName, float distance){
+        if(LaunchAsyncJsonLoader_(citycode, currentDate)) {
 
-        // set the animation type of textSwitcher
-        townName.setInAnimation(in);
-        townName.setOutAnimation(out);
+            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
 
-        if(distance>40){
-            // note distance
-            Toast.makeText(getApplicationContext(), "Our app is not tailored for this area, we show results of the closest city: "+cityName +" ("+Float.toString(distance)+" km away)", Toast.LENGTH_LONG).show();
+            // set the animation type of textSwitcher
+            townName.setInAnimation(in);
+            townName.setOutAnimation(out);
+
+            if (distance > 40) {
+                // note distance
+                Toast.makeText(getApplicationContext(), "Our app is not tailored for this area, we show results of the closest city: " + cityName + " (" + Float.toString(distance) + " km away)", Toast.LENGTH_LONG).show();
+            }
+            townName.setText(cityName);
         }
-        townName.setText(cityName);
     }
 
-    public void refreshListViewDate(Date dateToLoad){
-        currentDate = dateToLoad;
-        jsonLoader.updateListView(currentLocationCode, currentDate);
+    private void RefreshListViewFromDate_(Date dateToLoad){
+        if(LaunchAsyncJsonLoader_(currentLocationCode, dateToLoad)) {
 
-        String formattedDate = new SimpleDateFormat("EEE MMM, dd").format(currentDate);
-        Date today = new Date();
-        if(today.getTime()==dateToLoad.getTime()){
-            formattedDate = "Today";
+            String formattedDate = new SimpleDateFormat("EEE MMM, dd").format(currentDate);
+            Date today = new Date();
+            if (today.getTime() == dateToLoad.getTime()) {
+                formattedDate = "Today";
+            }
+            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+
+            // set the animation type of textSwitcher
+            dateTextView.setInAnimation(in);
+            dateTextView.setOutAnimation(out);
+
+            dateTextView.setText(formattedDate);
         }
-        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
-        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.slide_out_right);
-
-        // set the animation type of textSwitcher
-        dateTextView.setInAnimation(in);
-        dateTextView.setOutAnimation(out);
-
-        dateTextView.setText(formattedDate);
     }
 
-    private void CacheNewLocation(float lat, float lng)
-    {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putFloat(k_sPLastGeoLat, lat);
-        editor.putFloat(k_sPLastGeoLng, lng);
-        editor.commit();
-    }
-
-    private void Update_(float lat, float lng)
+    private void RefreshListViewFromGeo_(float lat, float lng)
     {
         String[] closetsTown = GPSTracker.getClosestCity(lat, lng);
         String cityCode = closetsTown[0];
@@ -394,7 +405,16 @@ public class Main2Activity extends AppCompatActivity
 
         // Update view
         float distance = Float.parseFloat(closetsTown[2]);
-        refreshListViewLocation(cityCode, cityName, distance);
+        RefreshListViewFromCityCode_(cityCode, cityName, distance);
+    }
+
+    private void CacheNewLocation(float lat, float lng)
+    {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(k_sPLastGeoLat, lat);
+        editor.putFloat(k_sPLastGeoLng, lng);
+        editor.commit();
     }
 
     private boolean isTwitterAppInstalled(){
@@ -413,7 +433,44 @@ public class Main2Activity extends AppCompatActivity
         return bmp;
     }
 
+    private Boolean LaunchAsyncJsonLoader_(String citycode, Date dateToLoad)
+    {
+        // Cancel pending Async if any
+        if (bPendingJsonLoader){
+            asyncTaskJsonLoader.cancel(true);
+        }
+        if(bPendingBmpLoader){
+            asyncTaskBmpLoader.cancel(true);
+        }
+        
+        // Launch new Async task
+        currentLocationCode = citycode;
+        currentDate = dateToLoad;
+        asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
+        bPendingJsonLoader = Boolean.TRUE;
+        return Boolean.TRUE;
+    }
+
+    private Boolean LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
+    {
+        // Cancel pending Async if any
+        if(bPendingBmpLoader){
+            asyncTaskBmpLoader.cancel(true);
+        }
+
+        // Launch new Async task
+        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
+        bPendingBmpLoader =Boolean.TRUE;
+        return Boolean.TRUE;
+    }
+
     public void ReceiveBmpListAsync(ArrayList<Bitmap> bmpList){
+        if (!bPendingBmpLoader){
+            throw new AssertionError("Unexpected BMP batch received");
+        }
+        bPendingBmpLoader = Boolean.FALSE;
+
+        // Process new BMP batch
         for(int i = 0; i < bmpList.size(); i++){
             EventInstance eventInstance = eventListArray.get(i);
             eventInstance.bmp = bmpList.get(i);
@@ -423,13 +480,17 @@ public class Main2Activity extends AppCompatActivity
     }
 
     public void ReceiveJsonResponseAsync(String json){
-        // process the json
-        Log.d("LOADER", json);
+        if (!bPendingJsonLoader){
+            throw new AssertionError("Unexpected JSON received");
+        }
+        bPendingJsonLoader = Boolean.FALSE;
+
+        // Process new JSon
         try {
             eventListArray.clear();
             JSONObject obj = new JSONObject(json);
-            JSONArray jsonArrayEvents = obj.getJSONArray("data");
-            JSONArray jsonArrayAuthors = new JSONArray();
+            jsonArrayEvents = obj.getJSONArray("data");
+            jsonArrayAuthors = new JSONArray();
             boolean jsonHasAuthors = obj.has("authors");
             if(jsonHasAuthors){
                 jsonArrayAuthors = obj.getJSONArray("authors");
@@ -504,7 +565,7 @@ public class Main2Activity extends AppCompatActivity
             // Invoke image loader and fetch images
             Log.d("MainThread", "evenListArray size: "+String.valueOf(eventListArray.size()));
             Log.d("MainThread", "mediaUrl size: "+String.valueOf(mediaUrls.size()));
-            bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
+            LaunchAsyncBmpLoader_(mediaUrls);
         } catch (JSONException e1) {
             e1.printStackTrace();
         }

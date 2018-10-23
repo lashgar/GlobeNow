@@ -66,8 +66,8 @@ public class LoadImageUrlToBmp {
         return output;
     }
 
-    public void Load(String[] mediaUrls){
-        new LoadImage().execute(mediaUrls);
+    public AsyncTask<String, Void, ArrayList<Bitmap>> Load(String[] mediaUrls){
+        return new LoadImage().execute(mediaUrls);
     }
 
     private class LoadImage extends AsyncTask<String, Void, ArrayList<Bitmap>> {
@@ -101,6 +101,11 @@ public class LoadImageUrlToBmp {
                     // ex.printStackTrace();
                 }
                 bmpList.add(bmp);
+
+                // Check if AsyncTask is signalled to cancel
+                if (isCancelled()){
+                    break;
+                }
             }
             Log.d("DownloadImage::doInBackground", "bmpList length:"+String.valueOf(bmpList.size()));
             return bmpList;

@@ -42,6 +42,11 @@ public class LoadTodayJson {
                     // Log.d("doInBackground", str);
                     // str is one line of text; readLine() strips the newline character(s)
                     json+=str;
+
+                    // Check if AsyncTask is signalled to cancel
+                    if (isCancelled()){
+                        break;
+                    }
                 }
                 in.close();
                 // Log.d("doInBackground", json);
@@ -69,10 +74,10 @@ public class LoadTodayJson {
 
     }
 
-    public void updateListView(String citycode, Date dateToLoad) {
+    public AsyncTask<String, Void, String> updateListView(String citycode, Date dateToLoad) {
         // String encodedURL = "http://ece.uvic.ca/"+URLEncoder.encode("~lashgar/rss/yvr/2017-11-20.json","UTF-8");
         String dateFile = new SimpleDateFormat("yyyy-MM-dd").format(dateToLoad)+".json";
         String location = citycode+"/";
-        new DownloadJson().execute(location+dateFile);
+        return new DownloadJson().execute(location+dateFile);
     }
 }
