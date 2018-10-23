@@ -102,6 +102,7 @@ public class LoadImageUrlToBmp {
                 }
                 bmpList.add(bmp);
             }
+            Log.d("DownloadImage::doInBackground", "bmpList length:"+String.valueOf(bmpList.size()));
             return bmpList;
         }
 

@@ -50,6 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -436,7 +437,7 @@ public class Main2Activity extends AppCompatActivity
             final int length = Math.min(jsonArrayEvents.length(),24);
 
             boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
-            String[] mediaUrls = new String[length];
+            ArrayList<String> mediaUrls = new ArrayList<>();
             for (int i = 0; i < length; i++) {
                 JSONObject jo_inside = jsonArrayEvents.getJSONObject(i);
                 String status = jo_inside.getString("status");
@@ -483,7 +484,7 @@ public class Main2Activity extends AppCompatActivity
                     }
                 }
                 // Will load the batch asyncly
-                mediaUrls[i] = media;
+                mediaUrls.add(media);
 
                 // Create entry
                 EventInstance newEntry = new EventInstance();
@@ -501,13 +502,13 @@ public class Main2Activity extends AppCompatActivity
                 eventListArray.add(newEntry);
             }
             // Invoke image loader and fetch images
-            bmpLoader.Load(mediaUrls);
+            Log.d("MainThread", "evenListArray size: "+String.valueOf(eventListArray.size()));
+            Log.d("MainThread", "mediaUrl size: "+String.valueOf(mediaUrls.size()));
+            bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-        Log.d("LOADER", "Notifying adapter");
         eventListAdapter.notifyDataSetChanged();
-        Log.d("LOADER", "Notified adapter");
 
         timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
