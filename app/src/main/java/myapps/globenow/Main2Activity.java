@@ -95,6 +95,8 @@ public class Main2Activity extends AppCompatActivity
     Boolean bPendingBmpLoader;
     AsyncTask<String, Void, String> asyncTaskJsonLoader;
     AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
+    int jsonArrayEventsLastReadIdx;
+    int k_maxFetchPerRound = 10;
 
     /*
     @brief called from OnCreate to initialize modules
@@ -233,8 +235,10 @@ public class Main2Activity extends AppCompatActivity
                      timeLineListView.getChildAt(timeLineListView.getChildCount() - 1)!=null &&
                      timeLineListView.getChildAt(timeLineListView.getChildCount() - 1).getBottom() <= timeLineListView.getHeight())
                 {
-                    bPendingJsonLoader = Boolean.TRUE;
-                    Toast.makeText(getApplicationContext(), "Scrolled all the way down", Toast.LENGTH_LONG).show();
+                    bPendingBmpLoader = Boolean.TRUE;
+                    PopulateTimeline_();
+                    eventListAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), "Loading more events", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -442,12 +446,14 @@ public class Main2Activity extends AppCompatActivity
         if(bPendingBmpLoader){
             asyncTaskBmpLoader.cancel(true);
         }
-        
+
         // Launch new Async task
         currentLocationCode = citycode;
         currentDate = dateToLoad;
         asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
         bPendingJsonLoader = Boolean.TRUE;
+        eventListArray.clear();
+        jsonArrayEventsLastReadIdx = 0;
         return Boolean.TRUE;
     }
 
@@ -471,10 +477,11 @@ public class Main2Activity extends AppCompatActivity
         bPendingBmpLoader = Boolean.FALSE;
 
         // Process new BMP batch
+        int offset = eventListArray.size()-bmpList.size();
         for(int i = 0; i < bmpList.size(); i++){
-            EventInstance eventInstance = eventListArray.get(i);
+            EventInstance eventInstance = eventListArray.get(i+offset);
             eventInstance.bmp = bmpList.get(i);
-            eventListArray.set(i, eventInstance);
+            eventListArray.set(i+offset, eventInstance);
         }
         eventListAdapter.notifyDataSetChanged();
     }
@@ -487,7 +494,6 @@ public class Main2Activity extends AppCompatActivity
 
         // Process new JSon
         try {
-            eventListArray.clear();
             JSONObject obj = new JSONObject(json);
             jsonArrayEvents = obj.getJSONArray("data");
             jsonArrayAuthors = new JSONArray();
@@ -495,12 +501,44 @@ public class Main2Activity extends AppCompatActivity
             if(jsonHasAuthors){
                 jsonArrayAuthors = obj.getJSONArray("authors");
             }
-            final int length = Math.min(jsonArrayEvents.length(),24);
+            PopulateTimeline_();
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        eventListAdapter.notifyDataSetChanged();
 
+        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventInstance eventInstance = eventListArray.get(position);
+                String sourceurl = eventInstance.url;
+                if(sourceurl.equals("")){
+                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
+                }else {
+                    // Open a URL
+                    // TODO: Use In-App browser
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
+                    view.getContext().startActivity(browserIntent);
+                }
+            }
+        });
+    }
+
+    private void PopulateTimeline_()
+    {
+        // Process new JSon
+        try
+        {
+            boolean jsonHasAuthors = jsonArrayAuthors.length()!=0;
             boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
             ArrayList<String> mediaUrls = new ArrayList<>();
-            for (int i = 0; i < length; i++) {
-                JSONObject jo_inside = jsonArrayEvents.getJSONObject(i);
+            int nEnqueued = 0;
+            while((nEnqueued<k_maxFetchPerRound) && (jsonArrayEventsLastReadIdx < jsonArrayEvents.length())) {
+                // Get next element
+                JSONObject jo_inside = jsonArrayEvents.getJSONObject(jsonArrayEventsLastReadIdx);
+                jsonArrayEventsLastReadIdx += 1;
+
+                // Verify state
                 String status = jo_inside.getString("status");
                 if(status.equals("merged") || status.equals("dead")){
                     // redundant; no need to include this entry
@@ -561,6 +599,9 @@ public class Main2Activity extends AppCompatActivity
                 newEntry.bmp = GenDummyBmp_();
                 // Push to Array
                 eventListArray.add(newEntry);
+
+                // Update stats
+                nEnqueued+=1;
             }
             // Invoke image loader and fetch images
             Log.d("MainThread", "evenListArray size: "+String.valueOf(eventListArray.size()));
@@ -569,22 +610,5 @@ public class Main2Activity extends AppCompatActivity
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-        eventListAdapter.notifyDataSetChanged();
-
-        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventInstance eventInstance = eventListArray.get(position);
-                String sourceurl = eventInstance.url;
-                if(sourceurl.equals("")){
-                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
-                }else {
-                    // Open a URL
-                    // TODO: Use In-App browser
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
-                    view.getContext().startActivity(browserIntent);
-                }
-            }
-        });
     }
 }

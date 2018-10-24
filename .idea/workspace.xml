@@ -16,10 +16,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Refactor to separate Json loading and Image loading&#10;- Preparing to load more on scroll down&#10;- CustomListAdapter is not used anymore">
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadTodayJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadTodayJson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
     </list>
@@ -64,8 +62,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="444" column="8" selection-start-line="444" selection-start-column="8" selection-end-line="444" selection-end-column="8" />
+            <state relative-caret-position="221">
+              <caret line="239" column="60" selection-start-line="239" selection-start-column="60" selection-end-line="239" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#9323#10261#0" expanded="true" />
@@ -134,10 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>OnCreate</find>
-      <find>CustomListAda</find>
-      <find>DownloadJson</find>
-      <find>json</find>
       <find>getD</find>
       <find>Load</find>
       <find>jsonLoader</find>
@@ -164,6 +158,10 @@
       <find>refreshListViewDate</find>
       <find>currentLocationCode</find>
       <find>bmpLoader</find>
+      <find>bPendingJsonLoader</find>
+      <find>FetchNewEventsFromJson_</find>
+      <find>jsonArrayEventsLastReadIdx</find>
+      <find>nEnqueued</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2788,7 +2786,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540274134010</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Keep AsyncTask handles and cancel if another request queued in">
+      <created>1540277724100</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1540277724100</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2861,7 +2866,8 @@
     <MESSAGE value="Support dead event&#10;- Address warnings" />
     <MESSAGE value="Refactor to separate Json loading and Image loading&#10;- Preparing to load more on scroll down&#10;- CustomListAdapter is not used anymore" />
     <MESSAGE value="Fix bug in refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug in refactor" />
+    <MESSAGE value="Keep AsyncTask handles and cancel if another request queued in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Keep AsyncTask handles and cancel if another request queued in" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3151,16 +3157,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
@@ -3181,10 +3177,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="444" column="8" selection-start-line="444" selection-start-column="8" selection-end-line="444" selection-end-column="8" />
+        <state relative-caret-position="221">
+          <caret line="239" column="60" selection-start-line="239" selection-start-column="60" selection-end-line="239" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#9323#10261#0" expanded="true" />
