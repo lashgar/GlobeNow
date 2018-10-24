@@ -243,6 +243,22 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventInstance eventInstance = eventListArray.get(position);
+                String sourceurl = eventInstance.url;
+                if(sourceurl.equals("")){
+                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
+                }else {
+                    // Open a URL
+                    // TODO: Use In-App browser
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
+                    view.getContext().startActivity(browserIntent);
+                }
+            }
+        });
+
         Log.d("LOADER", "Initialized");
     }
 
@@ -474,7 +490,6 @@ public class Main2Activity extends AppCompatActivity
         if (!bPendingBmpLoader){
             throw new AssertionError("Unexpected BMP batch received");
         }
-        bPendingBmpLoader = Boolean.FALSE;
 
         // Process new BMP batch
         int offset = eventListArray.size()-bmpList.size();
@@ -484,13 +499,13 @@ public class Main2Activity extends AppCompatActivity
             eventListArray.set(i+offset, eventInstance);
         }
         eventListAdapter.notifyDataSetChanged();
+        bPendingBmpLoader = Boolean.FALSE;
     }
 
     public void ReceiveJsonResponseAsync(String json){
         if (!bPendingJsonLoader){
             throw new AssertionError("Unexpected JSON received");
         }
-        bPendingJsonLoader = Boolean.FALSE;
 
         // Process new JSon
         try {
@@ -506,22 +521,7 @@ public class Main2Activity extends AppCompatActivity
             e1.printStackTrace();
         }
         eventListAdapter.notifyDataSetChanged();
-
-        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventInstance eventInstance = eventListArray.get(position);
-                String sourceurl = eventInstance.url;
-                if(sourceurl.equals("")){
-                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
-                }else {
-                    // Open a URL
-                    // TODO: Use In-App browser
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
-                    view.getContext().startActivity(browserIntent);
-                }
-            }
-        });
+        bPendingJsonLoader = Boolean.FALSE;
     }
 
     private void PopulateTimeline_()
