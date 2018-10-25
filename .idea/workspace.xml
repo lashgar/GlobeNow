@@ -62,8 +62,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="372">
+              <caret line="617" lean-forward="true" selection-start-line="617" selection-end-line="617" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#9392#10425#0" expanded="true" />
@@ -2807,7 +2807,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540356769978</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Cleanup OnScroll listener">
+      <created>1540446923626</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1540446923626</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2893,7 +2900,8 @@
     <MESSAGE value="Keep AsyncTask handles and cancel if another request queued in" />
     <MESSAGE value="Dynamic loading of events on scroll down&#10;- warning: syncronization should be measured" />
     <MESSAGE value="Improve synchronization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve synchronization" />
+    <MESSAGE value="Cleanup OnScroll listener" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup OnScroll listener" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3215,8 +3223,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="372">
+          <caret line="617" lean-forward="true" selection-start-line="617" selection-end-line="617" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#9392#10425#0" expanded="true" />

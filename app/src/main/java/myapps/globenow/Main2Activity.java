@@ -599,7 +599,7 @@ public class Main2Activity extends AppCompatActivity
                 newEntry.authorid = authorId;
                 newEntry.ml_rating = 0.0f; // FIXME: Get from request
                 newEntry.prettyauthor = author;
-                newEntry.bmp = GenDummyBmp_();
+                newEntry.bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.loading);
                 // Push to Array
                 eventListArray.add(newEntry);
 
