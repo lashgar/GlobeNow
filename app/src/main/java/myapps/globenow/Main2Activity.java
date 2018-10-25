@@ -96,7 +96,7 @@ public class Main2Activity extends AppCompatActivity
     AsyncTask<String, Void, String> asyncTaskJsonLoader;
     AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
     int jsonArrayEventsLastReadIdx;
-    int k_maxFetchPerRound = 10;
+    int k_maxFetchPerRound = 10;   // number of events to load every round
 
     /*
     @brief called from OnCreate to initialize modules
@@ -227,13 +227,16 @@ public class Main2Activity extends AppCompatActivity
         timeLineListView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if ( (!bPendingJsonLoader) && // No pending JSon to Load
-                     (!bPendingBmpLoader) &&  // No pending BMP to load
-                     timeLineListView!=null &&
-                     timeLineListView.getAdapter()!=null &&
-                     timeLineListView.getLastVisiblePosition() == timeLineListView.getAdapter().getCount() -1 &&
-                     timeLineListView.getChildAt(timeLineListView.getChildCount() - 1)!=null &&
-                     timeLineListView.getChildAt(timeLineListView.getChildCount() - 1).getBottom() <= timeLineListView.getHeight())
+                int targetChildId = timeLineListView.getChildCount() - 1;
+                boolean bTimeToLoadMore = timeLineListView!=null &&
+                        timeLineListView.getAdapter()!=null &&
+                        timeLineListView.getLastVisiblePosition() == (timeLineListView.getAdapter().getCount() - 1) &&
+                        timeLineListView.getChildAt(targetChildId)!=null &&
+                        timeLineListView.getChildAt(targetChildId).getBottom() <= timeLineListView.getHeight();
+                boolean bLegitToLoadMore = (!bPendingJsonLoader) && // No pending JSon to Load
+                        (!bPendingBmpLoader);  // No pending BMP to load
+                boolean bHaveMoreToLoad = jsonArrayEvents!=null && (jsonArrayEventsLastReadIdx < jsonArrayEvents.length());
+                if ( bTimeToLoadMore && bLegitToLoadMore && bHaveMoreToLoad)
                 {
                     bPendingBmpLoader = Boolean.TRUE;
                     PopulateTimeline_();
