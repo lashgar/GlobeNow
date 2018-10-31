@@ -46,6 +46,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,10 +99,16 @@ public class Main2Activity extends AppCompatActivity
     int jsonArrayEventsLastReadIdx;
     int k_maxFetchPerRound = 10;   // number of events to load every round
 
+    // Statistics
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     /*
     @brief called from OnCreate to initialize modules
      */
     private void initializeMainActivity(){
+        // Initialize Firebase
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         // Load cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
         Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
@@ -286,22 +293,6 @@ public class Main2Activity extends AppCompatActivity
                 float latitude = (float)place.getLatLng().latitude;
                 float longitude = (float)place.getLatLng().longitude;
                 RefreshListViewFromGeo_(latitude, longitude);
-                /*
-                String address = String.format("%s", place.getAddress());
-                stBuilder.append("Name: ");
-                stBuilder.append(placename);
-                stBuilder.append("\n");
-                stBuilder.append("Latitude: ");
-                stBuilder.append(latitude);
-                stBuilder.append("\n");
-                stBuilder.append("Logitude: ");
-                stBuilder.append(longitude);
-                stBuilder.append("\n");
-                stBuilder.append("Address: ");
-                stBuilder.append(address);
-                // tvPlaceDetails.setText(stBuilder.toString());
-                Toast.makeText(getApplicationContext(), stBuilder.toString(), Toast.LENGTH_LONG).show();
-                */
             }
         }
     }
@@ -473,6 +464,14 @@ public class Main2Activity extends AppCompatActivity
         bPendingJsonLoader = Boolean.TRUE;
         eventListArray.clear();
         jsonArrayEventsLastReadIdx = 0;
+
+        // Log Firebase
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "FetchCode");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, citycode);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
         return Boolean.TRUE;
     }
 
