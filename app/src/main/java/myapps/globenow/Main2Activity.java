@@ -39,6 +39,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.NativeAppInstallAd;
+import com.google.android.gms.ads.formats.NativeContentAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -102,12 +111,46 @@ public class Main2Activity extends AppCompatActivity
     // Statistics
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    // AdMob
+    ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
+    AdLoader adLoader;
+    int k_eventToAdRatio = 10; // show one ad for every 10 events
+
     /*
     @brief called from OnCreate to initialize modules
      */
     private void initializeMainActivity(){
         // Initialize Firebase
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        // Initialize AdMob
+        unifiedNativeAdArrayList = new ArrayList<>();
+        MobileAds.initialize(this, "ca-app-pub-9349934160429743~2418637489");
+        adLoader = new AdLoader.Builder(this, "/6499/example/native")
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        // Show the ad.
+                        Log.d("NewAd",unifiedNativeAd.getHeadline());
+                        unifiedNativeAdArrayList.add(unifiedNativeAd);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        Log.d("NewAd", "failed "+Integer.toString(errorCode));
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .setReturnUrlsForImageAssets(false) // populate image and uri both
+                        .setImageOrientation(NativeAdOptions.ORIENTATION_LANDSCAPE)
+                        .setRequestMultipleImages(false) // fetch only one image
+                        .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_BOTTOM_RIGHT)
+                        .build())
+                .build();
 
         // Load cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
@@ -140,7 +183,7 @@ public class Main2Activity extends AppCompatActivity
         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
         // Set ListView Adapter
-        eventListArray = new ArrayList<EventInstance>();
+        eventListArray = new ArrayList<>();
         eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.textView2, eventListArray);
         timeLineListView = (ListView)findViewById(R.id.ListView1);
         timeLineListView.setAdapter(eventListAdapter);
@@ -441,12 +484,6 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-    private Bitmap GenDummyBmp_(){
-        byte[] data = new byte[4];
-        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, 3);
-        return bmp;
-    }
-
     private Boolean LaunchAsyncJsonLoader_(String citycode, Date dateToLoad)
     {
         // Cancel pending Async if any
@@ -519,6 +556,8 @@ public class Main2Activity extends AppCompatActivity
                 jsonArrayAuthors = obj.getJSONArray("authors");
             }
             PopulateTimeline_();
+            // Pre-load ads for this json
+            adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -612,5 +651,20 @@ public class Main2Activity extends AppCompatActivity
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
+    }
+
+    /*
+    AdMob
+     */
+    UnifiedNativeAd GetAd(int idx){
+        if(unifiedNativeAdArrayList.size()!=0) {
+            return unifiedNativeAdArrayList.get(idx % unifiedNativeAdArrayList.size());
+        } else {
+            return null;
+        }
+    }
+
+    int GetEventToAdRatio(){
+        return k_eventToAdRatio;
     }
 }
