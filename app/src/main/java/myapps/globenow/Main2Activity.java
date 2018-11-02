@@ -125,7 +125,7 @@ public class Main2Activity extends AppCompatActivity
 
         // Initialize AdMob
         unifiedNativeAdArrayList = new ArrayList<>();
-        MobileAds.initialize(this, "API-KEY");
+        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
         adLoader = new AdLoader.Builder(this, "/6499/example/native")
                 .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                     @Override

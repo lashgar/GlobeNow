@@ -31,6 +31,7 @@ public class LoadTodayJson {
         protected String doInBackground(String... params) {
             String json = "";
             try{
+                String serverAddr = context.getResources().getString(R.string.globenow_json_server);
                 String fileToLook = params[0]; // new SimpleDateFormat("yyyy-MM-dd").format(new Date())+".json";
                 String encodedURL = serverAddr+fileToLook; //2017-11-20.json";
                 // Log.d("doInBackground", encodedURL);
