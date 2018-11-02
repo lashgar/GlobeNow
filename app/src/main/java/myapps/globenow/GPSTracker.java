@@ -5,41 +5,36 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
-// package com.example.gpstracking;
-
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
-
+/**
+ * Created by Ahmad on 2017-11-28.
+ */
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
 
     // flag for GPS status
-    boolean isGPSEnabled = false;
+    private boolean isGPSEnabled = false;
 
     // flag for network status
-    boolean isNetworkEnabled = false;
+    private boolean isNetworkEnabled = false;
 
     // flag for GPS status
-    boolean canGetLocation = false;
+    private boolean canGetLocation = false;
 
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    private Location location; // location
+    private double latitude; // latitude
+    private double longitude; // longitude
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
@@ -55,9 +50,6 @@ public class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
-    public static double deg2rad(double deg) {
-        return Math.toRadians(deg);
-    }
     public static double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2) {
         Location locA = new Location("Source");
         locA.setLatitude(lat1);
@@ -206,7 +198,10 @@ public class GPSTracker extends Service implements LocationListener {
         // Log.d("GPS", "Distance from the closest city is "+Double.toString(mindistance));
         // Log.d("GPS", "city coordinates> "+Double.toString(lats[minidx])+" "+Double.toString(lngs[minidx]));
         // Log.d("GPS", "user coordinates> "+Double.toString(latitude)+" "+Double.toString(longitude));
-        String[] result = {citycodes[minidx], names[minidx], Double.toString(mindistance)};
+        String[] result = new String[3];
+        result[0] = citycodes[minidx];
+        result[1] = names[minidx];
+        result[2] = Double.toString(mindistance);
         return result;
     }
 
@@ -224,7 +219,6 @@ public class GPSTracker extends Service implements LocationListener {
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            boolean permissionrevoked = false;
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
                 // Log.d("VERBOSE", "No network, no GPS");

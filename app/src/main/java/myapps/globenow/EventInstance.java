@@ -4,6 +4,10 @@ import android.graphics.Bitmap;
 
 import java.math.BigInteger;
 
+/**
+ * Created by Ahmad on 2017-11-28.
+ */
+
 public class EventInstance {
     public String status;
     public String url;

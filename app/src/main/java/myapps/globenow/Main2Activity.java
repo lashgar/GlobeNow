@@ -29,9 +29,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
@@ -43,10 +41,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.formats.NativeAdOptions;
-import com.google.android.gms.ads.formats.NativeAppInstallAd;
-import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -61,7 +56,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,48 +67,46 @@ public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     // map
     private GoogleApiClient mGoogleApiClient;
-    private int PLACE_PICKER_REQUEST = 1;
-
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int PLACE_PICKER_REQUEST = 1;
 
     // Timeline and data loader
-    LoadTodayJson jsonLoader;
-    LoadImageUrlToBmp bmpLoader;
-    EventListAdapter eventListAdapter;
-    ArrayList<EventInstance> eventListArray;
-    ListView timeLineListView;
+    private LoadTodayJson jsonLoader;
+    private LoadImageUrlToBmp bmpLoader;
+    private EventListAdapter eventListAdapter;
+    private ArrayList<EventInstance> eventListArray;
+    private ListView timeLineListView;
 
-    TextSwitcher townName;
-    ProgressBar progressBar;
-    TextSwitcher dateTextView;
+    private TextSwitcher townName;
+    private ProgressBar progressBar;
+    private TextSwitcher dateTextView;
 
     // Current view configuration
-    Date currentDate;
-    String currentLocationCode;
-    String currentLocationName;
+    private Date currentDate;
+    private String currentLocationCode;
+    private String currentLocationName;
 
     // Caching
-    String k_preferenceName = "Timeline";
-    String k_sPLastGeoLat = "LastGeoLat";
-    String k_sPLastGeoLng = "LastGeoLng";
+    private final String k_preferenceName = "Timeline";
+    private final String k_sPLastGeoLat = "LastGeoLat";
+    private final String k_sPLastGeoLng = "LastGeoLng";
 
     // Dynamic loading / paging
-    JSONArray jsonArrayEvents;
-    JSONArray jsonArrayAuthors;
-    Boolean bPendingJsonLoader;
-    Boolean bPendingBmpLoader;
-    AsyncTask<String, Void, String> asyncTaskJsonLoader;
-    AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
-    int jsonArrayEventsLastReadIdx;
-    int k_maxFetchPerRound = 10;   // number of events to load every round
+    private JSONArray jsonArrayEvents;
+    private JSONArray jsonArrayAuthors;
+    private Boolean bPendingJsonLoader;
+    private Boolean bPendingBmpLoader;
+    private AsyncTask<String, Void, String> asyncTaskJsonLoader;
+    private AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
+    private int jsonArrayEventsLastReadIdx;
+    private final int k_maxFetchPerRound = 10;   // number of events to load every round
 
     // Statistics
     private FirebaseAnalytics mFirebaseAnalytics;
 
     // AdMob
-    ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
-    AdLoader adLoader;
-    int k_eventToAdRatio = 10; // show one ad for every 10 events
+    private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
+    private AdLoader adLoader;
+    private final int k_eventToAdRatio = 10; // show one ad for every 10 events
 
     /*
     @brief called from OnCreate to initialize modules
@@ -187,7 +179,7 @@ public class Main2Activity extends AppCompatActivity
         eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.textView2, eventListArray);
         timeLineListView = (ListView)findViewById(R.id.ListView1);
         timeLineListView.setAdapter(eventListAdapter);
-        jsonLoader = new LoadTodayJson(this, timeLineListView);
+        jsonLoader = new LoadTodayJson(this);
         bmpLoader = new LoadImageUrlToBmp(this);
 
         townName = (TextSwitcher)findViewById(R.id.textView4);
@@ -332,7 +324,7 @@ public class Main2Activity extends AppCompatActivity
         // Log.d("LocationPicker", "ResultCalled ");
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
+                Place place = PlacePicker.getPlace(this, data);
                 float latitude = (float)place.getLatLng().latitude;
                 float longitude = (float)place.getLatLng().longitude;
                 RefreshListViewFromGeo_(latitude, longitude);

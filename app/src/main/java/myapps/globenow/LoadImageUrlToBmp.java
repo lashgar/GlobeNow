@@ -20,19 +20,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Created by Ahmad on 2017-11-28.
+ */
+
 public class LoadImageUrlToBmp {
     //to reference the Activity
-    private Activity context;
+    private final Activity context;
     public LoadImageUrlToBmp(Activity context){
         this.context = context;
     }
 
     private Bitmap GenDummyBmp_(){
         byte[] data = new byte[4];
-        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, 3);
-        return bmp;
+        return BitmapFactory.decodeByteArray(data, 0, 3);
     }
-    public Bitmap GetRoundedCornerBitmap(Bitmap org) {
+    private Bitmap GetRoundedCornerBitmap_(Bitmap org) {
         // Bitmap output = Bitmap.createBitmap(bitmap);
         // scale image into view
         Point p = new Point();
@@ -82,18 +85,18 @@ public class LoadImageUrlToBmp {
             });
             Bitmap emptyBmp = GenDummyBmp_();
             ArrayList<Bitmap> bmpList = new ArrayList<>();
-            for(int i = 0; i<params.length; i++) {
+            for(String imageUrl:  params)
+            {
                 context.runOnUiThread(new Runnable() {
                     public void run() {
                         ProgressBar progressBar = context.findViewById(R.id.progressBar);
                         progressBar.setProgress(progressBar.getProgress()+1);
                     }
                 });
-                String imageUrl = params[i];
                 Bitmap bmp = emptyBmp;
                 try {
                     URL mediaUrl = new URL(imageUrl);
-                    bmp = GetRoundedCornerBitmap(BitmapFactory.decodeStream(mediaUrl.openConnection().getInputStream()));
+                    bmp = GetRoundedCornerBitmap_(BitmapFactory.decodeStream(mediaUrl.openConnection().getInputStream()));
                 } catch (MalformedURLException ex) {
                     Log.d("DownloadImage::doInBackground", ex.toString());
                 } catch (IOException ex) {

@@ -17,15 +17,16 @@ import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 
 import java.util.List;
 
+/**
+ * Created by Ahmad on 2017-11-28.
+ */
 public class EventListAdapter extends ArrayAdapter<EventInstance> {
     private Activity context;
-    private List<EventInstance> eventInstanceList;
-    GradientDrawable gradientDrawable;
+    private GradientDrawable gradientDrawable;
 
     public EventListAdapter(Activity context, int resource, int textViewID, List<EventInstance> eventsList){
         super(context, resource, textViewID, eventsList);
         this.context=context;
-        this.eventInstanceList = eventsList;
 
         // gradient drawable
         gradientDrawable = new GradientDrawable();

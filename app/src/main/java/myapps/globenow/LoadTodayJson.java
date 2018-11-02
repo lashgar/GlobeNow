@@ -2,8 +2,6 @@ package myapps.globenow;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.ListView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,11 +17,9 @@ import java.text.SimpleDateFormat;
 public class LoadTodayJson {
     //to reference the Activity
     private final Activity context;
-    private ListView listview;
 
-    public LoadTodayJson(Activity context, ListView listView1){
+    public LoadTodayJson(Activity context){
         this.context = context;
-        this.listview = listView1;
     }
 
     private class DownloadJson extends AsyncTask<String, Void, String> {
