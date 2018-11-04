@@ -22,45 +22,31 @@ import java.util.List;
  */
 public class EventListAdapter extends ArrayAdapter<EventInstance> {
     private Activity context;
-    private GradientDrawable gradientDrawable;
 
     public EventListAdapter(Activity context, int resource, int textViewID, List<EventInstance> eventsList){
         super(context, resource, textViewID, eventsList);
         this.context=context;
-
-        // gradient drawable
-        gradientDrawable = new GradientDrawable();
-        gradientDrawable.setColors(new int[]{0xFF610627,0x19654217});
-        gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
-        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-        gradientDrawable.setSize(800,80);
     }
     public View getView(int position, View view, ViewGroup parent) {
         Log.d("LOADER", "Returning view");
         Main2Activity main2Activity =((Main2Activity)context);
 
-        // Ad config
-        int k_adLocationOrder = 2;
-        int positionRemainder = (position % main2Activity.GetEventToAdRatio());
-        boolean bIsAdPosition = positionRemainder == k_adLocationOrder;
-        int nAdsSoFar = position / main2Activity.GetEventToAdRatio();
-        if (positionRemainder > k_adLocationOrder){
-            nAdsSoFar += 1;
-        }
-
         // Calculate the position to load considering loaded ads
         // Making sure ads are interleaved while all events are loaded
-        EventInstance eventInstance = getItem(position-nAdsSoFar);
+        EventInstance eventInstance = getItem(position-main2Activity.GetNumLoadedAds(position));
         View rowView;
 
-        if (bIsAdPosition) {
+        if (main2Activity.IsAdPosition(position))
+        {
             LayoutInflater inflater = (LayoutInflater) parent.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             UnifiedNativeAdView adView = (UnifiedNativeAdView) inflater
                     .inflate(R.layout.listview_row_ad, null, true);
-            UnifiedNativeAd ad = main2Activity.GetAd(nAdsSoFar);
+            UnifiedNativeAd ad = main2Activity.GetAd(main2Activity.GetNumLoadedAds(position));
             if (ad!=null) {
-                TextView headlineView = adView.findViewById(R.id.ad_text);
+                TextView bodyView = adView.findViewById(R.id.ad_text);
+                bodyView.setText(ad.getBody());
+                TextView headlineView = adView.findViewById(R.id.ad_header);
                 headlineView.setText("Sponsored ad by "+ad.getHeadline());
                 MediaView mediaView = adView.findViewById(R.id.ad_media);
                 adView.setMediaView(mediaView);
@@ -68,7 +54,8 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             }
             rowView = adView;
         }
-        else if(!eventInstance.media.equals("") && !eventInstance.media.equals("none")){
+        else if(!eventInstance.media.equals("") && !eventInstance.media.equals("none"))
+        {
             // With image
             // inflate the row
             LayoutInflater inflater=context.getLayoutInflater();
@@ -84,7 +71,9 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             String author = "by "+eventInstance.prettyauthor;
             infoTextField.setText(author);
             imageView.setImageBitmap(eventInstance.bmp);
-        }else {
+        }
+        else
+        {
             // without image
             LayoutInflater inflater=context.getLayoutInflater();
             rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout

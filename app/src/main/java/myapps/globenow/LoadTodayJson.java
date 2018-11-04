@@ -38,7 +38,7 @@ public class LoadTodayJson {
                 while ((str = in.readLine()) != null) {
                     // Log.d("doInBackground", str);
                     // str is one line of text; readLine() strips the newline character(s)
-                    json+=str;
+                    json += str;
 
                     // Check if AsyncTask is signalled to cancel
                     if (isCancelled()){

@@ -18,9 +18,20 @@
         android:scaleType="center"
         android:src="@mipmap/ic_launcher"
         />
-
         <TextView
             android:id="@+id/ad_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="bottom"
+            android:scaleType="fitXY"
+            android:singleLine="false"
+            android:text="TextView"
+            android:textColor="@color/navybluedark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/ad_header"
             android:layout_width="match_parent"
             android:layout_height="29dp"
             android:fontFamily="sans-serif"

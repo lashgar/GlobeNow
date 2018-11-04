@@ -24,12 +24,6 @@ public class GPSTracker extends Service implements LocationListener {
     private final Context mContext;
 
     // flag for GPS status
-    private boolean isGPSEnabled = false;
-
-    // flag for network status
-    private boolean isNetworkEnabled = false;
-
-    // flag for GPS status
     private boolean canGetLocation = false;
 
     private Location location; // location
@@ -40,7 +34,7 @@ public class GPSTracker extends Service implements LocationListener {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -207,6 +201,12 @@ public class GPSTracker extends Service implements LocationListener {
 
     public Location getLocation() {
         try {
+
+            // flag for GPS status
+            boolean isGPSEnabled = false;
+
+            // flag for network status
+            boolean isNetworkEnabled = false;
 
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);

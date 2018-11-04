@@ -77,7 +77,6 @@ public class Main2Activity extends AppCompatActivity
     private ListView timeLineListView;
 
     private TextSwitcher townName;
-    private ProgressBar progressBar;
     private TextSwitcher dateTextView;
 
     // Current view configuration
@@ -107,6 +106,7 @@ public class Main2Activity extends AppCompatActivity
     private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
     private AdLoader adLoader;
     private final int k_eventToAdRatio = 10; // show one ad for every 10 events
+    private int k_adLocationOrder = 2;
 
     /*
     @brief called from OnCreate to initialize modules
@@ -171,7 +171,7 @@ public class Main2Activity extends AppCompatActivity
         dateTextView.setText("Today");
 
         // progress bar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
 
         // Set ListView Adapter
@@ -203,7 +203,6 @@ public class Main2Activity extends AppCompatActivity
         bPendingJsonLoader = false;
         bPendingBmpLoader = false;
 
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         RefreshListViewFromCurrent_();
 
         // taskbar setup
@@ -292,13 +291,23 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EventInstance eventInstance = eventListArray.get(position);
-                String sourceurl = eventInstance.url;
-                if(sourceurl.equals("")){
+                String sourceUrl = eventInstance.url;
+                if (IsAdPosition(position))
+                {
+                    // TODO: Not sure if bundle should have specific fields
+                    Bundle extraInfo = new Bundle();
+                    extraInfo.putString("itemClicked", "ad_media");
+                    GetAd(GetNumLoadedAds(position)).performClick(extraInfo);
+                }
+                else if(sourceUrl.equals(""))
+                {
                     Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
-                }else {
+                }
+                else
+                {
                     // Open a URL
                     // TODO: Use In-App browser
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceurl));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
                     view.getContext().startActivity(browserIntent);
                 }
             }
@@ -659,4 +668,20 @@ public class Main2Activity extends AppCompatActivity
     int GetEventToAdRatio(){
         return k_eventToAdRatio;
     }
+
+    boolean IsAdPosition(int position) {
+        int positionRemainder = (position % GetEventToAdRatio());
+        return positionRemainder == k_adLocationOrder;
+    }
+
+    int GetNumLoadedAds(int position){
+        int positionRemainder = (position % GetEventToAdRatio());
+        int nAdsSoFar = position / GetEventToAdRatio();
+        if (positionRemainder > k_adLocationOrder) {
+            nAdsSoFar += 1;
+        }
+        return nAdsSoFar;
+    }
+
+
 }
