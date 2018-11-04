@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#0000b5</color>
+    <color name="colorPrimaryDark">@color/colorSkyBlueDark</color>
     <color name="colorAccent">#866872</color>
     <color name="whiteTransparent">#0affffff</color>
     <color name="Kerem">#faf2ab</color>
@@ -10,4 +10,7 @@
     <color name="greendark">#005500</color>
     <color name="colorEventBodyText">@color/navybluedark</color>
     <color name="colorEventHeaderText">@color/navybluedark</color>
+    <color name="colorSkyBlue">#50767f</color>
+    <color name="colorSkyBlueDark">#394e57</color>
+    <color name="colorTitleBar">@color/colorSkyBlueDark</color>
 </resources>

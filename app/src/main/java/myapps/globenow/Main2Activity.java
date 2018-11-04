@@ -3,8 +3,6 @@ package myapps.globenow;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,10 +27,10 @@ import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ResourceCursorAdapter;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,124 +148,33 @@ public class Main2Activity extends AppCompatActivity
                         .build())
                 .build();
 
-        // Load cache
+        // Load timeline configs from cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
         Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
         Float longitude = sharedPreferences.getFloat(k_sPLastGeoLng,-123.38951110839844f);
         String[] closetsTown = GPSTracker.getClosestCity(latitude, longitude);
         currentLocationCode = closetsTown[0];
         currentLocationName = closetsTown[1];
+        currentDate = new Date(); // default to Today (might be cached in future)
 
-        currentDate = new Date(); // default to Today
-        dateTextView = findViewById(R.id.TextBoxDate);
-        dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
-            public View makeView() {
-                // TODO Auto-generated method stub
-                // create new textView and set the properties like clolr, size etc
-                TextView myText = new TextView(Main2Activity.this);
-                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-                myText.setTextSize(20);
-                myText.setTextColor(Color.argb(0xFF, 0xD5, 0, 0));
-                myText.setTypeface(Typeface.create("sans-serif-smallcaps", Typeface.BOLD));
-                myText.setShadowLayer(5, 0, 0, Color.BLACK);
-                myText.setPadding(0, 0, 0, 0);
-                return myText;
-            }
-        });
-        dateTextView.setText("Today");
-
-        // progress bar
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        // Initialize banners
+        initializeTopBanner();
+        initializeBotBanner();
 
         // Set ListView Adapter
         eventListArray = new ArrayList<>();
         eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.textView2, eventListArray);
-        timeLineListView = (ListView)findViewById(R.id.ListView1);
+        timeLineListView = findViewById(R.id.ListView1);
         timeLineListView.setAdapter(eventListAdapter);
         jsonLoader = new LoadTodayJson(this);
         bmpLoader = new LoadImageUrlToBmp(this);
 
-        townName = (TextSwitcher)findViewById(R.id.textView4);
-        townName.setFactory(new ViewSwitcher.ViewFactory() {
-
-            public View makeView() {
-                // TODO Auto-generated method stub
-                // create new textView and set the properties like clolr, size etc
-                TextView myText = new TextView(Main2Activity.this);
-                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-                myText.setTextSize(30);
-                myText.setTextColor(Color.argb(0xFF, 0xD5, 0, 0));
-                myText.setTypeface(Typeface.create("sans-serif-smallcaps", Typeface.BOLD));
-                myText.setShadowLayer(5, 0, 0, Color.BLACK);
-                myText.setPadding(0, 4, 0, 0);
-                return myText;
-            }
-        });
-
         // Dynamic loading / paging initialize
         bPendingJsonLoader = false;
         bPendingBmpLoader = false;
-
         RefreshListViewFromCurrent_();
 
-        // taskbar setup
-        final View buttonlocation = findViewById(R.id.imageButton2);
-        buttonlocation.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // check if GPS enabled
-                GPSTracker gps = new GPSTracker(Main2Activity.this);
-                if(gps.canGetLocation()){
-                    float latitude = (float)gps.getLatitude();
-                    float longitude = (float)gps.getLongitude();
-                    RefreshListViewFromGeo_(latitude, longitude);
-                }else{
-                    // can't get location
-                    // GPS or Network is not enabled
-                    // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
-                }
-            }
-        });
-
-        Calendar newCalendar = Calendar.getInstance();
-        final DatePickerDialog  StartTime = new DatePickerDialog(this, R.style.datepicker,
-                new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Calendar newCldr = Calendar.getInstance();
-                        newCldr.set(year, monthOfYear, dayOfMonth);
-                        Date newDate = newCldr.getTime();
-                        RefreshListViewFromDate_(newDate);
-                    }
-                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-        final View buttoncalendar = findViewById(R.id.imageButton);
-        buttoncalendar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                StartTime.show();
-            }
-        });
-
-        // initialize Place picker
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, 0, this)
-                .addApi(Places.GEO_DATA_API)
-                .build();
-
-        final View buttonexplore = findViewById(R.id.imageButton3);
-        buttonexplore.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                try {
-                    startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
-                    // Log.d("LocationPicker", "Closed the activity");
-                } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
-                    // Log.d("LocationPicker", "Service unavailable");
-                    e.printStackTrace();
-                }
-            }
-        });
-
+        // Load more on scroll down
         timeLineListView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
@@ -299,6 +207,113 @@ public class Main2Activity extends AppCompatActivity
         });
         */
         Log.d("LOADER", "Initialized");
+    }
+
+    private void initializeTopBanner() {
+        final int textColor = Color.argb(0xFF, 177-80, 198-80, 207-80);
+        final Typeface fontFamily = ResourcesCompat.getFont(this, R.font.corbelb);
+        // Current Stream Date
+        dateTextView = findViewById(R.id.TextBoxDate);
+        dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
+            public View makeView() {
+                // create new textView and set the properties like clolr, size etc
+                TextView myText = new TextView(Main2Activity.this);
+                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+                myText.setTextSize(20);
+                myText.setTextColor(textColor);
+                myText.setTypeface(fontFamily);
+                myText.setShadowLayer(5, 0, 0, Color.BLACK);
+                myText.setPadding(0, 0, 0, 0);
+                return myText;
+            }
+        });
+        dateTextView.setText("Today");
+
+        // City Code
+        townName = findViewById(R.id.textView4);
+        townName.setFactory(new ViewSwitcher.ViewFactory() {
+
+            public View makeView() {
+                // create new textView and set the properties like clolr, size etc
+                TextView myText = new TextView(Main2Activity.this);
+                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+                myText.setTextSize(30);
+                myText.setTextColor(textColor);
+                myText.setTypeface(fontFamily);
+                myText.setShadowLayer(5, 0, 0, Color.BLACK);
+                myText.setPadding(0, 4, 0, 0);
+                return myText;
+            }
+        });
+    }
+
+    private void initializeBotBanner() {
+        final int progressBarColor = Color.argb(0xFF, 177, 198, 207);
+        // progress bar
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgressTintList(ColorStateList.valueOf(progressBarColor));
+
+        // Current location button
+        final View buttonLocation = findViewById(R.id.imageButton2);
+        buttonLocation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // check if GPS enabled
+                GPSTracker gps = new GPSTracker(Main2Activity.this);
+                if(gps.canGetLocation()){
+                    float latitude = (float)gps.getLatitude();
+                    float longitude = (float)gps.getLongitude();
+                    RefreshListViewFromGeo_(latitude, longitude);
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+            }
+        });
+
+        // Location picker button
+        final View buttonExplore = findViewById(R.id.imageButton3);
+        buttonExplore.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
+                    // Log.d("LocationPicker", "Closed the activity");
+                } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+                    // Log.d("LocationPicker", "Service unavailable");
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // initialize Place picker
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addApi(Places.GEO_DATA_API)
+                .build();
+
+        // Calendar navigation
+        Calendar newCalendar = Calendar.getInstance();
+        final DatePickerDialog  StartTime = new DatePickerDialog(this, R.style.datepicker,
+                new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar newCldr = Calendar.getInstance();
+                        newCldr.set(year, monthOfYear, dayOfMonth);
+                        Date newDate = newCldr.getTime();
+                        RefreshListViewFromDate_(newDate);
+                    }
+                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        // Calendar button
+        final View buttonCalendar = findViewById(R.id.imageButton);
+        buttonCalendar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                StartTime.show();
+            }
+        });
+
+
     }
 
     @Override
