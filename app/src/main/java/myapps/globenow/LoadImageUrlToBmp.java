@@ -36,7 +36,6 @@ public class LoadImageUrlToBmp {
         return BitmapFactory.decodeByteArray(data, 0, 3);
     }
     private Bitmap GetRoundedCornerBitmap_(Bitmap org) {
-        // Bitmap output = Bitmap.createBitmap(bitmap);
         // scale image into view
         Point p = new Point();
         context.getWindowManager().getDefaultDisplay().getSize(p);

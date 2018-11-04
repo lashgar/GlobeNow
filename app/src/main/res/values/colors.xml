@@ -8,4 +8,6 @@
     <color name="navyblue">#0000B5</color>
     <color name="navybluedark">#000055</color>
     <color name="greendark">#005500</color>
+    <color name="colorEventBodyText">@color/navybluedark</color>
+    <color name="colorEventHeaderText">@color/navybluedark</color>
 </resources>

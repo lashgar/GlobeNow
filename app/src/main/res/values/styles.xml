@@ -2,11 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/navybluedark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:navigationBarColor">@color/colorPrimary</item>!-->
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,11 +21,4 @@
         <item name="colorPrimaryDark">@color/navybluedark</item>
         <item name="colorAccent">@color/navybluedark</item>
     </style>
-    <!--
-    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@android:color/background_dark</item>
-        <item name="colorAccent">@android:color/background_dark</item>
-    </style>
-    !-->
 </resources>

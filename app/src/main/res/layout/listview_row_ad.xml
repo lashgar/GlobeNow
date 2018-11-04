@@ -18,6 +18,7 @@
         android:scaleType="center"
         android:src="@mipmap/ic_launcher"
         />
+
         <TextView
             android:id="@+id/ad_text"
             android:layout_width="match_parent"
@@ -27,8 +28,8 @@
             android:scaleType="fitXY"
             android:singleLine="false"
             android:text="TextView"
-            android:textColor="@color/navybluedark"
-            android:textSize="14sp" />
+            android:textColor="@color/colorEventBodyText"
+            android:textSize="@dimen/dimenEventSizeBodyText" />
 
         <TextView
             android:id="@+id/ad_header"
@@ -37,8 +38,8 @@
             android:fontFamily="sans-serif"
             android:text="TextView"
             android:textAlignment="textEnd"
-            android:textColor="@color/navybluedark"
-            android:textSize="12sp"
+            android:textColor="@color/colorEventHeaderText"
+            android:textSize="@dimen/dimenEventSizeHeaderText"
             android:textStyle="bold" />
     </LinearLayout>
 </com.google.android.gms.ads.formats.UnifiedNativeAdView>

@@ -311,7 +311,7 @@ public class Main2Activity extends AppCompatActivity
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
                         view.getContext().startActivity(browserIntent);
                     }else {
-                        Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActiviy.class);
+                        Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
                         startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
                     }
                 }

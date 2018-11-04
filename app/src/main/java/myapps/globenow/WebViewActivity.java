@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebViewActiviy extends Activity {
+public class WebViewActivity extends Activity {
     private WebView m_webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,8 @@ public class WebViewActiviy extends Activity {
         m_webView.setWebViewClient(new WebViewClient());
         Intent intent = getIntent();
         String url = intent.getStringExtra("urlToShow");
-        // Enable javascript: Should not be any vulnerability as the targets are
-        // only a limited set of domains: Twitter or Instagram atm
+        // Enable javascript: Should not be any vulnerability concern
+        // as the targets are only a limited set of domains: Twitter or Instagram atm
         m_webView.getSettings().setJavaScriptEnabled(true);
         m_webView.loadUrl(url);
     }

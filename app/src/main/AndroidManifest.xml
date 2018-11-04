@@ -35,7 +35,7 @@
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".WebViewActiviy"
+        <activity android:name=".WebViewActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 
