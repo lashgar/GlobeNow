@@ -306,9 +306,14 @@ public class Main2Activity extends AppCompatActivity
                 else
                 {
                     // Open a URL
-                    // TODO: Use In-App browser
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
-                    view.getContext().startActivity(browserIntent);
+                    final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
+                    if (bOpenUrlWithChrome) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
+                        view.getContext().startActivity(browserIntent);
+                    }else {
+                        Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActiviy.class);
+                        startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
+                    }
                 }
             }
         });
