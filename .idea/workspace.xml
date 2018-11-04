@@ -18,18 +18,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Dynamic loading of events on scroll down&#10;- warning: syncronization should be measured">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActiviy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,76 +52,60 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="listview_row_ad.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="44" column="57" selection-start-line="44" selection-start-column="57" selection-end-line="44" selection-end-column="57" />
-              <folding>
-                <element signature="e#1186#1217#0" expanded="true" />
-                <element signature="e#1557#1590#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="57" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" column="66" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dimens.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listview_row_noimage.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+              <caret line="633" column="63" selection-start-line="633" selection-start-column="63" selection-end-line="633" selection-end-column="63" />
               <folding>
-                <element signature="e#736#767#0" expanded="true" />
-                <element signature="e#1096#1129#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4482#4529#0" expanded="true" />
+                <element signature="e#4638#5035#0" expanded="true" />
+                <element signature="e#5034#5035#0" expanded="true" />
+                <element signature="e#5069#5388#0" expanded="true" />
+                <element signature="e#5387#5388#0" expanded="true" />
+                <element signature="e#6669#7378#0" expanded="true" />
+                <element signature="e#7377#7378#0" expanded="true" />
+                <element signature="e#8091#8801#0" expanded="true" />
+                <element signature="e#8800#8801#0" expanded="true" />
+                <element signature="e#9100#9786#0" expanded="true" />
+                <element signature="e#9785#9786#0" expanded="true" />
+                <element signature="e#9952#10390#0" expanded="true" />
+                <element signature="e#10389#10390#0" expanded="true" />
+                <element signature="e#10609#10737#0" expanded="true" />
+                <element signature="e#10736#10737#0" expanded="true" />
+                <element signature="e#11067#11821#0" expanded="true" />
+                <element signature="e#11820#11821#0" expanded="true" />
+                <element signature="e#11899#13223#0" expanded="true" />
+                <element signature="e#13222#13223#0" expanded="true" />
+                <element signature="e#13275#15090#0" expanded="true" />
+                <element signature="e#15089#15090#0" expanded="true" />
+                <element signature="e#28765#28766#0" expanded="true" />
+                <element signature="e#28804#28805#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listview_row_withimage.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+            <state relative-caret-position="170">
+              <caret line="34" column="46" lean-forward="true" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="94" />
               <folding>
-                <element signature="e#925#956#0" expanded="true" />
-                <element signature="e#1285#1318#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventInstance.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>distance</find>
-      <find>roun</find>
       <find>toast</find>
       <find>scro</find>
       <find>rounded</find>
@@ -177,6 +151,8 @@
       <find>unifiedNativeAdArrayList</find>
       <find>GetRoun</find>
       <find>url</find>
+      <find>eventListAdapter</find>
+      <find>isTwitterAppInstalled</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -2499,7 +2475,6 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/CustomListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/GPSTracker.java" />
@@ -2507,9 +2482,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/webview_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActiviy.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
@@ -2517,6 +2490,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
       </list>
     </option>
   </component>
@@ -2946,7 +2922,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541311762662</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="(none-functional) declare common color/dimension parameter for views&#10;- Rename WebViewActivity class&#10;- Remove commented/unused code">
+      <created>1541315267958</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1541315267958</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2966,7 +2949,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32827586" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
-      <window_info id="Build Variants" order="3" sideWeight="0.30879346" side_tool="true" visible="true" weight="0.1802949" />
+      <window_info id="Build Variants" order="3" sideWeight="0.30879346" side_tool="true" visible="true" weight="0.19571045" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50067115" side_tool="true" weight="0.4" />
       <window_info anchor="right" id="Preview" order="4" />
@@ -2977,7 +2960,7 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6912065" visible="true" weight="0.1802949" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6912065" visible="true" weight="0.19571045" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49932975" weight="0.3292011" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -3044,7 +3027,8 @@
     <MESSAGE value="(none-functional) clean up warnings" />
     <MESSAGE value="AdMob improvement&#10;- Add text body&#10;- Add performClick callback&#10;- Address inspector warnings" />
     <MESSAGE value="Load URL in WebView by defalut" />
-    <option name="LAST_COMMIT_MESSAGE" value="Load URL in WebView by defalut" />
+    <MESSAGE value="(none-functional) declare common color/dimension parameter for views&#10;- Rename WebViewActivity class&#10;- Remove commented/unused code" />
+    <option name="LAST_COMMIT_MESSAGE" value="(none-functional) declare common color/dimension parameter for views&#10;- Rename WebViewActivity class&#10;- Remove commented/unused code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3252,16 +3236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/CustomListAdapter.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/GPSTracker.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -3333,41 +3307,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="313" column="94" selection-start-line="313" selection-start-column="94" selection-end-line="313" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#13131#14612#0" expanded="true" />
-            <element signature="e#14611#14612#0" expanded="true" />
-            <element signature="e#27921#27922#0" expanded="true" />
-            <element signature="e#27960#27961#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="57" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="66" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3382,17 +3321,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="44" column="57" selection-start-line="44" selection-start-column="57" selection-end-line="44" selection-end-column="57" />
-          <folding>
-            <element signature="e#1186#1217#0" expanded="true" />
-            <element signature="e#1557#1590#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -3410,10 +3342,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="187">
+          <caret line="11" column="66" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="44" column="57" selection-start-line="44" selection-start-column="57" selection-end-line="44" selection-end-column="57" />
+          <folding>
+            <element signature="e#1186#1217#0" expanded="true" />
+            <element signature="e#1557#1590#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="34" column="46" lean-forward="true" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="94" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="633" column="63" selection-start-line="633" selection-start-column="63" selection-end-line="633" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4482#4529#0" expanded="true" />
+            <element signature="e#4638#5035#0" expanded="true" />
+            <element signature="e#5034#5035#0" expanded="true" />
+            <element signature="e#5069#5388#0" expanded="true" />
+            <element signature="e#5387#5388#0" expanded="true" />
+            <element signature="e#6669#7378#0" expanded="true" />
+            <element signature="e#7377#7378#0" expanded="true" />
+            <element signature="e#8091#8801#0" expanded="true" />
+            <element signature="e#8800#8801#0" expanded="true" />
+            <element signature="e#9100#9786#0" expanded="true" />
+            <element signature="e#9785#9786#0" expanded="true" />
+            <element signature="e#9952#10390#0" expanded="true" />
+            <element signature="e#10389#10390#0" expanded="true" />
+            <element signature="e#10609#10737#0" expanded="true" />
+            <element signature="e#10736#10737#0" expanded="true" />
+            <element signature="e#11067#11821#0" expanded="true" />
+            <element signature="e#11820#11821#0" expanded="true" />
+            <element signature="e#11899#13223#0" expanded="true" />
+            <element signature="e#13222#13223#0" expanded="true" />
+            <element signature="e#13275#15090#0" expanded="true" />
+            <element signature="e#15089#15090#0" expanded="true" />
+            <element signature="e#28765#28766#0" expanded="true" />
+            <element signature="e#28804#28805#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -20,4 +20,6 @@ public class EventInstance {
     public float ml_rating;
     public String prettyauthor;
     public Bitmap bmp;
+    public boolean bExpanded; // if true, click on the event opens url
+    public String textShort;
 }

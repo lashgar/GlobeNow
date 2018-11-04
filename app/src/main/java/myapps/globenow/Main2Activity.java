@@ -108,6 +108,10 @@ public class Main2Activity extends AppCompatActivity
     private final int k_eventToAdRatio = 10; // show one ad for every 10 events
     private int k_adLocationOrder = 2;
 
+    // Text View Expandable
+    private final int k_textViewExpandableNNewLine = 2;
+    private final int k_textViewExpandableNChars = 100;
+
     /*
     @brief called from OnCreate to initialize modules
      */
@@ -281,7 +285,7 @@ public class Main2Activity extends AppCompatActivity
                 {
                     bPendingBmpLoader = Boolean.TRUE;
                     PopulateTimeline_();
-                    eventListAdapter.notifyDataSetChanged();
+                    // eventListAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Loading more events", Toast.LENGTH_LONG).show();
                 }
             }
@@ -290,7 +294,7 @@ public class Main2Activity extends AppCompatActivity
         timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventInstance eventInstance = eventListArray.get(position);
+                EventInstance eventInstance = eventListArray.get(position-GetNumLoadedAds(position));
                 String sourceUrl = eventInstance.url;
                 if (IsAdPosition(position))
                 {
@@ -305,14 +309,19 @@ public class Main2Activity extends AppCompatActivity
                 }
                 else
                 {
-                    // Open a URL
-                    final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
-                    if (bOpenUrlWithChrome) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
-                        view.getContext().startActivity(browserIntent);
-                    }else {
-                        Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
-                        startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
+                    if (eventInstance.bExpanded) {
+                        // Open a URL
+                        final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
+                        if (bOpenUrlWithChrome) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
+                            view.getContext().startActivity(browserIntent);
+                        } else {
+                            Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
+                            startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
+                        }
+                    }else{
+                        eventInstance.bExpanded = true;
+                        eventListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -567,7 +576,7 @@ public class Main2Activity extends AppCompatActivity
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-        eventListAdapter.notifyDataSetChanged();
+        // eventListAdapter.notifyDataSetChanged();
         bPendingJsonLoader = Boolean.FALSE;
     }
 
@@ -592,9 +601,11 @@ public class Main2Activity extends AppCompatActivity
                     continue;
                 }
 
-                // get author, text, and media
+                // get author, text, ml_rating and media
                 String author = jo_inside.getString("prettyauthor");
                 String text = jo_inside.getString("prettytext");
+                boolean bExpanded = !TextViewExpandableIsLong_(text);
+                String textShort = TextViewExpandableGetShort_(text);
                 List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(",")); // FIXME: not tested
                 String media = allmedia.get(0);
                 int authorId = -1;
@@ -604,6 +615,7 @@ public class Main2Activity extends AppCompatActivity
                     media = jsonArrayAuthors.getJSONObject(authorId).getString("coverphoto");
                     // Log.d("MediaURL", "has authorid> "+author);
                 }
+                float ml_rating = Float.valueOf(jo_inside.getString("ml_rating"));
 
                 // get callback URL
                 String eventsource = jo_inside.getString("source");
@@ -614,21 +626,18 @@ public class Main2Activity extends AppCompatActivity
                     id = new BigInteger(jo_inside.getString("tweetid"));
                     if(eventsource.equals("Twitter")) {
                         // Event extracted from Twitter tweets
-                        if (bIsTwitterAppInstalled) {
-                            url = "https://twitter.com/statuses/" + jo_inside.getString("tweetid");
-                        } else {
-                            url = "https://twitter.com/i/web/status/" + jo_inside.getString("tweetid");
-                        }
+                        url = "https://twitter.com/i/web/status/" + jo_inside.getString("tweetid");
                     }else if(eventsource.equals("FBEvent")){
                         // Facebook Event
                         url = "https://www.facebook.com/events/" + jo_inside.getString("tweetid");
                     }else if(eventsource.equals("Instagram")){
-                        // Facebook Event
+                        // Event extracted from Instagram posts
                         url = jo_inside.getString("url");
                     }else{
                         // unimplemented event
                     }
                 }
+
                 // Will load the batch asyncly
                 mediaUrls.add(media);
 
@@ -641,9 +650,12 @@ public class Main2Activity extends AppCompatActivity
                 newEntry.tweetid = id;
                 newEntry.source = eventsource;
                 newEntry.authorid = authorId;
-                newEntry.ml_rating = 0.0f; // FIXME: Get from request
+                newEntry.ml_rating = ml_rating;
                 newEntry.prettyauthor = author;
                 newEntry.bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.loading);
+                newEntry.bExpanded = bExpanded;
+                newEntry.textShort = textShort;
+
                 // Push to Array
                 eventListArray.add(newEntry);
 
@@ -688,5 +700,39 @@ public class Main2Activity extends AppCompatActivity
         return nAdsSoFar;
     }
 
+    /*
+    TextViewExpandable
+     */
+    boolean TextViewExpandableIsLong_(String text)
+    {
+        // Count new lines
+        int nNewLines = 0;
+        for (int i = 0; i < text.length(); ++i){
+            if (text.charAt(i) == '\n'){
+                nNewLines += 1;
+            }
+        }
+        return (nNewLines > k_textViewExpandableNNewLine) || (text.length() > k_textViewExpandableNChars);
+    }
 
+    String TextViewExpandableGetShort_(String text){
+        String shortText = "";
+        int breakIdx = 0;
+        int nNewLines = 0;
+        boolean bTimeToBreak = false;
+        for(int i = 0; i < text.length(); ++i){
+            char cChar = text.charAt(i);
+            if (cChar == '\n'){
+                nNewLines += 1;
+            }
+            if (nNewLines > k_textViewExpandableNNewLine || i > k_textViewExpandableNChars){
+                bTimeToBreak = true;
+            }
+            if (bTimeToBreak && Character.isWhitespace(cChar)){
+                breakIdx = i;
+                break;
+            }
+        }
+        return text.substring(0, breakIdx) + " ᠁";
+    }
 }

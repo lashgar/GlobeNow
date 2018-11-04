@@ -42,7 +42,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             UnifiedNativeAdView adView = (UnifiedNativeAdView) inflater
                     .inflate(R.layout.listview_row_ad, null, true);
             UnifiedNativeAd ad = main2Activity.GetAd(main2Activity.GetNumLoadedAds(position));
-            if (ad!=null) {
+            if (ad != null) {
                 TextView bodyView = adView.findViewById(R.id.ad_text);
                 bodyView.setText(ad.getBody());
                 TextView headlineView = adView.findViewById(R.id.ad_header);
@@ -66,14 +66,15 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             ImageView imageView = rowView.findViewById(R.id.imageView6);
 
             //this code sets the values of the objects to values from the arrays
-            nameTextField.setText(eventInstance.prettytext);
-            String author = "by "+eventInstance.prettyauthor;
+            String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
+            nameTextField.setText(textBody);
+            String author = "By "+eventInstance.prettyauthor;
             infoTextField.setText(author);
             imageView.setImageBitmap(eventInstance.bmp);
         }
         else
         {
-            // without image
+            // Without image
             LayoutInflater inflater=context.getLayoutInflater();
             rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout
 
@@ -82,7 +83,8 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             TextView infoTextField = rowView.findViewById(R.id.textView3);
 
             //this code sets the values of the objects to values from the arrays
-            nameTextField.setText(eventInstance.prettytext);
+            String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
+            nameTextField.setText(textBody);
             String author = "By "+eventInstance.prettyauthor;
             infoTextField.setText(author);
         }
