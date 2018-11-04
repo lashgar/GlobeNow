@@ -19,7 +19,7 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
+        android:fontFamily="@font/corbel"
         android:gravity="bottom"
         android:scaleType="fitXY"
         android:singleLine="false"
@@ -31,10 +31,10 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="29dp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/corbelb"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textColor="@color/colorEventHeaderText"
         android:textSize="@dimen/dimenEventSizeHeaderText"
-        android:textStyle="bold" />
+        android:textStyle="" />
 </LinearLayout>

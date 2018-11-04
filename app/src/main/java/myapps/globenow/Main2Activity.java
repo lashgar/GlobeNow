@@ -110,7 +110,7 @@ public class Main2Activity extends AppCompatActivity
 
     // Text View Expandable
     private final int k_textViewExpandableNNewLine = 2;
-    private final int k_textViewExpandableNChars = 100;
+    private final int k_textViewExpandableNChars = 140;
 
     /*
     @brief called from OnCreate to initialize modules
