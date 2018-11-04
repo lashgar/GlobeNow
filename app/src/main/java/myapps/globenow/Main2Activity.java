@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -157,7 +158,7 @@ public class Main2Activity extends AppCompatActivity
         currentLocationName = closetsTown[1];
 
         currentDate = new Date(); // default to Today
-        dateTextView = (TextSwitcher) findViewById(R.id.TextBoxDate);
+        dateTextView = findViewById(R.id.TextBoxDate);
         dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
                 // TODO Auto-generated method stub
@@ -259,11 +260,8 @@ public class Main2Activity extends AppCompatActivity
                 try {
                     startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
                     // Log.d("LocationPicker", "Closed the activity");
-                } catch (GooglePlayServicesNotAvailableException e) {
+                } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
                     // Log.d("LocationPicker", "Service unavailable");
-                    e.printStackTrace();
-                } catch (GooglePlayServicesRepairableException e) {
-                    // Log.d("LocationPicker", "Repairable Exception");
                     e.printStackTrace();
                 }
             }
@@ -291,42 +289,15 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+        /*
+        Depreciated; individual elements have callback now
         timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventInstance eventInstance = eventListArray.get(position-GetNumLoadedAds(position));
-                String sourceUrl = eventInstance.url;
-                if (IsAdPosition(position))
-                {
-                    // TODO: Not sure if bundle should have specific fields
-                    Bundle extraInfo = new Bundle();
-                    extraInfo.putString("itemClicked", "ad_media");
-                    GetAd(GetNumLoadedAds(position)).performClick(extraInfo);
-                }
-                else if(sourceUrl.equals(""))
-                {
-                    Toast.makeText(view.getContext(), "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    if (eventInstance.bExpanded) {
-                        // Open a URL
-                        final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
-                        if (bOpenUrlWithChrome) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
-                            view.getContext().startActivity(browserIntent);
-                        } else {
-                            Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
-                            startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
-                        }
-                    }else{
-                        eventInstance.bExpanded = true;
-                        eventListAdapter.notifyDataSetChanged();
-                    }
-                }
+                // EventClickOpenUrl(position);
             }
         });
-
+        */
         Log.d("LOADER", "Initialized");
     }
 
@@ -370,7 +341,7 @@ public class Main2Activity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -402,7 +373,7 @@ public class Main2Activity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -420,7 +391,7 @@ public class Main2Activity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -450,7 +421,7 @@ public class Main2Activity extends AppCompatActivity
     private void RefreshListViewFromDate_(Date dateToLoad){
         if(LaunchAsyncJsonLoader_(currentLocationCode, dateToLoad)) {
 
-            String formattedDate = new SimpleDateFormat("EEE MMM, dd").format(currentDate);
+            String formattedDate = new SimpleDateFormat("EEE MMM dd", Locale.CANADA).format(currentDate);
             Date today = new Date();
             if (today.getTime() == dateToLoad.getTime()) {
                 formattedDate = "Today";
@@ -486,9 +457,10 @@ public class Main2Activity extends AppCompatActivity
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(k_sPLastGeoLat, lat);
         editor.putFloat(k_sPLastGeoLng, lng);
-        editor.commit();
+        editor.apply();
     }
 
+    /*
     private boolean isTwitterAppInstalled(){
         try{
             ApplicationInfo info = this.getPackageManager().
@@ -498,8 +470,9 @@ public class Main2Activity extends AppCompatActivity
             return false;
         }
     }
+    */
 
-    private Boolean LaunchAsyncJsonLoader_(String citycode, Date dateToLoad)
+    private Boolean LaunchAsyncJsonLoader_(String cityCode, Date dateToLoad)
     {
         // Cancel pending Async if any
         if (bPendingJsonLoader){
@@ -510,7 +483,7 @@ public class Main2Activity extends AppCompatActivity
         }
 
         // Launch new Async task
-        currentLocationCode = citycode;
+        currentLocationCode = cityCode;
         currentDate = dateToLoad;
         asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
         bPendingJsonLoader = Boolean.TRUE;
@@ -520,7 +493,7 @@ public class Main2Activity extends AppCompatActivity
         // Log Firebase
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "FetchCode");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, citycode);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, cityCode);
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
@@ -586,7 +559,7 @@ public class Main2Activity extends AppCompatActivity
         try
         {
             boolean jsonHasAuthors = jsonArrayAuthors.length()!=0;
-            boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
+            // boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
             ArrayList<String> mediaUrls = new ArrayList<>();
             int nEnqueued = 0;
             while((nEnqueued<k_maxFetchPerRound) && (jsonArrayEventsLastReadIdx < jsonArrayEvents.length())) {
@@ -624,17 +597,19 @@ public class Main2Activity extends AppCompatActivity
                 String url = "";
                 if(thing instanceof String){
                     id = new BigInteger(jo_inside.getString("tweetid"));
-                    if(eventsource.equals("Twitter")) {
-                        // Event extracted from Twitter tweets
-                        url = "https://twitter.com/i/web/status/" + jo_inside.getString("tweetid");
-                    }else if(eventsource.equals("FBEvent")){
-                        // Facebook Event
-                        url = "https://www.facebook.com/events/" + jo_inside.getString("tweetid");
-                    }else if(eventsource.equals("Instagram")){
-                        // Event extracted from Instagram posts
-                        url = jo_inside.getString("url");
-                    }else{
-                        // unimplemented event
+                    switch (eventsource){
+                        case "Twitter":
+                            // Event extracted from Twitter tweets
+                            url = "https://twitter.com/i/web/status/" + jo_inside.getString("tweetid");
+                            break;
+                        case "FBEvent":
+                            // Facebook Event
+                            url = "https://www.facebook.com/events/" + jo_inside.getString("tweetid");
+                            break;
+                        case "Instagram":
+                            // Event extracted from Instagram posts
+                            url = jo_inside.getString("url");
+                            break;
                     }
                 }
 
@@ -665,9 +640,55 @@ public class Main2Activity extends AppCompatActivity
             // Invoke image loader and fetch images
             Log.d("MainThread", "evenListArray size: "+String.valueOf(eventListArray.size()));
             Log.d("MainThread", "mediaUrl size: "+String.valueOf(mediaUrls.size()));
-            LaunchAsyncBmpLoader_(mediaUrls);
+            boolean bLunchSuccess = LaunchAsyncBmpLoader_(mediaUrls);
         } catch (JSONException e1) {
             e1.printStackTrace();
+        }
+    }
+
+    /*
+    Handlers for click on items
+     */
+    public void EventClickOpenUrl(int position){
+        EventInstance eventInstance = eventListArray.get(position - GetNumLoadedAds(position));
+        String sourceUrl = eventInstance.url;
+        if (IsAdPosition(position)) {
+            // TODO: Not sure if bundle should have specific fields
+            Bundle extraInfo = new Bundle();
+            extraInfo.putString("itemClicked", "ad_media");
+            GetAd(GetNumLoadedAds(position)).performClick(extraInfo);
+        } else if (sourceUrl.equals("")) {
+            Toast.makeText(this, "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
+        } else {
+            if (eventInstance.bExpanded) {
+                // Open a URL
+                final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
+                if (bOpenUrlWithChrome) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
+                    startActivity(browserIntent);
+                } else {
+                    Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
+                    startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
+                }
+            }
+        }
+    }
+
+    public void EventClickExpandCollapseText(int position){
+        EventInstance eventInstance = eventListArray.get(position - GetNumLoadedAds(position));
+        String sourceUrl = eventInstance.url;
+        if (IsAdPosition(position)) {
+            // AdView text is not collapse
+            // no need to handle expand
+        } else {
+            if (eventInstance.bExpanded) {
+                // Already expanded. Do nothing for now.
+                // Flip back to collapse?
+            } else {
+                // Expand
+                eventInstance.bExpanded = true;
+                eventListAdapter.notifyDataSetChanged();
+            }
         }
     }
 

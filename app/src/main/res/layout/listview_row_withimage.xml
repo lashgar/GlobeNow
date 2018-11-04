@@ -23,16 +23,19 @@
         android:gravity="bottom"
         android:scaleType="fitXY"
         android:singleLine="false"
-        android:text="TextView"
+        android:text=""
         android:textColor="@color/colorEventBodyText"
-        android:textSize="@dimen/dimenEventSizeBodyText" />
+        android:textSize="@dimen/dimenEventSizeBodyText"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="29dp"
         android:fontFamily="@font/corbelb"
-        android:text="TextView"
+        android:text=""
         android:textAlignment="textEnd"
         android:textColor="@color/colorEventHeaderText"
         android:textSize="@dimen/dimenEventSizeHeaderText"

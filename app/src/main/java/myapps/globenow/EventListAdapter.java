@@ -26,9 +26,9 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
         super(context, resource, textViewID, eventsList);
         this.context=context;
     }
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         Log.d("LOADER", "Returning view");
-        Main2Activity main2Activity =((Main2Activity)context);
+        final Main2Activity main2Activity =((Main2Activity)context);
 
         // Calculate the position to load considering loaded ads
         // Making sure ads are interleaved while all events are loaded
@@ -37,11 +37,14 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
 
         if (main2Activity.IsAdPosition(position))
         {
+            // Inflate view with ad layout
             LayoutInflater inflater = (LayoutInflater) parent.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             UnifiedNativeAdView adView = (UnifiedNativeAdView) inflater
                     .inflate(R.layout.listview_row_ad, null, true);
+            // Get the ad
             UnifiedNativeAd ad = main2Activity.GetAd(main2Activity.GetNumLoadedAds(position));
+            // Fill the ad in layout
             if (ad != null) {
                 TextView bodyView = adView.findViewById(R.id.ad_text);
                 bodyView.setText(ad.getBody());
@@ -51,42 +54,56 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                 adView.setMediaView(mediaView);
                 adView.setNativeAd(ad);
             }
+            // Attach callbacks to view
+            // Convert adView to View
             rowView = adView;
         }
         else if(!eventInstance.media.equals("") && !eventInstance.media.equals("none"))
         {
-            // With image
-            // inflate the row
+            // Inflate view with image layout
             LayoutInflater inflater=context.getLayoutInflater();
             rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
 
-            //this code gets references to objects in the listview_row_withimage.xml file
-            TextView nameTextField = rowView.findViewById(R.id.textView8);
-            TextView infoTextField = rowView.findViewById(R.id.textView9);
+            // Get layout elements
+            TextView bodyTextField = rowView.findViewById(R.id.textView8);
+            TextView headerTextField = rowView.findViewById(R.id.textView9);
             ImageView imageView = rowView.findViewById(R.id.imageView6);
 
-            //this code sets the values of the objects to values from the arrays
+            // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
-            nameTextField.setText(textBody);
+            bodyTextField.setText(textBody);
             String author = "By "+eventInstance.prettyauthor;
-            infoTextField.setText(author);
+            headerTextField.setText(author);
             imageView.setImageBitmap(eventInstance.bmp);
+
+            // Attach callbacks to view
+            bodyTextField.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    main2Activity.EventClickOpenUrl(position);
+                    // Do expand/collapse after OpenUrl to allow one click before OpenUrl
+                    // TODO: EvenClickOpenUrl will move to a OPEN-Button callback eventually
+                    main2Activity.EventClickExpandCollapseText(position);
+                }
+            });
         }
         else
         {
-            // Without image
+            // Inflate view with no-image layout
             LayoutInflater inflater=context.getLayoutInflater();
             rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout
 
-            //this code gets references to objects in the listview_row_noimage.xml file
+            // Get layout elements
             TextView nameTextField = rowView.findViewById(R.id.textView2);
             TextView infoTextField = rowView.findViewById(R.id.textView3);
 
-            //this code sets the values of the objects to values from the arrays
+            // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
             nameTextField.setText(textBody);
             String author = "By "+eventInstance.prettyauthor;
             infoTextField.setText(author);
+
+            // Attach callbacks
         }
         return rowView;
     }

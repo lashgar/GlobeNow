@@ -18,12 +18,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Dynamic loading of events on scroll down&#10;- warning: syncronization should be measured">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
@@ -58,8 +55,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="272" selection-start-line="272" selection-end-line="272" />
+            <state relative-caret-position="166">
+              <caret line="601" column="28" selection-start-line="601" selection-start-column="28" selection-end-line="601" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4482#4529#0" expanded="true" />
@@ -77,14 +74,39 @@
                 <element signature="e#10389#10390#0" expanded="true" />
                 <element signature="e#10609#10737#0" expanded="true" />
                 <element signature="e#10736#10737#0" expanded="true" />
-                <element signature="e#11067#11821#0" expanded="true" />
-                <element signature="e#11820#11821#0" expanded="true" />
-                <element signature="e#13222#13223#0" expanded="true" />
-                <element signature="e#13275#15090#0" expanded="true" />
-                <element signature="e#15089#15090#0" expanded="true" />
-                <element signature="e#28765#28766#0" expanded="true" />
-                <element signature="e#28804#28805#0" expanded="true" />
+                <element signature="e#11052#11665#0" expanded="true" />
+                <element signature="e#11664#11665#0" expanded="true" />
+                <element signature="e#11743#13067#0" expanded="true" />
+                <element signature="e#13066#13067#0" expanded="true" />
+                <element signature="e#28824#28825#0" expanded="true" />
+                <element signature="e#28863#28864#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="63" column="14" lean-forward="true" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3463#3656#0" expanded="true" />
+                <element signature="e#3655#3656#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="listview_row_withimage.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -96,7 +118,7 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -113,7 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toast</find>
       <find>scro</find>
       <find>rounded</find>
       <find>round</find>
@@ -143,6 +164,7 @@
       <find>url</find>
       <find>eventListAdapter</find>
       <find>isTwitterAppInstalled</find>
+      <find>LaunchAsyn</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -2475,21 +2497,21 @@
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="1" />
-    <option name="width" value="1934" />
+    <option name="width" value="1908" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectView">
@@ -2521,6 +2543,14 @@
               <item name="app" type="cbb8eebc:String" user="app" />
               <item name="src" type="cbb8eebc:String" user="src" />
               <item name="main" type="cbb8eebc:String" user="main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="app" type="cbb8eebc:String" user="app" />
+              <item name="app" type="cbb8eebc:String" user="app" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="main" type="cbb8eebc:String" user="main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
@@ -2900,7 +2930,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541324013956</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Tune font size and family&#10;- Switch to use Corbel font family&#10;- Increase text view limit to 140">
+      <created>1541364115527</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1541364115528</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2913,14 +2950,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="1" width="1547" height="869" extended-state="0" />
+    <frame x="-6" y="1" width="1526" height="869" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32827586" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
-      <window_info id="Build Variants" order="3" sideWeight="0.30962342" side_tool="true" visible="true" weight="0.19636853" />
+      <window_info active="true" id="Build Variants" order="3" sideWeight="0.30962342" side_tool="true" visible="true" weight="0.19918145" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50067115" side_tool="true" weight="0.4" />
       <window_info anchor="right" id="Preview" order="4" />
@@ -2931,7 +2968,7 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6903766" visible="true" weight="0.19636853" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6903766" visible="true" weight="0.19918145" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49932975" weight="0.3282123" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -3000,7 +3037,8 @@
     <MESSAGE value="Load URL in WebView by defalut" />
     <MESSAGE value="(none-functional) declare common color/dimension parameter for views&#10;- Rename WebViewActivity class&#10;- Remove commented/unused code" />
     <MESSAGE value="Introducing Text View Expandable&#10;- add ml_rating to record&#10;- use single url for twitter events&#10;- avoid often adapter reload" />
-    <option name="LAST_COMMIT_MESSAGE" value="Introducing Text View Expandable&#10;- add ml_rating to record&#10;- use single url for twitter events&#10;- avoid often adapter reload" />
+    <MESSAGE value="Tune font size and family&#10;- Switch to use Corbel font family&#10;- Increase text view limit to 140" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tune font size and family&#10;- Switch to use Corbel font family&#10;- Increase text view limit to 140" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3286,34 +3324,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="34" column="46" lean-forward="true" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="66" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
-          <folding>
-            <element signature="e#935#966#0" expanded="true" />
-            <element signature="e#1295#1328#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3347,20 +3361,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="63" column="14" lean-forward="true" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3463#3656#0" expanded="true" />
+            <element signature="e#3655#3656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="272" selection-start-line="272" selection-end-line="272" />
+        <state relative-caret-position="166">
+          <caret line="601" column="28" selection-start-line="601" selection-start-column="28" selection-end-line="601" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4482#4529#0" expanded="true" />
@@ -3378,13 +3414,12 @@
             <element signature="e#10389#10390#0" expanded="true" />
             <element signature="e#10609#10737#0" expanded="true" />
             <element signature="e#10736#10737#0" expanded="true" />
-            <element signature="e#11067#11821#0" expanded="true" />
-            <element signature="e#11820#11821#0" expanded="true" />
-            <element signature="e#13222#13223#0" expanded="true" />
-            <element signature="e#13275#15090#0" expanded="true" />
-            <element signature="e#15089#15090#0" expanded="true" />
-            <element signature="e#28765#28766#0" expanded="true" />
-            <element signature="e#28804#28805#0" expanded="true" />
+            <element signature="e#11052#11665#0" expanded="true" />
+            <element signature="e#11664#11665#0" expanded="true" />
+            <element signature="e#11743#13067#0" expanded="true" />
+            <element signature="e#13066#13067#0" expanded="true" />
+            <element signature="e#28824#28825#0" expanded="true" />
+            <element signature="e#28863#28864#0" expanded="true" />
           </folding>
         </state>
       </provider>
