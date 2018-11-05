@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.util.Calendar;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ResourceCursorAdapter;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -111,6 +111,21 @@ public class Main2Activity extends AppCompatActivity
     // Text View Expandable
     private final int k_textViewExpandableNNewLine = 2;
     private final int k_textViewExpandableNChars = 140;
+    // Source: https://unicode-table.com/en/#1D41E
+    // private final String k_ReadMoreInBold = "\uD835\uDC11\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC0C\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
+    private final String k_readmoreInBold = "\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
+
+    // GPS Tracker
+    GPSTracker m_gpsTracker = null;
+    boolean bPendingGpsUpdate = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // setContentView(R.layout.splash_screen);
+        setContentView(R.layout.activity_main2);
+        initializeMainActivity();
+    }
 
     /*
     @brief called from OnCreate to initialize modules
@@ -156,6 +171,9 @@ public class Main2Activity extends AppCompatActivity
         currentLocationCode = closetsTown[0];
         currentLocationName = closetsTown[1];
         currentDate = new Date(); // default to Today (might be cached in future)
+
+        // Initialize GPS
+        m_gpsTracker = new GPSTracker(Main2Activity.this);
 
         // Initialize banners
         initializeTopBanner();
@@ -222,7 +240,7 @@ public class Main2Activity extends AppCompatActivity
                 myText.setTextSize(20);
                 myText.setTextColor(textColor);
                 myText.setTypeface(fontFamily);
-                myText.setShadowLayer(5, 0, 0, Color.BLACK);
+                myText.setShadowLayer(1, 0, 0, Color.BLACK);
                 myText.setPadding(0, 0, 0, 0);
                 return myText;
             }
@@ -232,7 +250,6 @@ public class Main2Activity extends AppCompatActivity
         // City Code
         townName = findViewById(R.id.textView4);
         townName.setFactory(new ViewSwitcher.ViewFactory() {
-
             public View makeView() {
                 // create new textView and set the properties like clolr, size etc
                 TextView myText = new TextView(Main2Activity.this);
@@ -240,7 +257,7 @@ public class Main2Activity extends AppCompatActivity
                 myText.setTextSize(30);
                 myText.setTextColor(textColor);
                 myText.setTypeface(fontFamily);
-                myText.setShadowLayer(5, 0, 0, Color.BLACK);
+                myText.setShadowLayer(2, 0, 0, Color.BLACK);
                 myText.setPadding(0, 4, 0, 0);
                 return myText;
             }
@@ -258,16 +275,9 @@ public class Main2Activity extends AppCompatActivity
         buttonLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // check if GPS enabled
-                GPSTracker gps = new GPSTracker(Main2Activity.this);
-                if(gps.canGetLocation()){
-                    float latitude = (float)gps.getLatitude();
-                    float longitude = (float)gps.getLongitude();
-                    RefreshListViewFromGeo_(latitude, longitude);
-                }else{
-                    // can't get location
-                    // GPS or Network is not enabled
-                    // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
+                if (!bPendingGpsUpdate) {
+                    bPendingGpsUpdate = true;
+                    m_gpsTracker.getLocation(); // update location
                 }
             }
         });
@@ -312,8 +322,6 @@ public class Main2Activity extends AppCompatActivity
                 StartTime.show();
             }
         });
-
-
     }
 
     @Override
@@ -344,14 +352,6 @@ public class Main2Activity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(getApplicationContext(), "connection failed", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // setContentView(R.layout.splash_screen);
-        setContentView(R.layout.activity_main2);
-        initializeMainActivity();
     }
 
     @Override
@@ -405,7 +405,6 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -464,108 +463,6 @@ public class Main2Activity extends AppCompatActivity
         // Update view
         float distance = Float.parseFloat(closetsTown[2]);
         RefreshListViewFromCityCode_(cityCode, cityName, distance);
-    }
-
-    private void CacheNewLocation(float lat, float lng)
-    {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putFloat(k_sPLastGeoLat, lat);
-        editor.putFloat(k_sPLastGeoLng, lng);
-        editor.apply();
-    }
-
-    /*
-    private boolean isTwitterAppInstalled(){
-        try{
-            ApplicationInfo info = this.getPackageManager().
-                    getApplicationInfo("com.twitter.android", 0 );
-            return true;
-        } catch( PackageManager.NameNotFoundException e ){
-            return false;
-        }
-    }
-    */
-
-    private Boolean LaunchAsyncJsonLoader_(String cityCode, Date dateToLoad)
-    {
-        // Cancel pending Async if any
-        if (bPendingJsonLoader){
-            asyncTaskJsonLoader.cancel(true);
-        }
-        if(bPendingBmpLoader){
-            asyncTaskBmpLoader.cancel(true);
-        }
-
-        // Launch new Async task
-        currentLocationCode = cityCode;
-        currentDate = dateToLoad;
-        asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
-        bPendingJsonLoader = Boolean.TRUE;
-        eventListArray.clear();
-        jsonArrayEventsLastReadIdx = 0;
-
-        // Log Firebase
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "FetchCode");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, cityCode);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        return Boolean.TRUE;
-    }
-
-    private Boolean LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
-    {
-        // Cancel pending Async if any
-        if(bPendingBmpLoader){
-            asyncTaskBmpLoader.cancel(true);
-        }
-
-        // Launch new Async task
-        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
-        bPendingBmpLoader =Boolean.TRUE;
-        return Boolean.TRUE;
-    }
-
-    public void ReceiveBmpListAsync(ArrayList<Bitmap> bmpList){
-        if (!bPendingBmpLoader){
-            throw new AssertionError("Unexpected BMP batch received");
-        }
-
-        // Process new BMP batch
-        int offset = eventListArray.size()-bmpList.size();
-        for(int i = 0; i < bmpList.size(); i++){
-            EventInstance eventInstance = eventListArray.get(i+offset);
-            eventInstance.bmp = bmpList.get(i);
-            eventListArray.set(i+offset, eventInstance);
-        }
-        eventListAdapter.notifyDataSetChanged();
-        bPendingBmpLoader = Boolean.FALSE;
-    }
-
-    public void ReceiveJsonResponseAsync(String json){
-        if (!bPendingJsonLoader){
-            throw new AssertionError("Unexpected JSON received");
-        }
-
-        // Process new JSon
-        try {
-            JSONObject obj = new JSONObject(json);
-            jsonArrayEvents = obj.getJSONArray("data");
-            jsonArrayAuthors = new JSONArray();
-            boolean jsonHasAuthors = obj.has("authors");
-            if(jsonHasAuthors){
-                jsonArrayAuthors = obj.getJSONArray("authors");
-            }
-            PopulateTimeline_();
-            // Pre-load ads for this json
-            adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
-        } catch (JSONException e1) {
-            e1.printStackTrace();
-        }
-        // eventListAdapter.notifyDataSetChanged();
-        bPendingJsonLoader = Boolean.FALSE;
     }
 
     private void PopulateTimeline_()
@@ -662,7 +559,115 @@ public class Main2Activity extends AppCompatActivity
     }
 
     /*
-    Handlers for click on items
+    Cache Management
+     */
+    private void CacheNewLocation(float lat, float lng)
+    {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(k_sPLastGeoLat, lat);
+        editor.putFloat(k_sPLastGeoLng, lng);
+        editor.apply();
+    }
+
+    /*
+    AsyncCommunications: TX
+     */
+    private Boolean LaunchAsyncJsonLoader_(String cityCode, Date dateToLoad)
+    {
+        // Cancel pending Async if any
+        if (bPendingJsonLoader){
+            asyncTaskJsonLoader.cancel(true);
+        }
+        if(bPendingBmpLoader){
+            asyncTaskBmpLoader.cancel(true);
+        }
+
+        // Launch new Async task
+        currentLocationCode = cityCode;
+        currentDate = dateToLoad;
+        asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
+        bPendingJsonLoader = Boolean.TRUE;
+        eventListArray.clear();
+        jsonArrayEventsLastReadIdx = 0;
+
+        // Log Firebase
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "FetchCode");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, cityCode);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+        return Boolean.TRUE;
+    }
+
+    private Boolean LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
+    {
+        // Cancel pending Async if any
+        if(bPendingBmpLoader){
+            asyncTaskBmpLoader.cancel(true);
+        }
+
+        // Launch new Async task
+        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
+        bPendingBmpLoader =Boolean.TRUE;
+        return Boolean.TRUE;
+    }
+
+    /*
+    AsynCommunications: RX
+     */
+    public void ReceiveBmpListAsync(ArrayList<Bitmap> bmpList){
+        if (!bPendingBmpLoader){
+            throw new AssertionError("Unexpected BMP batch received");
+        }
+
+        // Process new BMP batch
+        int offset = eventListArray.size()-bmpList.size();
+        for(int i = 0; i < bmpList.size(); i++){
+            EventInstance eventInstance = eventListArray.get(i+offset);
+            eventInstance.bmp = bmpList.get(i);
+            eventListArray.set(i+offset, eventInstance);
+        }
+        eventListAdapter.notifyDataSetChanged();
+        bPendingBmpLoader = Boolean.FALSE;
+    }
+
+    public void ReceiveJsonResponseAsync(String json){
+        if (!bPendingJsonLoader){
+            throw new AssertionError("Unexpected JSON received");
+        }
+
+        // Process new JSon
+        try {
+            JSONObject obj = new JSONObject(json);
+            jsonArrayEvents = obj.getJSONArray("data");
+            jsonArrayAuthors = new JSONArray();
+            boolean jsonHasAuthors = obj.has("authors");
+            if(jsonHasAuthors){
+                jsonArrayAuthors = obj.getJSONArray("authors");
+            }
+            PopulateTimeline_();
+            // Pre-load ads for this json
+            adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        // eventListAdapter.notifyDataSetChanged();
+        bPendingJsonLoader = Boolean.FALSE;
+    }
+
+    public void ReceiveNewLocationFromGPS(Location location){
+        if(location!=null && bPendingGpsUpdate) {
+            float latitude = (float) location.getLatitude();
+            float longitude = (float) location.getLongitude();
+            RefreshListViewFromGeo_(latitude, longitude);
+            bPendingGpsUpdate = false;
+        }
+    }
+
+    /*
+    Handlers for click on elements in ItemView
      */
     public void EventClickOpenUrl(int position){
         EventInstance eventInstance = eventListArray.get(position - GetNumLoadedAds(position));
@@ -752,7 +757,6 @@ public class Main2Activity extends AppCompatActivity
     }
 
     String TextViewExpandableGetShort_(String text){
-        String shortText = "";
         int breakIdx = 0;
         int nNewLines = 0;
         boolean bTimeToBreak = false;
@@ -769,6 +773,21 @@ public class Main2Activity extends AppCompatActivity
                 break;
             }
         }
-        return text.substring(0, breakIdx) + " ᠁";
+        return text.substring(0, breakIdx) + " ᠁ " + k_readmoreInBold;
     }
+
+/*
+Depreciated APIs
+ */
+    /*
+    private boolean isTwitterAppInstalled(){
+        try{
+            ApplicationInfo info = this.getPackageManager().
+                    getApplicationInfo("com.twitter.android", 0 );
+            return true;
+        } catch( PackageManager.NameNotFoundException e ){
+            return false;
+        }
+    }
+    */
 }
