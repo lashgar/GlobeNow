@@ -18,11 +18,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Dynamic loading of events on scroll down&#10;- warning: syncronization should be measured">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_16_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/GPSTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/GPSTracker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
@@ -58,8 +53,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="258" column="47" selection-start-line="258" selection-start-column="47" selection-end-line="258" selection-end-column="47" />
+            <state relative-caret-position="135">
+              <caret line="541" column="96" selection-start-line="541" selection-start-column="96" selection-end-line="541" selection-end-column="96" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4827#4874#0" expanded="true" />
@@ -2975,7 +2970,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541372635353</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)">
+      <created>1541380580281</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1541380580281</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3052,7 +3054,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add instagram support" />
     <MESSAGE value="Cache last location&#10;- Fix locationPicker bug" />
     <MESSAGE value="Support dead event&#10;- Address warnings" />
     <MESSAGE value="Refactor to separate Json loading and Image loading&#10;- Preparing to load more on scroll down&#10;- CustomListAdapter is not used anymore" />
@@ -3077,7 +3078,8 @@
     <MESSAGE value="Tune font size and family&#10;- Switch to use Corbel font family&#10;- Increase text view limit to 140" />
     <MESSAGE value="Replace ViewItem callback with callbacks per element&#10;- Address warning messages" />
     <MESSAGE value="Change app theme to plain white and sky blue&#10;- Move banner initialization to dedicated initializer&#10;- Add sky-blue logos&#10;- Add fonts (missing from previous commit)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change app theme to plain white and sky blue&#10;- Move banner initialization to dedicated initializer&#10;- Add sky-blue logos&#10;- Add fonts (missing from previous commit)" />
+    <MESSAGE value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3442,8 +3444,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="258" column="47" selection-start-line="258" selection-start-column="47" selection-end-line="258" selection-end-column="47" />
+        <state relative-caret-position="135">
+          <caret line="541" column="96" selection-start-line="541" selection-start-column="96" selection-end-line="541" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4827#4874#0" expanded="true" />

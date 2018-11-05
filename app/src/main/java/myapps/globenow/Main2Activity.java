@@ -539,7 +539,7 @@ public class Main2Activity extends AppCompatActivity
                 newEntry.authorid = authorId;
                 newEntry.ml_rating = ml_rating;
                 newEntry.prettyauthor = author;
-                newEntry.bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.loading);
+                newEntry.bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.loadinggrey);
                 newEntry.bExpanded = bExpanded;
                 newEntry.textShort = textShort;
 
