@@ -18,6 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Dynamic loading of events on scroll down&#10;- warning: syncronization should be measured">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
@@ -53,29 +54,29 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="541" column="96" selection-start-line="541" selection-start-column="96" selection-end-line="541" selection-end-column="96" />
+            <state relative-caret-position="170">
+              <caret line="137" column="8" selection-start-line="137" selection-start-column="8" selection-end-line="137" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4827#4874#0" expanded="true" />
-                <element signature="e#4983#5380#0" expanded="true" />
-                <element signature="e#5379#5380#0" expanded="true" />
-                <element signature="e#5414#5733#0" expanded="true" />
-                <element signature="e#5732#5733#0" expanded="true" />
-                <element signature="e#7811#9135#0" expanded="true" />
-                <element signature="e#9134#9135#0" expanded="true" />
-                <element signature="e#9860#10455#0" expanded="true" />
-                <element signature="e#10454#10455#0" expanded="true" />
-                <element signature="e#10596#11192#0" expanded="true" />
-                <element signature="e#11191#11192#0" expanded="true" />
-                <element signature="e#11633#11940#0" expanded="true" />
-                <element signature="e#11939#11940#0" expanded="true" />
-                <element signature="e#12087#12700#0" expanded="true" />
-                <element signature="e#12699#12700#0" expanded="true" />
-                <element signature="e#13114#13552#0" expanded="true" />
-                <element signature="e#13551#13552#0" expanded="true" />
-                <element signature="e#13798#13926#0" expanded="true" />
-                <element signature="e#13925#13926#0" expanded="true" />
+                <element signature="e#5330#5377#0" expanded="true" />
+                <element signature="e#5486#5883#0" expanded="true" />
+                <element signature="e#5882#5883#0" expanded="true" />
+                <element signature="e#5917#6236#0" expanded="true" />
+                <element signature="e#6235#6236#0" expanded="true" />
+                <element signature="e#8314#9638#0" expanded="true" />
+                <element signature="e#9637#9638#0" expanded="true" />
+                <element signature="e#10363#10958#0" expanded="true" />
+                <element signature="e#10957#10958#0" expanded="true" />
+                <element signature="e#11099#11694#0" expanded="true" />
+                <element signature="e#11693#11694#0" expanded="true" />
+                <element signature="e#12135#12442#0" expanded="true" />
+                <element signature="e#12441#12442#0" expanded="true" />
+                <element signature="e#12589#13202#0" expanded="true" />
+                <element signature="e#13201#13202#0" expanded="true" />
+                <element signature="e#13616#14054#0" expanded="true" />
+                <element signature="e#14053#14054#0" expanded="true" />
+                <element signature="e#14300#14428#0" expanded="true" />
+                <element signature="e#14427#14428#0" expanded="true" />
                 <element signature="e#29391#29392#0" expanded="true" />
                 <element signature="e#29430#29431#0" expanded="true" />
               </folding>
@@ -2977,7 +2978,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541380580281</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update loading logo to grey">
+      <created>1541380721635</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1541380721635</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3054,7 +3062,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cache last location&#10;- Fix locationPicker bug" />
     <MESSAGE value="Support dead event&#10;- Address warnings" />
     <MESSAGE value="Refactor to separate Json loading and Image loading&#10;- Preparing to load more on scroll down&#10;- CustomListAdapter is not used anymore" />
     <MESSAGE value="Fix bug in refactor" />
@@ -3079,7 +3086,8 @@
     <MESSAGE value="Replace ViewItem callback with callbacks per element&#10;- Address warning messages" />
     <MESSAGE value="Change app theme to plain white and sky blue&#10;- Move banner initialization to dedicated initializer&#10;- Add sky-blue logos&#10;- Add fonts (missing from previous commit)" />
     <MESSAGE value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
+    <MESSAGE value="Update loading logo to grey" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update loading logo to grey" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3444,29 +3452,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="541" column="96" selection-start-line="541" selection-start-column="96" selection-end-line="541" selection-end-column="96" />
+        <state relative-caret-position="170">
+          <caret line="137" column="8" selection-start-line="137" selection-start-column="8" selection-end-line="137" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4827#4874#0" expanded="true" />
-            <element signature="e#4983#5380#0" expanded="true" />
-            <element signature="e#5379#5380#0" expanded="true" />
-            <element signature="e#5414#5733#0" expanded="true" />
-            <element signature="e#5732#5733#0" expanded="true" />
-            <element signature="e#7811#9135#0" expanded="true" />
-            <element signature="e#9134#9135#0" expanded="true" />
-            <element signature="e#9860#10455#0" expanded="true" />
-            <element signature="e#10454#10455#0" expanded="true" />
-            <element signature="e#10596#11192#0" expanded="true" />
-            <element signature="e#11191#11192#0" expanded="true" />
-            <element signature="e#11633#11940#0" expanded="true" />
-            <element signature="e#11939#11940#0" expanded="true" />
-            <element signature="e#12087#12700#0" expanded="true" />
-            <element signature="e#12699#12700#0" expanded="true" />
-            <element signature="e#13114#13552#0" expanded="true" />
-            <element signature="e#13551#13552#0" expanded="true" />
-            <element signature="e#13798#13926#0" expanded="true" />
-            <element signature="e#13925#13926#0" expanded="true" />
+            <element signature="e#5330#5377#0" expanded="true" />
+            <element signature="e#5486#5883#0" expanded="true" />
+            <element signature="e#5882#5883#0" expanded="true" />
+            <element signature="e#5917#6236#0" expanded="true" />
+            <element signature="e#6235#6236#0" expanded="true" />
+            <element signature="e#8314#9638#0" expanded="true" />
+            <element signature="e#9637#9638#0" expanded="true" />
+            <element signature="e#10363#10958#0" expanded="true" />
+            <element signature="e#10957#10958#0" expanded="true" />
+            <element signature="e#11099#11694#0" expanded="true" />
+            <element signature="e#11693#11694#0" expanded="true" />
+            <element signature="e#12135#12442#0" expanded="true" />
+            <element signature="e#12441#12442#0" expanded="true" />
+            <element signature="e#12589#13202#0" expanded="true" />
+            <element signature="e#13201#13202#0" expanded="true" />
+            <element signature="e#13616#14054#0" expanded="true" />
+            <element signature="e#14053#14054#0" expanded="true" />
+            <element signature="e#14300#14428#0" expanded="true" />
+            <element signature="e#14427#14428#0" expanded="true" />
             <element signature="e#29391#29392#0" expanded="true" />
             <element signature="e#29430#29431#0" expanded="true" />
           </folding>

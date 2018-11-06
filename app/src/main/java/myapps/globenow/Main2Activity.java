@@ -3,6 +3,7 @@ package myapps.globenow;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -131,6 +132,9 @@ public class Main2Activity extends AppCompatActivity
     @brief called from OnCreate to initialize modules
      */
     private void initializeMainActivity(){
+        // Screen setup
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        
         // Initialize Firebase
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
