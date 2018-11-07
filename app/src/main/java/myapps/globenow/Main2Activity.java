@@ -134,7 +134,7 @@ public class Main2Activity extends AppCompatActivity
     private void initializeMainActivity(){
         // Screen setup
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        
+
         // Initialize Firebase
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
