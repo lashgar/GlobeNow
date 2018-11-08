@@ -732,17 +732,29 @@ public class Main2Activity extends AppCompatActivity
     }
 
     boolean IsAdPosition(int position) {
+        // Load only one ad atm
         int positionRemainder = (position % GetEventToAdRatio());
+        return (positionRemainder == k_adLocationOrder) && (GetNumLoadedAds(position) == 0);
+        /*
         return positionRemainder == k_adLocationOrder;
+        */
     }
 
     int GetNumLoadedAds(int position){
+        // Load only one ad atm
+        if (position <= k_adLocationOrder){
+            return 0;
+        }else{
+            return 1;
+        }
+        /*
         int positionRemainder = (position % GetEventToAdRatio());
         int nAdsSoFar = position / GetEventToAdRatio();
         if (positionRemainder > k_adLocationOrder) {
             nAdsSoFar += 1;
         }
         return nAdsSoFar;
+        */
     }
 
     /*
