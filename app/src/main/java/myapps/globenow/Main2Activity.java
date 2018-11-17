@@ -185,7 +185,7 @@ public class Main2Activity extends AppCompatActivity
 
         // Set ListView Adapter
         eventListArray = new ArrayList<>();
-        eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.textView2, eventListArray);
+        eventListAdapter = new EventListAdapter(this, R.layout.listview_row_noimage, R.id.wo_contentTextView, eventListArray);
         timeLineListView = findViewById(R.id.ListView1);
         timeLineListView.setAdapter(eventListAdapter);
         jsonLoader = new LoadTodayJson(this);
@@ -684,16 +684,14 @@ public class Main2Activity extends AppCompatActivity
         } else if (sourceUrl.equals("")) {
             Toast.makeText(this, "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
         } else {
-            if (eventInstance.bExpanded) {
-                // Open a URL
-                final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
-                if (bOpenUrlWithChrome) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
-                    startActivity(browserIntent);
-                } else {
-                    Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
-                    startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
-                }
+            // Open a URL
+            final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
+            if (bOpenUrlWithChrome) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
+                startActivity(browserIntent);
+            } else {
+                Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
+                startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
             }
         }
     }
@@ -705,15 +703,19 @@ public class Main2Activity extends AppCompatActivity
             // AdView text is not collapse
             // no need to handle expand
         } else {
-            if (eventInstance.bExpanded) {
-                // Already expanded. Do nothing for now.
-                // Flip back to collapse?
-            } else {
-                // Expand
-                eventInstance.bExpanded = true;
-                eventListAdapter.notifyDataSetChanged();
-            }
+            // collapse if expanded, expand if collapsed
+            eventInstance.bExpanded = !eventInstance.bExpanded;
+            eventListAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void EventClickShare(int position) {
+        EventInstance eventInstance = eventListArray.get(position - GetNumLoadedAds(position));
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check this out: "+eventInstance.url + " via GlobeNow Android App");
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, "Share link via"));
     }
 
     /*

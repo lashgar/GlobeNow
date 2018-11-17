@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,52 +59,67 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             // Convert adView to View
             rowView = adView;
         }
-        else if(!eventInstance.media.equals("") && !eventInstance.media.equals("none"))
-        {
-            // Inflate view with image layout
-            LayoutInflater inflater=context.getLayoutInflater();
-            rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
-
-            // Get layout elements
-            TextView bodyTextField = rowView.findViewById(R.id.textView8);
-            TextView headerTextField = rowView.findViewById(R.id.textView9);
-            ImageView imageView = rowView.findViewById(R.id.imageView6);
+        else{
+            // Common elements
+            TextView bodyTextField;
+            TextView headerTextField;
+            ImageButton shareButton;
+            ImageButton openButton;
+            boolean bLoadImage =!eventInstance.media.equals("") && !eventInstance.media.equals("none");
+            if(bLoadImage)
+            {
+                // Inflate view with image layout
+                LayoutInflater inflater=context.getLayoutInflater();
+                rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
+                // Get layout elements
+                bodyTextField = rowView.findViewById(R.id.wi_contentTextView);
+                headerTextField = rowView.findViewById(R.id.wi_authorTextView);
+                shareButton = rowView.findViewById(R.id.wi_shareButton);
+                openButton = rowView.findViewById(R.id.wi_openButton);
+                ImageView imageView = rowView.findViewById(R.id.imageView6);
+                // Fill the image
+                imageView.setImageBitmap(eventInstance.bmp);
+            }
+            else
+            {
+                // Inflate view with no-image layout
+                LayoutInflater inflater=context.getLayoutInflater();
+                rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout
+                // Get layout elements
+                bodyTextField = rowView.findViewById(R.id.wo_contentTextView);
+                headerTextField = rowView.findViewById(R.id.wo_authorTextView);
+                shareButton = rowView.findViewById(R.id.wo_shareButton);
+                openButton = rowView.findViewById(R.id.wo_openButton);
+            }
 
             // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
             bodyTextField.setText(textBody);
-            String author = "By "+eventInstance.prettyauthor;
+            boolean bLongAutohrName = eventInstance.prettyauthor.length()>25;
+            String sanitizedAuthorName = bLongAutohrName? eventInstance.prettyauthor.substring(0,25) + " ᠁": eventInstance.prettyauthor;
+            String author = "By " + sanitizedAuthorName;
             headerTextField.setText(author);
-            imageView.setImageBitmap(eventInstance.bmp);
 
             // Attach callbacks to view
             bodyTextField.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    main2Activity.EventClickOpenUrl(position);
                     // Do expand/collapse after OpenUrl to allow one click before OpenUrl
-                    // TODO: EvenClickOpenUrl will move to a OPEN-Button callback eventually
                     main2Activity.EventClickExpandCollapseText(position);
                 }
             });
-        }
-        else
-        {
-            // Inflate view with no-image layout
-            LayoutInflater inflater=context.getLayoutInflater();
-            rowView=inflater.inflate(R.layout.listview_row_noimage, null,true); // specify the desired layout
-
-            // Get layout elements
-            TextView nameTextField = rowView.findViewById(R.id.textView2);
-            TextView infoTextField = rowView.findViewById(R.id.textView3);
-
-            // Fill the event in view
-            String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
-            nameTextField.setText(textBody);
-            String author = "By "+eventInstance.prettyauthor;
-            infoTextField.setText(author);
-
-            // Attach callbacks
+            shareButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    main2Activity.EventClickShare(position);
+                }
+            });
+            openButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    main2Activity.EventClickOpenUrl(position);
+                }
+            });
         }
         return rowView;
     }

@@ -3,6 +3,7 @@ package myapps.globenow;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,7 +20,9 @@ public class WebViewActivity extends Activity {
         String url = intent.getStringExtra("urlToShow");
         // Enable javascript: Should not be any vulnerability concern
         // as the targets are only a limited set of domains: Twitter or Instagram atm
+        Log.d("WebView", "URL: "+url);
         m_webView.getSettings().setJavaScriptEnabled(true);
+        m_webView.getSettings().setDomStorageEnabled(true);
         m_webView.loadUrl(url);
     }
 

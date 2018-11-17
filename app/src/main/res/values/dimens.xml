@@ -7,4 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dimenEventSizeBodyText">14sp</dimen>
     <dimen name="dimenEventSizeHeaderText">14sp</dimen>
+    <dimen name="buttonPadding">5dp</dimen>
+    <dimen name="buttonHeight">35dp</dimen>
 </resources>
