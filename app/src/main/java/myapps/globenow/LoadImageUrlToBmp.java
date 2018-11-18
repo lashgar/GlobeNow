@@ -16,7 +16,6 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -24,10 +23,10 @@ import java.util.ArrayList;
  * Created by Ahmad on 2017-11-28.
  */
 
-public class LoadImageUrlToBmp {
+class LoadImageUrlToBmp {
     //to reference the Activity
     private final Activity context;
-    public LoadImageUrlToBmp(Activity context){
+    LoadImageUrlToBmp(Activity context){
         this.context = context;
     }
 
@@ -36,39 +35,49 @@ public class LoadImageUrlToBmp {
         return BitmapFactory.decodeByteArray(data, 0, 3);
     }
     private Bitmap GetRoundedCornerBitmap_(Bitmap org) {
-        // scale image into view
+        // Calculate new dimension to fit in view
         Point p = new Point();
         context.getWindowManager().getDefaultDisplay().getSize(p);
         float rate = (float)(p.x-60)/(float)org.getWidth();
-        int neww = (int)(rate*org.getWidth());
-        int newh = (int)(rate*org.getHeight());
-        Bitmap bitmap = Bitmap.createScaledBitmap(org, neww, newh, false);
+        int newW = (int)(rate*org.getWidth());
+        int newH = (int)(rate*org.getHeight());
 
-        // round corners
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        // Scale image into view
+        Bitmap input = Bitmap.createScaledBitmap(org, newW, newH, false);
+        // Generate target BMP to return
+        Bitmap output = Bitmap.createBitmap(newW, newH, Bitmap.Config.ARGB_8888);
+
+        // Attach target to canvas
         Canvas canvas = new Canvas(output);
 
-        final int color = 0xff424242;
+        // Paint to use for styling draws
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = 120;
-
         paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        // Rounded rectangle Rect and RectF
+        final float k_roundPx = 120;
+        final Rect rectLarge = new Rect(0, 0, newW, newH);
+        final RectF rectFLarge = new RectF(rectLarge);
+
+        // Create mask
+        canvas.drawRoundRect(rectFLarge, k_roundPx, k_roundPx, paint);
+
+        // Draw bitmap through mask
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(input,
+            rectLarge /* subset of bitmap to draw */,
+            rectFLarge /* rectangle destination to fill */,
+            paint);
+
+        // Draw outline
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
+        canvas.drawRoundRect(rectFLarge, k_roundPx, k_roundPx, paint);
 
         return output;
     }
 
-    public AsyncTask<String, Void, ArrayList<Bitmap>> Load(String[] mediaUrls){
+    AsyncTask<String, Void, ArrayList<Bitmap>> Load(String[] mediaUrls){
         return new LoadImage().execute(mediaUrls);
     }
 
@@ -96,10 +105,8 @@ public class LoadImageUrlToBmp {
                 try {
                     URL mediaUrl = new URL(imageUrl);
                     bmp = GetRoundedCornerBitmap_(BitmapFactory.decodeStream(mediaUrl.openConnection().getInputStream()));
-                } catch (MalformedURLException ex) {
-                    Log.d("DownloadImage::doInBackground", ex.toString());
                 } catch (IOException ex) {
-                    Log.d("DownloadImage::doInBackground", ex.toString());
+                    Log.d("LDIMG::doInBackground", ex.toString());
                     // ex.printStackTrace();
                 }
                 bmpList.add(bmp);
@@ -109,7 +116,7 @@ public class LoadImageUrlToBmp {
                     break;
                 }
             }
-            Log.d("DownloadImage::doInBackground", "bmpList length:"+String.valueOf(bmpList.size()));
+            // Log.d("LDIMG::doInBackground", "bmpList length:"+String.valueOf(bmpList.size()));
             return bmpList;
         }
 
