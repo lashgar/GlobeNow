@@ -19,7 +19,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Move add to the bottom of timeline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
@@ -54,8 +53,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="106" column="12" lean-forward="true" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="12" />
+            <state relative-caret-position="340">
+              <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -3007,7 +3006,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542618979041</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Fix error/warnings">
+      <created>1542619762756</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1542619762756</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3084,7 +3090,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set minSdkVersion to 24 for Calendar support" />
     <MESSAGE value="Integrate Firebase" />
     <MESSAGE value="Activate Firebase analytics" />
     <MESSAGE value="Google AdMobs integration" />
@@ -3109,7 +3114,8 @@
     <MESSAGE value="Increment version after publish" />
     <MESSAGE value="Add outline to images" />
     <MESSAGE value="Do GPS right" />
-    <option name="LAST_COMMIT_MESSAGE" value="Do GPS right" />
+    <MESSAGE value="Fix error/warnings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix error/warnings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3489,8 +3495,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="106" column="12" lean-forward="true" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="12" />
+        <state relative-caret-position="340">
+          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

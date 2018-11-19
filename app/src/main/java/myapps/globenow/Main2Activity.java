@@ -108,7 +108,7 @@ public class Main2Activity extends AppCompatActivity
     private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
     private AdLoader adLoader;
     private final int k_eventToAdRatio = 10; // show one ad for every 10 events
-    private int k_adLocationOrder = 9 % k_eventToAdRatio;
+    private int k_adLocationOrder = 8 % k_eventToAdRatio;
 
     // Text View Expandable
     private final int k_textViewExpandableNNewLine = 2;
