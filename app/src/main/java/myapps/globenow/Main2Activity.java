@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.icu.util.Calendar;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -64,6 +63,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Calendar;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -147,7 +147,7 @@ public class Main2Activity extends AppCompatActivity
                     @Override
                     public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                         // Show the ad.
-                        Log.d("NewAd",unifiedNativeAd.getHeadline());
+                        // Log.d("NewAd",unifiedNativeAd.getHeadline());
                         unifiedNativeAdArrayList.add(unifiedNativeAd);
                     }
                 })
@@ -155,7 +155,7 @@ public class Main2Activity extends AppCompatActivity
                     @Override
                     public void onAdFailedToLoad(int errorCode) {
                         // Handle the failure by logging, altering the UI, and so on.
-                        Log.d("NewAd", "failed "+Integer.toString(errorCode));
+                        // Log.d("NewAd", "failed "+Integer.toString(errorCode));
                     }
                 })
                 .withNativeAdOptions(new NativeAdOptions.Builder()
@@ -623,7 +623,7 @@ public class Main2Activity extends AppCompatActivity
         }
 
         // Launch new Async task
-        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[mediaUrls.size()]));
+        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[0]));
         bPendingBmpLoader =Boolean.TRUE;
         return Boolean.TRUE;
     }
