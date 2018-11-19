@@ -47,6 +47,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -281,10 +282,19 @@ public class Main2Activity extends AppCompatActivity
                 // check if GPS enabled
                 if (!bPendingGpsUpdate) {
                     bPendingGpsUpdate = true;
+                    Log.d("VERBOSE", "Calling GPSTracker");
                     m_gpsTracker.getLocation(); // update location
                 }
             }
         });
+
+
+        // initialize Place picker
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(LocationServices.API)
+                .build();
 
         // Location picker button
         final View buttonExplore = findViewById(R.id.imageButton3);
@@ -300,12 +310,6 @@ public class Main2Activity extends AppCompatActivity
                 }
             }
         });
-
-        // initialize Place picker
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, 0, this)
-                .addApi(Places.GEO_DATA_API)
-                .build();
 
         // Calendar navigation
         Calendar newCalendar = Calendar.getInstance();
@@ -338,6 +342,12 @@ public class Main2Activity extends AppCompatActivity
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        mGoogleApiClient.disconnect();
+        super.onDestroy();
     }
 
     @Override
@@ -662,12 +672,14 @@ public class Main2Activity extends AppCompatActivity
     }
 
     public void ReceiveNewLocationFromGPS(Location location){
-        if(location!=null && bPendingGpsUpdate) {
+        if(location!=null){
             float latitude = (float) location.getLatitude();
             float longitude = (float) location.getLongitude();
             RefreshListViewFromGeo_(latitude, longitude);
-            bPendingGpsUpdate = false;
+        }else{
+            Log.d("VERBOSE", "Location is null");
         }
+        bPendingGpsUpdate = false;
     }
 
     /*
