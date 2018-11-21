@@ -33,7 +33,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.google.android.gms.ads.AdListener;
@@ -215,7 +214,7 @@ public class Main2Activity extends AppCompatActivity
                     bPendingBmpLoader = Boolean.TRUE;
                     PopulateTimeline_();
                     // eventListAdapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), "Loading more events", Toast.LENGTH_LONG).show();
+                    FloatPrompt.Show(getApplicationContext(), "Loading more events");
                 }
             }
         });
@@ -365,7 +364,7 @@ public class Main2Activity extends AppCompatActivity
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getApplicationContext(), "connection failed", Toast.LENGTH_LONG).show();
+        FloatPrompt.Show(getApplicationContext(), "connection failed");
     }
 
     @Override
@@ -440,7 +439,8 @@ public class Main2Activity extends AppCompatActivity
 
             if (distance > 40) {
                 // note distance
-                Toast.makeText(getApplicationContext(), "Our app is not tailored for this area, we show results of the closest city: " + cityName + " (" + Float.toString(distance) + " km away)", Toast.LENGTH_LONG).show();
+                FloatPrompt.Show(getApplicationContext(), "Oops location not covered");
+                FloatPrompt.Show(getApplicationContext(), "Showing nearest location");
             }
             townName.setText(cityName);
         }
@@ -694,7 +694,7 @@ public class Main2Activity extends AppCompatActivity
             extraInfo.putString("itemClicked", "ad_media");
             GetAd(GetNumLoadedAds(position)).performClick(extraInfo);
         } else if (sourceUrl.equals("")) {
-            Toast.makeText(this, "Sorry! No extra information is available on this event.", Toast.LENGTH_LONG).show();
+            FloatPrompt.Show(this, "No link to open");
         } else {
             // Open a URL
             final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings

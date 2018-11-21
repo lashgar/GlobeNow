@@ -10,7 +10,7 @@
     <color name="greendark">#005500</color>
     <color name="colorEventBodyText">@color/navybluedark</color>
     <color name="colorEventHeaderText">@color/navybluedark</color>
-    <color name="colorSkyBlue">#50767f</color>
+    <color name="colorSkyBlue">#ffb1C6cf</color>
     <color name="colorSkyBlueDark">#394e57</color>
     <color name="colorTitleBar">@color/colorSkyBlueDark</color>
 </resources>

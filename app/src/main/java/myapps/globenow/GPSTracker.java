@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -104,7 +103,7 @@ class GPSTracker {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("GPSTracker", "Failed to request location");
-                Toast.makeText(mContext, "GPS unavailable", Toast.LENGTH_LONG).show();
+                FloatPrompt.Show(mContext, "GPS unavailable");
             }
         });
     }
@@ -253,7 +252,6 @@ class GPSTracker {
                 minIdx = i;
             }
         }
-        // Toast.makeText(getApplicationContext(), "Returning location", Toast.LENGTH_LONG).show();
         // Log.d("GPS", "Distance from the closest city is "+Double.toString(mindistance));
         // Log.d("GPS", "city coordinates> "+Double.toString(lats[minidx])+" "+Double.toString(lngs[minidx]));
         // Log.d("GPS", "user coordinates> "+Double.toString(latitude)+" "+Double.toString(longitude));
@@ -272,7 +270,7 @@ class GPSTracker {
 
             if (!isGPSEnabled) {
                 // no network provider is enabled
-                Toast.makeText(mContext, "GPS disabled", Toast.LENGTH_LONG).show();
+                FloatPrompt.Show(mContext, "GPS disabled");
                 Log.d("GPSTracker", "No network, no GPS");
                 main2Activity.ReceiveNewLocationFromGPS(null);
             } else {
@@ -312,7 +310,6 @@ class GPSTracker {
             e.printStackTrace();
             main2Activity.ReceiveNewLocationFromGPS(null);
         }
-        // Toast.makeText(getApplicationContext(), "Returning location", Toast.LENGTH_LONG).show();
         return null;
     }
 }
