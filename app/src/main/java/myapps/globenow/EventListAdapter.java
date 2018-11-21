@@ -23,7 +23,7 @@ import java.util.List;
 public class EventListAdapter extends ArrayAdapter<EventInstance> {
     private Activity context;
 
-    public EventListAdapter(Activity context, int resource, int textViewID, List<EventInstance> eventsList){
+    EventListAdapter(Activity context, int resource, int textViewID, List<EventInstance> eventsList){
         super(context, resource, textViewID, eventsList);
         this.context=context;
     }

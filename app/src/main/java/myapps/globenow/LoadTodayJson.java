@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
  * Created by Ahmad on 2017-11-28.
  */
 
-public class LoadTodayJson {
+class LoadTodayJson {
     //to reference the Activity
     private final Activity context;
 
