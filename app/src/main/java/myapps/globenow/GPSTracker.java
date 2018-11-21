@@ -272,7 +272,6 @@ class GPSTracker {
                 // no network provider is enabled
                 FloatPrompt.Show(mContext, "GPS disabled");
                 Log.d("GPSTracker", "No network, no GPS");
-                main2Activity.ReceiveNewLocationFromGPS(null);
             } else {
                 if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -284,7 +283,7 @@ class GPSTracker {
 
                 // If GPS Enabled get lat/long using GPS Services
                 Log.d("GPSTracker", "GPS Enabled");
-                return mFusedLocationClient.getLastLocation()
+                mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(new OnSuccessListener<Location>() {
                             @Override
                             public void onSuccess(Location location) {
@@ -308,8 +307,8 @@ class GPSTracker {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            main2Activity.ReceiveNewLocationFromGPS(null);
         }
+        main2Activity.ReceiveNewLocationFromGPS(null);
         return null;
     }
 }
