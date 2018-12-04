@@ -1,6 +1,7 @@
 package myapps.globenow;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -17,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +30,11 @@ import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
@@ -98,7 +104,6 @@ public class Main2Activity extends AppCompatActivity
     private AsyncTask<String, Void, String> asyncTaskJsonLoader;
     private AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
     private int jsonArrayEventsLastReadIdx;
-    private final int k_maxFetchPerRound = 10;   // number of events to load every round
 
     // Statistics
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -114,11 +119,14 @@ public class Main2Activity extends AppCompatActivity
     private final int k_textViewExpandableNChars = 140;
     // Source: https://unicode-table.com/en/#1D41E
     // private final String k_ReadMoreInBold = "\uD835\uDC11\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC0C\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
-    private final String k_readmoreInBold = "\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
 
     // GPS Tracker
     GPSTracker m_gpsTracker = null;
     boolean bPendingGpsUpdate = false;
+
+    // Search
+    String searchQueryString = "";
+    // boolean bSearchInProgress  = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,15 +227,6 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-        /*
-        Depreciated; individual elements have callback now
-        timeLineListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // EventClickOpenUrl(position);
-            }
-        });
-        */
         Log.d("LOADER", "Initialized");
     }
 
@@ -287,7 +286,6 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-
         // initialize Place picker
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0, this)
@@ -310,6 +308,48 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+        // SEARCH EVENTS
+        SearchBoxHide_();
+        SearchReset(); // clear up the current query
+
+        // Search button callback
+        final View buttonSearch = findViewById(R.id.imageButton4);
+        buttonSearch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                SearchBoxShow_();
+            }
+        });
+
+        // Managing search box
+        final EditText searchQueryEditBox = findViewById(R.id.searchQuery);
+        searchQueryEditBox.setOnEditorActionListener(
+            new EditText.OnEditorActionListener(){
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                            actionId == EditorInfo.IME_ACTION_DONE ||
+                            event != null &&
+                            event.getAction() == KeyEvent.ACTION_DOWN &&
+                            event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        if (event == null || !event.isShiftPressed()) {
+                            // The user is done typing.
+                            SearchSetQuery_(v.getText().toString());
+                            // remove search box
+                            SearchBoxHide_();
+                            // Load into pipeline
+                            FlushTimeline_(); // FIXME: this does not flush timeline
+                            TextSwitcher tw = findViewById(R.id.TextBoxDate);
+                            TextView tv = (TextView)tw.getCurrentView();
+                            FloatPrompt.Show(v.getContext(), "Searching " + tv.getText().toString());
+                            PopulateTimeline_();
+                            return true; // consume.
+                        }
+                    }
+                    return false;
+                }
+            }
+        );
+
         // Calendar navigation
         Calendar newCalendar = Calendar.getInstance();
         final DatePickerDialog  StartTime = new DatePickerDialog(this, R.style.datepicker,
@@ -329,6 +369,71 @@ public class Main2Activity extends AppCompatActivity
                 StartTime.show();
             }
         });
+    }
+
+    /*
+     * Search related routines
+     */
+    public void SearchBoxHide_()
+    {
+        LinearLayout searchLayout = findViewById(R.id.searchLayout);
+        searchLayout.setVisibility(LinearLayout.GONE);
+        EditText searchQueryEditBox = findViewById(R.id.searchQuery);
+        searchQueryEditBox.clearFocus();
+
+        // remove keyboard
+        InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(searchQueryEditBox.getWindowToken(), 0);
+        }
+    }
+
+    private void SearchBoxShow_()
+    {
+        LinearLayout searchLayout = findViewById(R.id.searchLayout);
+        searchLayout.setVisibility(LinearLayout.VISIBLE);
+        TextView prompt = findViewById(R.id.searchInteractivePrompt);
+        prompt.setText(getResources().getString(R.string.searchFirstPrompt));
+
+        // set focus to EditBox
+        final EditText searchQueryEditBox = findViewById(R.id.searchQuery);
+        searchQueryEditBox.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(searchQueryEditBox, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    private static boolean SearchString(String src, String what) {
+        // Coded by: https://stackoverflow.com/a/25379180/1501388
+        final int length = what.length();
+        if (length == 0)
+            return true; // Empty string is contained
+
+        final char firstLo = Character.toLowerCase(what.charAt(0));
+        final char firstUp = Character.toUpperCase(what.charAt(0));
+
+        for (int i = src.length() - length; i >= 0; i--) {
+            // Quick check before calling the more expensive regionMatches() method:
+            final char ch = src.charAt(i);
+            if (ch != firstLo && ch != firstUp)
+                continue;
+
+            if (src.regionMatches(true, i, what, 0, length))
+                return true;
+        }
+
+        return false;
+    }
+
+    private void SearchReset()
+    {
+        searchQueryString = "";
+    }
+
+    private void SearchSetQuery_(String keyWord)
+    {
+        searchQueryString = keyWord;
     }
 
     @Override
@@ -481,6 +586,7 @@ public class Main2Activity extends AppCompatActivity
 
     private void PopulateTimeline_()
     {
+        final int k_maxFetchPerRound = 10;   // number of events to load every round
         // Process new JSon
         try
         {
@@ -495,7 +601,7 @@ public class Main2Activity extends AppCompatActivity
 
                 // Verify state
                 String status = jo_inside.getString("status");
-                if(status.equals("merged") || status.equals("dead")){
+                if( status.equals("merged") || status.equals("dead")){
                     // redundant; no need to include this entry
                     continue;
                 }
@@ -503,6 +609,14 @@ public class Main2Activity extends AppCompatActivity
                 // get author, text, ml_rating and media
                 String author = jo_inside.getString("prettyauthor");
                 String text = jo_inside.getString("prettytext");
+                if (!searchQueryString.equals(""))
+                {
+                    if (!SearchString(text, searchQueryString)){
+                        // This should not be shown in results
+                        continue;
+                    }
+
+                }
                 boolean bExpanded = !TextViewExpandableIsLong_(text);
                 String textShort = TextViewExpandableGetShort_(text);
                 List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(",")); // FIXME: not tested
@@ -563,10 +677,15 @@ public class Main2Activity extends AppCompatActivity
                 // Update stats
                 nEnqueued+=1;
             }
-            // Invoke image loader and fetch images
-            Log.d("MainThread", "evenListArray size: "+String.valueOf(eventListArray.size()));
-            Log.d("MainThread", "mediaUrl size: "+String.valueOf(mediaUrls.size()));
-            boolean bLunchSuccess = LaunchAsyncBmpLoader_(mediaUrls);
+            if (eventListArray.size() == 0) {
+                // Show no event found
+                FloatPrompt.Show(this, "No event found");
+            }else{
+                // Invoke image loader and fetch images
+                Log.d("MainThread", "evenListArray size: " + String.valueOf(eventListArray.size()));
+                Log.d("MainThread", "mediaUrl size: " + String.valueOf(mediaUrls.size()));
+            }
+            LaunchAsyncBmpLoader_(mediaUrls);
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -584,6 +703,14 @@ public class Main2Activity extends AppCompatActivity
         editor.apply();
     }
 
+    private void FlushTimeline_()
+    {
+        timeLineListView.smoothScrollToPosition(0);
+        eventListArray.clear();
+        jsonArrayEventsLastReadIdx = 0;
+        eventListAdapter.notifyDataSetChanged();
+    }
+
     /*
     AsyncCommunications: TX
      */
@@ -596,14 +723,15 @@ public class Main2Activity extends AppCompatActivity
         if(bPendingBmpLoader){
             asyncTaskBmpLoader.cancel(true);
         }
+        FloatPrompt.Show(this, "Loading events");
 
         // Launch new Async task
+        FlushTimeline_();
+        SearchReset();
         currentLocationCode = cityCode;
         currentDate = dateToLoad;
         asyncTaskJsonLoader = jsonLoader.updateListView(currentLocationCode, currentDate);
         bPendingJsonLoader = Boolean.TRUE;
-        eventListArray.clear();
-        jsonArrayEventsLastReadIdx = 0;
 
         // Log Firebase
         Bundle bundle = new Bundle();
@@ -615,7 +743,7 @@ public class Main2Activity extends AppCompatActivity
         return Boolean.TRUE;
     }
 
-    private Boolean LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
+    private void LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
     {
         // Cancel pending Async if any
         if(bPendingBmpLoader){
@@ -625,7 +753,6 @@ public class Main2Activity extends AppCompatActivity
         // Launch new Async task
         asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[0]));
         bPendingBmpLoader =Boolean.TRUE;
-        return Boolean.TRUE;
     }
 
     /*
@@ -667,7 +794,6 @@ public class Main2Activity extends AppCompatActivity
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-        // eventListAdapter.notifyDataSetChanged();
         bPendingJsonLoader = Boolean.FALSE;
     }
 
@@ -710,11 +836,7 @@ public class Main2Activity extends AppCompatActivity
 
     public void EventClickExpandCollapseText(int position){
         EventInstance eventInstance = eventListArray.get(position - GetNumLoadedAds(position));
-        String sourceUrl = eventInstance.url;
-        if (IsAdPosition(position)) {
-            // AdView text is not collapse
-            // no need to handle expand
-        } else {
+        if (!IsAdPosition(position)) {
             // collapse if expanded, expand if collapsed
             eventInstance.bExpanded = !eventInstance.bExpanded;
             eventListAdapter.notifyDataSetChanged();
@@ -787,6 +909,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
     String TextViewExpandableGetShort_(String text){
+        final String k_readMoreInBold = "\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
         int breakIdx = 0;
         int nNewLines = 0;
         boolean bTimeToBreak = false;
@@ -803,21 +926,6 @@ public class Main2Activity extends AppCompatActivity
                 break;
             }
         }
-        return text.substring(0, breakIdx) + " ᠁ " + k_readmoreInBold;
+        return text.substring(0, breakIdx) + " ᠁ " + k_readMoreInBold;
     }
-
-/*
-Depreciated APIs
- */
-    /*
-    private boolean isTwitterAppInstalled(){
-        try{
-            ApplicationInfo info = this.getPackageManager().
-                    getApplicationInfo("com.twitter.android", 0 );
-            return true;
-        } catch( PackageManager.NameNotFoundException e ){
-            return false;
-        }
-    }
-    */
 }

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">@color/colorSkyBlueDark</color>
     <color name="colorAccent">#866872</color>
     <color name="whiteTransparent">#0affffff</color>
+    <color name="white">#ffffff</color>
     <color name="Kerem">#faf2ab</color>
     <color name="navyblue">#0000B5</color>
     <color name="navybluedark">#000055</color>

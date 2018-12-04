@@ -30,25 +30,73 @@
                 android:layout_height="wrap_content"/>
 
         </android.support.design.widget.AppBarLayout>
-
-        <ListView
-            android:id="@+id/ListView1"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"
-            android:divider="#f0f0ff"
-            android:dividerHeight="1dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1.0">
+            <ListView
+                android:id="@+id/ListView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#f0f0ff"
+                android:dividerHeight="1dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
 
+
+            <LinearLayout
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/searchPanHeight"
+                android:orientation="vertical"
+                android:layout_gravity="top|center_horizontal"
+                android:paddingLeft="@dimen/searchPanPadding"
+                android:paddingRight="@dimen/searchPanPadding"
+                android:paddingTop="@dimen/searchPanPadding"
+                android:paddingBottom="@dimen/searchPanPadding"
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="top|center_horizontal"
+                    android:background="@drawable/rounded_all_corners">
+                    <TextView
+                        android:id="@+id/searchInteractivePrompt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/searchPanHeightPrompt"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/corbelb"
+                        android:textSize="@dimen/searchPromptSize"
+                        android:textColor="@color/white"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/searchPanHeightEditBox"
+                        android:orientation="horizontal">
+                        <myapps.globenow.CustomEditText
+                            android:id="@+id/searchQuery"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/corbelb"
+                            android:textSize="@dimen/searchTextSize"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:hint="@string/searchEditBoxHint"
+                            android:ellipsize="end"
+                            android:background="@null"
+                            android:imeOptions="actionDone"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
             android:background="@android:color/background_dark"
             android:progressBackgroundTint="@android:color/background_light"
             android:progressTint="#999999"
@@ -57,35 +105,49 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
             <!-- android:background="@mipmap/bbn" !-->
 
             <ImageButton
                 android:id="@+id/imageButton2"
-                android:layout_width="70dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.05"
+                android:layout_weight="0.25"
                 android:background="@android:color/transparent"
                 android:baselineAlignBottom="false"
+                android:scaleType="centerInside"
                 android:src="@mipmap/locationgrey" />
 
             <ImageButton
                 android:id="@+id/imageButton3"
-                android:layout_width="70dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.05"
+                android:layout_weight="0.25"
                 android:background="@android:color/transparent"
                 android:baselineAlignBottom="false"
+                android:scaleType="centerInside"
                 android:src="@mipmap/exploregrey" />
 
             <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="70dp"
+                android:id="@+id/imageButton4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.05"
+                android:layout_weight="0.25"
                 android:background="@android:color/transparent"
+                android:baselineAlignBottom="false"
+                android:scaleType="centerInside"
+                android:src="@mipmap/searchbutton" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
                 android:src="@mipmap/calendargrey" />
         </LinearLayout>
 

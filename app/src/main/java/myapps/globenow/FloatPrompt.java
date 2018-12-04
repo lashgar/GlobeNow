@@ -18,7 +18,7 @@ class FloatPrompt {
         textBox.setText(text);
 
         Toast toast = new Toast(mContext);
-        toast.setGravity(Gravity.BOTTOM, 0, 255);
+        toast.setGravity(Gravity.BOTTOM, 0, 214);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();

@@ -22,7 +22,11 @@
             android:singleLine="false"
             android:text=""
             android:textColor="@color/colorEventBodyText"
-            android:textSize="@dimen/dimenEventSizeBodyText" />
+            android:textSize="@dimen/dimenEventSizeBodyText"
+            android:lineSpacingMultiplier="@dimen/dimenEventLineSpacing"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
 
     <LinearLayout

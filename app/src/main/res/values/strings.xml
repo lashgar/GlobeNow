@@ -14,4 +14,7 @@
 
     <string name="textBoxEmptyMessage">tx</string>
 
+    <string name="searchEditBoxHint">e.g. Sale</string>
+    <string name="searchFirstPrompt">What can we get for you?</string>
+
 </resources>

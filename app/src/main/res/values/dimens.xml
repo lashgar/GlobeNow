@@ -5,8 +5,19 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <!-- Events -->
     <dimen name="dimenEventSizeBodyText">14sp</dimen>
     <dimen name="dimenEventSizeHeaderText">14sp</dimen>
+    <dimen name="dimenEventLineSpacing">1.1</dimen>
+    <!-- button pan -->
     <dimen name="buttonPadding">5dp</dimen>
     <dimen name="buttonHeight">35dp</dimen>
+    <!-- SEARCH PAN PARAMETERS -->
+    <dimen name="searchTextSize">24sp</dimen>
+    <dimen name="searchPromptSize">18sp</dimen>
+    <dimen name="searchPanHeight">120dp</dimen>
+    <!-- NOte: searchPanHeight = 2 * panPadding + Prompt + EditBox -->
+    <dimen name="searchPanHeightPrompt">22dp</dimen>
+    <dimen name="searchPanHeightEditBox">58dp</dimen>
+    <dimen name="searchPanPadding">20dp</dimen>
 </resources>
