@@ -2,6 +2,7 @@ package myapps.globenow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,8 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                 TextView bodyView = adView.findViewById(R.id.ad_text);
                 bodyView.setText(ad.getBody());
                 TextView headlineView = adView.findViewById(R.id.ad_header);
-                headlineView.setText("Sponsored ad by "+ad.getHeadline());
+                String textBody = "Sponsored ad by "+ad.getHeadline();
+                headlineView.setText(textBody);
                 MediaView mediaView = adView.findViewById(R.id.ad_media);
                 adView.setMediaView(mediaView);
                 adView.setNativeAd(ad);
@@ -65,7 +67,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             TextView headerTextField;
             ImageButton shareButton;
             ImageButton openButton;
-            boolean bLoadImage =!eventInstance.media.equals("") && !eventInstance.media.equals("none");
+            boolean bLoadImage = (eventInstance != null) && (!eventInstance.media.equals("")) && !eventInstance.media.equals("none");
             if(bLoadImage)
             {
                 // Inflate view with image layout
@@ -92,9 +94,19 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                 openButton = rowView.findViewById(R.id.wo_openButton);
             }
 
+            if (eventInstance == null){
+                return rowView;
+            }
+
             // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
-            bodyTextField.setText(textBody);
+            // Highlight words under search
+            String searchQuery = main2Activity.SearchGetQuery();
+            if (searchQuery.equals("")) {
+                bodyTextField.setText(textBody);
+            }else{
+                bodyTextField.setText(Html.fromHtml(main2Activity.SearchHighlightMatch(textBody)));
+            }
             boolean bLongAutohrName = eventInstance.prettyauthor.length()>25;
             String sanitizedAuthorName = bLongAutohrName? eventInstance.prettyauthor.substring(0,25) + " ᠁": eventInstance.prettyauthor;
             String author = "By " + sanitizedAuthorName;

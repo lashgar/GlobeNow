@@ -436,6 +436,21 @@ public class Main2Activity extends AppCompatActivity
         searchQueryString = keyWord;
     }
 
+    public String SearchGetQuery(){
+        return searchQueryString;
+    }
+
+    public String SearchHighlightMatch(String textBody){
+        String searchQuery = SearchGetQuery();
+        String regex = "(?i)"+searchQuery;
+        if (searchQuery.equals("")) {
+            return textBody;
+        }else{
+            return textBody.replaceAll(regex, "<font color='#EE0000'>" + searchQuery + "</font>");
+        }
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
