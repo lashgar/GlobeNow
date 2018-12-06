@@ -4,6 +4,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="globenow_json_server">http://18.217.20.106/rss/</string>
+    <string name="admob_app_id">ca-app-pub-9349934160429743~2418637489</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_tweet_ui">TweetUiActivity</string>
