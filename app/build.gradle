@@ -6,7 +6,7 @@ android {
         applicationId 'myapps.globenow'
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 14
+        versionCode 15
         versionName "Frankfurt"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
