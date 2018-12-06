@@ -17,11 +17,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Increment version after release">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/backupscheme.xml" afterDir="false" />
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -106,35 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="42" lean-forward="true" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="backupscheme.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/backupscheme.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="136">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -2537,11 +2511,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/backupscheme.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -3155,7 +3129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543998931013</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Revoke WAKE permission">
+      <created>1544080626546</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1544080626546</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3232,7 +3213,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Load URL in WebView by defalut" />
     <MESSAGE value="(none-functional) declare common color/dimension parameter for views&#10;- Rename WebViewActivity class&#10;- Remove commented/unused code" />
     <MESSAGE value="Introducing Text View Expandable&#10;- add ml_rating to record&#10;- use single url for twitter events&#10;- avoid often adapter reload" />
     <MESSAGE value="Tune font size and family&#10;- Switch to use Corbel font family&#10;- Increase text view limit to 140" />
@@ -3257,7 +3237,8 @@
     <MESSAGE value="Increment version after release (Madrid)" />
     <MESSAGE value="Allow app-side search for events" />
     <MESSAGE value="Increment version after release" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increment version after release" />
+    <MESSAGE value="Revoke WAKE permission" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revoke WAKE permission" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3632,13 +3613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/backupscheme.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3656,6 +3630,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="42" lean-forward="true" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
         </state>
       </provider>
     </entry>
