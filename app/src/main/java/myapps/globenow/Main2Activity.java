@@ -144,6 +144,8 @@ public class Main2Activity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         // Initialize Firebase
+        // WAKE_LOCK is only needed for messaging so we can ignore the error below:
+        // https://stackoverflow.com/questions/42520019/does-firebase-cloud-messaging-really-need-a-wake-lock-permission
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         // Initialize AdMob
@@ -924,7 +926,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
     String TextViewExpandableGetShort_(String text){
-        final String k_readMoreInBold = "\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
+        final String k_readMoreInBold = "<b> Read More </b>"; //"\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
         int breakIdx = 0;
         int nNewLines = 0;
         boolean bTimeToBreak = false;

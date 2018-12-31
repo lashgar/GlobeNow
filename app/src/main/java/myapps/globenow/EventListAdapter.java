@@ -103,7 +103,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             // Highlight words under search
             String searchQuery = main2Activity.SearchGetQuery();
             if (searchQuery.equals("")) {
-                bodyTextField.setText(textBody);
+                bodyTextField.setText(Html.fromHtml(textBody));
             }else{
                 bodyTextField.setText(Html.fromHtml(main2Activity.SearchHighlightMatch(textBody)));
             }
