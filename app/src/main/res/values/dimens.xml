@@ -12,6 +12,7 @@
     <!-- button pan -->
     <dimen name="buttonPadding">5dp</dimen>
     <dimen name="buttonHeight">35dp</dimen>
+    <dimen name="bottomPanHeight">50dp</dimen>
     <!-- SEARCH PAN PARAMETERS -->
     <dimen name="searchTextSize">24sp</dimen>
     <dimen name="searchPromptSize">18sp</dimen>
