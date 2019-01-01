@@ -18,12 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_highdp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,11 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="1022" selection-start-line="1022" selection-end-line="1022" />
+            <state relative-caret-position="17">
+              <caret line="986" column="6" selection-start-line="986" selection-start-column="6" selection-end-line="986" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#18899#18900#0" expanded="true" />
@@ -91,8 +87,8 @@
       <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="94" column="90" selection-start-line="94" selection-start-column="90" selection-end-line="94" selection-end-column="90" />
+            <state relative-caret-position="17">
+              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -145,6 +141,15 @@
           </provider>
           <provider editor-type-id="android-manifest">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="33" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -2546,7 +2551,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/backupscheme.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/FloatPrompt.java" />
@@ -2555,6 +2559,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -2610,6 +2615,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="globenow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -2834,13 +2847,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522732504386</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Support dead event&#10;- Address warnings">
-      <created>1540065983116</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1540065983116</updated>
     </task>
     <task id="LOCAL-00006" summary="Refactor to separate Json loading and Image loading&#10;- Preparing to load more on scroll down&#10;- CustomListAdapter is not used anymore">
       <created>1540187615987</created>
@@ -3178,7 +3184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546238703601</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="- Load images in thumbnail on tablets to save memory&#10;- Drop adMob">
+      <created>1546343335071</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1546343335071</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3192,7 +3205,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32827586" />
@@ -3202,7 +3214,7 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5033557" side_tool="true" weight="0.55586207" />
       <window_info anchor="right" id="Preview" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4966443" visible="true" weight="0.32965517" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4966443" weight="0.32965517" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49932885" weight="0.32689655" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32827586" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.49932885" weight="0.32551724" />
@@ -3210,7 +3222,7 @@
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6803279" visible="true" weight="0.19597316" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.66174495" weight="0.32689655" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.66174495" visible="true" weight="0.32689655" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Fabric" order="3" />
@@ -3255,7 +3267,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Replace ViewItem callback with callbacks per element&#10;- Address warning messages" />
     <MESSAGE value="Change app theme to plain white and sky blue&#10;- Move banner initialization to dedicated initializer&#10;- Add sky-blue logos&#10;- Add fonts (missing from previous commit)" />
     <MESSAGE value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
     <MESSAGE value="Update loading logo to grey" />
@@ -3280,7 +3291,8 @@
     <MESSAGE value="Increment version after release" />
     <MESSAGE value="Replace Unicode read more with HTML bold" />
     <MESSAGE value="Fix FloatPrompt gravity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix FloatPrompt gravity" />
+    <MESSAGE value="- Load images in thumbnail on tablets to save memory&#10;- Drop adMob" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Load images in thumbnail on tablets to save memory&#10;- Drop adMob" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3658,21 +3670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
@@ -3683,20 +3680,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="94" column="90" selection-start-line="94" selection-start-column="90" selection-end-line="94" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="1022" selection-start-line="1022" selection-end-line="1022" />
+        <state relative-caret-position="17">
+          <caret line="986" column="6" selection-start-line="986" selection-start-column="6" selection-end-line="986" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#18899#18900#0" expanded="true" />
@@ -3710,6 +3697,31 @@
             <element signature="e#37453#37454#0" expanded="true" />
             <element signature="e#37492#37493#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="33" />
         </state>
       </provider>
     </entry>
