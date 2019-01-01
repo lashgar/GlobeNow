@@ -72,7 +72,13 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
             {
                 // Inflate view with image layout
                 LayoutInflater inflater=context.getLayoutInflater();
-                rowView=inflater.inflate(R.layout.listview_row_withimage, null,true); // specify the desired layout
+                // specify the desired layout
+                if (main2Activity.IsWideScreen()) {
+                    // Reduce image size
+                    rowView=inflater.inflate(R.layout.listview_row_withimage_highdp, null,true);
+                } else {
+                    rowView=inflater.inflate(R.layout.listview_row_withimage, null,true);
+                }
                 // Get layout elements
                 bodyTextField = rowView.findViewById(R.id.wi_contentTextView);
                 headerTextField = rowView.findViewById(R.id.wi_authorTextView);

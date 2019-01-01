@@ -35,10 +35,14 @@ class LoadImageUrlToBmp {
         return BitmapFactory.decodeByteArray(data, 0, 3);
     }
     private Bitmap GetRoundedCornerBitmap_(Bitmap org) {
+        final Main2Activity main2Activity =((Main2Activity)context);
+        boolean bFullWidth = !main2Activity.IsWideScreen();
+
         // Calculate new dimension to fit in view
         Point p = new Point();
         context.getWindowManager().getDefaultDisplay().getSize(p);
-        float rate = (float)(p.x-60)/(float)org.getWidth();
+        float desiredWidth = bFullWidth ? (p.x - 60) : (p.x / 3 - 60) ;
+        float rate = (desiredWidth)/(float)org.getWidth();
         int newW = (int)(rate*org.getWidth());
         int newH = (int)(rate*org.getHeight());
 

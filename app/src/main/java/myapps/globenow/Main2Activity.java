@@ -9,14 +9,18 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
@@ -109,10 +114,10 @@ public class Main2Activity extends AppCompatActivity
     private FirebaseAnalytics mFirebaseAnalytics;
 
     // AdMob
-    private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
-    private AdLoader adLoader;
+    // private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
+    // private AdLoader adLoader;
     private final int k_eventToAdRatio = 10; // show one ad for every 10 events
-    private int k_adLocationOrder = 8 % k_eventToAdRatio;
+    // private int k_adLocationOrder = 8 % k_eventToAdRatio;
 
     // Text View Expandable
     private final int k_textViewExpandableNNewLine = 2;
@@ -127,6 +132,9 @@ public class Main2Activity extends AppCompatActivity
     // Search
     String searchQueryString = "";
     // boolean bSearchInProgress  = false;
+
+    // Screen Management
+    private boolean bIsWideScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +157,7 @@ public class Main2Activity extends AppCompatActivity
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         // Initialize AdMob
+        /*
         unifiedNativeAdArrayList = new ArrayList<>();
         MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
         adLoader = new AdLoader.Builder(this, "/6499/example/native")
@@ -176,6 +185,7 @@ public class Main2Activity extends AppCompatActivity
                         .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_BOTTOM_RIGHT)
                         .build())
                 .build();
+        */
 
         // Load timeline configs from cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
@@ -200,6 +210,9 @@ public class Main2Activity extends AppCompatActivity
         timeLineListView.setAdapter(eventListAdapter);
         jsonLoader = new LoadTodayJson(this);
         bmpLoader = new LoadImageUrlToBmp(this);
+
+        // Screen is wide if it is larger than 6.0 inches
+        bIsWideScreen = GetScreenSizeInInches_() > 6.0;
 
         // Dynamic loading / paging initialize
         bPendingJsonLoader = false;
@@ -450,9 +463,60 @@ public class Main2Activity extends AppCompatActivity
         }else{
             return textBody.replaceAll(regex, "<font color='#EE0000'>" + searchQuery + "</font>");
         }
-
     }
 
+    /*
+    Utilities
+     */
+    public boolean IsWideScreen(){
+        return bIsWideScreen;
+    }
+
+    private double GetScreenSizeInInches_(){
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+
+        // since SDK_INT = 1;
+        double mWidthPixels = displayMetrics.widthPixels;
+        double mHeightPixels = displayMetrics.heightPixels;
+
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
+        {
+            try
+            {
+                mWidthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                mHeightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+            }
+            catch (Exception ignored)
+            {
+            }
+        }
+
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT >= 17)
+        {
+            try
+            {
+                Point realSize = new Point();
+                Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
+                mWidthPixels = realSize.x;
+                mHeightPixels = realSize.y;
+            }
+            catch (Exception ignored)
+            {
+            }
+        }
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        double x = Math.pow(mWidthPixels/dm.xdpi,2);
+        double y = Math.pow(mHeightPixels/dm.ydpi,2);
+        double screenInches = Math.sqrt(x+y);
+        Log.d("debug","Screen inches : " + screenInches);
+        return screenInches;
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -807,7 +871,8 @@ public class Main2Activity extends AppCompatActivity
             }
             PopulateTimeline_();
             // Pre-load ads for this json
-            adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
+            // Disable adMob
+            // adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -873,11 +938,15 @@ public class Main2Activity extends AppCompatActivity
     AdMob
      */
     UnifiedNativeAd GetAd(int idx){
+        return null;
+        /*
+        Disable adMob
         if(unifiedNativeAdArrayList.size()!=0) {
             return unifiedNativeAdArrayList.get(idx % unifiedNativeAdArrayList.size());
         } else {
             return null;
         }
+         */
     }
 
     int GetEventToAdRatio(){
@@ -885,21 +954,26 @@ public class Main2Activity extends AppCompatActivity
     }
 
     boolean IsAdPosition(int position) {
+        return false;
+        /*
+        // Disable AdMob
         // Load only one ad atm
         int positionRemainder = (position % GetEventToAdRatio());
         return (positionRemainder == k_adLocationOrder) && (GetNumLoadedAds(position) == 0);
-        /*
-        return positionRemainder == k_adLocationOrder;
         */
     }
 
     int GetNumLoadedAds(int position){
+        return 0;
+        /*
+        // Disable AdMob
         // Load only one ad atm
         if (position <= k_adLocationOrder){
             return 0;
         }else{
             return 1;
         }
+        */
         /*
         int positionRemainder = (position % GetEventToAdRatio());
         int nAdsSoFar = position / GetEventToAdRatio();
