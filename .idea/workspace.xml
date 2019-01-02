@@ -22,16 +22,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="- Add Toolbar to target URL open page&#10;- Move HTML encoder to Main2Activity">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/webview_menu.xml" afterDir="false" />
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/webview_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/webview_activity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/iconopen.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/iconopen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/iconshare.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/iconshare.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/loadinggrey.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/loadinggrey.png" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,8 +61,8 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="1012" column="22" selection-start-line="1012" selection-start-column="22" selection-end-line="1012" selection-end-column="22" />
+            <state relative-caret-position="151">
+              <caret line="898" column="15" selection-start-line="898" selection-start-column="15" selection-end-line="898" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#18899#18900#0" expanded="true" />
@@ -77,7 +73,6 @@
                 <element signature="e#19113#19114#0" expanded="true" />
                 <element signature="e#19523#19524#0" expanded="true" />
                 <element signature="e#19559#19560#0" expanded="true" />
-                <element signature="e#21324#21356#0" expanded="true" />
                 <element signature="e#37453#37454#0" expanded="true" />
                 <element signature="e#37492#37493#0" expanded="true" />
               </folding>
@@ -85,69 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webview_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/webview_activity.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webview_menu.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/webview_menu.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-              <folding>
-                <element signature="e#361#383#0" expanded="true" />
-                <element signature="e#530#554#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebViewActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -2541,13 +2478,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_highdp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/webview_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/webview_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -2829,13 +2766,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522732504386</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Fix bug in refactor">
-      <created>1540274134010</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1540274134010</updated>
     </task>
     <task id="LOCAL-00008" summary="Keep AsyncTask handles and cancel if another request queued in">
       <created>1540277724100</created>
@@ -3173,7 +3103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546344537301</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="- Add Toolbar to target URL open page&#10;- Move HTML encoder to Main2Activity and make private routines">
+      <created>1546391405027</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1546391405027</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3191,12 +3128,12 @@
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info id="Build Variants" order="3" sideWeight="0.31967214" side_tool="true" weight="0.19597316" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5033557" side_tool="true" weight="0.55586207" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.43288592" side_tool="true" visible="true" weight="0.24551724" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.49932885" weight="0.32551724" />
       <window_info anchor="bottom" id="Dependency Viewer" weight="0.32965517" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.66174495" visible="true" weight="0.16275862" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.5671141" visible="true" weight="0.24551724" />
       <window_info anchor="bottom" id="Inspection Results" order="8" weight="0.3278237" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" sideWeight="0.18482758" side_tool="true" weight="0.24362417" />
@@ -3251,7 +3188,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change app theme to plain white and sky blue&#10;- Move banner initialization to dedicated initializer&#10;- Add sky-blue logos&#10;- Add fonts (missing from previous commit)" />
     <MESSAGE value="Refactor location provider&#10;- Avoid constant polling for location&#10;- Get location only from GPS (no network access)" />
     <MESSAGE value="Update loading logo to grey" />
     <MESSAGE value="Disable screen rotation" />
@@ -3276,7 +3212,8 @@
     <MESSAGE value="Fix FloatPrompt gravity" />
     <MESSAGE value="- Load images in thumbnail on tablets to save memory&#10;- Drop adMob" />
     <MESSAGE value="Increment version after release" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increment version after release" />
+    <MESSAGE value="- Add Toolbar to target URL open page&#10;- Move HTML encoder to Main2Activity and make private routines" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Add Toolbar to target URL open page&#10;- Move HTML encoder to Main2Activity and make private routines" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3566,16 +3503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="40" column="67" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="67" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3623,25 +3550,6 @@
     <entry file="file://$PROJECT_DIR$/gradle.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="48" lean-forward="true" selection-start-line="40" selection-end-line="48" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java">
@@ -3698,10 +3606,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="1012" column="22" selection-start-line="1012" selection-start-column="22" selection-end-line="1012" selection-end-column="22" />
+        <state relative-caret-position="151">
+          <caret line="898" column="15" selection-start-line="898" selection-start-column="15" selection-end-line="898" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#18899#18900#0" expanded="true" />
@@ -3712,19 +3639,26 @@
             <element signature="e#19113#19114#0" expanded="true" />
             <element signature="e#19523#19524#0" expanded="true" />
             <element signature="e#19559#19560#0" expanded="true" />
-            <element signature="e#21324#21356#0" expanded="true" />
             <element signature="e#37453#37454#0" expanded="true" />
             <element signature="e#37492#37493#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
