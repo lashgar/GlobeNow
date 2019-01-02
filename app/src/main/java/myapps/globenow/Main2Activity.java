@@ -18,6 +18,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -451,12 +453,12 @@ public class Main2Activity extends AppCompatActivity
         searchQueryString = keyWord;
     }
 
-    public String SearchGetQuery(){
+    private String SearchGetQuery_(){
         return searchQueryString;
     }
 
-    public String SearchHighlightMatch(String textBody){
-        String searchQuery = SearchGetQuery();
+    private String SearchHighlightMatch_(String textBody){
+        String searchQuery = SearchGetQuery_();
         String regex = "(?i)"+searchQuery;
         if (searchQuery.equals("")) {
             return textBody;
@@ -517,6 +519,29 @@ public class Main2Activity extends AppCompatActivity
         Log.d("debug","Screen inches : " + screenInches);
         return screenInches;
     }
+
+    @SuppressWarnings("deprecation")
+    public Spanned TextFromHtml(String text){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(text);
+        }
+    }
+
+    public Spanned GetSpannedText(String text){
+        // Highlight words under search
+        String searchQuery = SearchGetQuery_();
+        if (searchQuery.equals("")) {
+            return TextFromHtml(text);
+        }else{
+            return TextFromHtml(SearchHighlightMatch_(text));
+        }
+    }
+
+    /*
+    Activity
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -700,7 +725,7 @@ public class Main2Activity extends AppCompatActivity
                 }
                 boolean bExpanded = !TextViewExpandableIsLong_(text);
                 String textShort = TextViewExpandableGetShort_(text);
-                List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(",")); // FIXME: not tested
+                List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(","));
                 String media = allmedia.get(0);
                 int authorId = -1;
                 if((media.equals("") || media.equals("none")) && jsonHasAuthors && jo_inside.has("authorid") && jo_inside.getInt("authorid")!=-1){

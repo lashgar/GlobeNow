@@ -2,7 +2,6 @@ package myapps.globenow;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,15 +105,9 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
 
             // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
-            // Highlight words under search
-            String searchQuery = main2Activity.SearchGetQuery();
-            if (searchQuery.equals("")) {
-                bodyTextField.setText(Html.fromHtml(textBody));
-            }else{
-                bodyTextField.setText(Html.fromHtml(main2Activity.SearchHighlightMatch(textBody)));
-            }
-            boolean bLongAutohrName = eventInstance.prettyauthor.length()>25;
-            String sanitizedAuthorName = bLongAutohrName? eventInstance.prettyauthor.substring(0,25) + " ᠁": eventInstance.prettyauthor;
+            bodyTextField.setText(main2Activity.GetSpannedText(textBody));
+            boolean bLongAuthorName = eventInstance.prettyauthor.length()>25;
+            String sanitizedAuthorName = bLongAuthorName? eventInstance.prettyauthor.substring(0,25) + " ᠁": eventInstance.prettyauthor;
             String author = "By " + sanitizedAuthorName;
             headerTextField.setText(author);
 

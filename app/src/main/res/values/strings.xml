@@ -20,4 +20,6 @@
     <string name="searchEditBoxHint">e.g. Sale</string>
     <string name="searchFirstPrompt">What can we get for you?</string>
 
+    <string name="webViewCopyUrl">Copy URL</string>
+    <string name="webViewClose">Close</string>
 </resources>

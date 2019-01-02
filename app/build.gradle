@@ -33,9 +33,18 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:16.0.0"
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.android.support:support-core-utils:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+preBuild {
+    doFirst {
+        JavaCompile jc = android.applicationVariants.find { it.name == 'debug' }.javaCompile
+        jc.options.compilerArgs = ["-Xlint:deprecation"]
+        // alternative: "-Xlint:unchecked",
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
