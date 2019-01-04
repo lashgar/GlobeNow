@@ -64,7 +64,7 @@
                     android:padding="@dimen/buttonPadding"/>
             </LinearLayout>
             <TextView
-                android:id="@+id/wi_contentTextView"
+                android:id="@+id/wi_titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/corbel"
@@ -73,11 +73,26 @@
                 android:singleLine="false"
                 android:text=""
                 android:textColor="@color/colorEventBodyText"
-                android:textSize="@dimen/dimenEventSizeBodyText"
+                android:textSize="@dimen/dimenEventSizeTitleText"
                 android:lineSpacingMultiplier="@dimen/dimenEventLineSpacing"
                 android:onClick="onClick"
                 android:clickable="true"
                 android:focusable="true"/>
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/wi_contentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/corbel"
+        android:gravity="bottom"
+        android:scaleType="fitXY"
+        android:singleLine="false"
+        android:text=""
+        android:textColor="@color/colorEventBodyText"
+        android:textSize="@dimen/dimenEventSizeBodyText"
+        android:lineSpacingMultiplier="@dimen/dimenEventLineSpacing"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:focusable="true"/>
 </LinearLayout>

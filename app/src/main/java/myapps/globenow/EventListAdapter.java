@@ -34,6 +34,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
         // Calculate the position to load considering loaded ads
         // Making sure ads are interleaved while all events are loaded
         EventInstance eventInstance = getItem(position-main2Activity.GetNumLoadedAds(position));
+        boolean bHasTitle = eventInstance != null && !eventInstance.title.equals("");
         View rowView;
 
         if (main2Activity.IsAdPosition(position))
@@ -75,6 +76,12 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                 if (main2Activity.IsWideScreen()) {
                     // Reduce image size
                     rowView=inflater.inflate(R.layout.listview_row_withimage_highdp, null,true);
+                } else if (bHasTitle) {
+                    // Compact view as we have a nice title to show
+                    rowView=inflater.inflate(R.layout.listview_row_withimage_compact, null,true);
+                    TextView titleTextField = rowView.findViewById(R.id.wi_titleTextView);
+                    String textTitle = eventInstance.title;
+                    titleTextField.setText(textTitle);
                 } else {
                     rowView=inflater.inflate(R.layout.listview_row_withimage, null,true);
                 }
@@ -105,8 +112,10 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
 
             // Fill the event in view
             String textBody = eventInstance.bExpanded ? eventInstance.prettytext : eventInstance.textShort;
+            // Fill body
             bodyTextField.setText(main2Activity.GetSpannedText(textBody));
-            boolean bLongAuthorName = eventInstance.prettyauthor.length()>25;
+            // Fill header
+            boolean bLongAuthorName = eventInstance.prettyauthor.length()>50;
             String sanitizedAuthorName = bLongAuthorName? eventInstance.prettyauthor.substring(0,25) + " ᠁": eventInstance.prettyauthor;
             String author = "By " + sanitizedAuthorName;
             headerTextField.setText(author);

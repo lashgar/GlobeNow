@@ -8,7 +8,9 @@
     <!-- Events -->
     <dimen name="dimenEventSizeBodyText">14sp</dimen>
     <dimen name="dimenEventSizeHeaderText">14sp</dimen>
+    <dimen name="dimenEventSizeTitleText">20sp</dimen>
     <dimen name="dimenEventLineSpacing">1.1</dimen>
+    <dimen name="eventWideViewPadding">5dp</dimen>
     <!-- button pan -->
     <dimen name="buttonPadding">5dp</dimen>
     <dimen name="buttonHeight">35dp</dimen>

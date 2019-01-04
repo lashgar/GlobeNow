@@ -34,9 +34,9 @@ class LoadImageUrlToBmp {
         byte[] data = new byte[4];
         return BitmapFactory.decodeByteArray(data, 0, 3);
     }
-    private Bitmap GetRoundedCornerBitmap_(Bitmap org) {
+    private Bitmap GetRoundedCornerBitmap_(Bitmap org, Boolean bLoadShort) {
         final Main2Activity main2Activity =((Main2Activity)context);
-        boolean bFullWidth = !main2Activity.IsWideScreen();
+        boolean bFullWidth = !main2Activity.IsWideScreen() && !bLoadShort;
 
         // Calculate new dimension to fit in view
         Point p = new Point();
@@ -81,13 +81,13 @@ class LoadImageUrlToBmp {
         return output;
     }
 
-    AsyncTask<String, Void, ArrayList<Bitmap>> Load(String[] mediaUrls){
-        return new LoadImage().execute(mediaUrls);
+    AsyncTask<BmpConfig, Void, ArrayList<Bitmap>> Load(BmpConfig[] bmpConfigArr){
+        return new LoadImage().execute(bmpConfigArr);
     }
 
-    private class LoadImage extends AsyncTask<String, Void, ArrayList<Bitmap>> {
+    private class LoadImage extends AsyncTask<BmpConfig, Void, ArrayList<Bitmap>> {
         @Override
-        protected ArrayList<Bitmap> doInBackground(final String... params) {
+        protected ArrayList<Bitmap> doInBackground(final BmpConfig... params) {
             context.runOnUiThread(new Runnable() {
                 public void run() {
                     ProgressBar progressBar = context.findViewById(R.id.progressBar);
@@ -97,8 +97,10 @@ class LoadImageUrlToBmp {
             });
             Bitmap emptyBmp = GenDummyBmp_();
             ArrayList<Bitmap> bmpList = new ArrayList<>();
-            for(String imageUrl:  params)
+            for(BmpConfig bmpConfig:  params)
             {
+                String imageUrl = bmpConfig.url;
+                Boolean bLoadShort = bmpConfig.bLoadShort;
                 context.runOnUiThread(new Runnable() {
                     public void run() {
                         ProgressBar progressBar = context.findViewById(R.id.progressBar);
@@ -108,7 +110,7 @@ class LoadImageUrlToBmp {
                 Bitmap bmp = emptyBmp;
                 try {
                     URL mediaUrl = new URL(imageUrl);
-                    bmp = GetRoundedCornerBitmap_(BitmapFactory.decodeStream(mediaUrl.openConnection().getInputStream()));
+                    bmp = GetRoundedCornerBitmap_(BitmapFactory.decodeStream(mediaUrl.openConnection().getInputStream()), bLoadShort);
                 } catch (IOException ex) {
                     Log.d("LDIMG::doInBackground", ex.toString());
                     // ex.printStackTrace();

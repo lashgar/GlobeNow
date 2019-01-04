@@ -109,7 +109,7 @@ public class Main2Activity extends AppCompatActivity
     private Boolean bPendingJsonLoader;
     private Boolean bPendingBmpLoader;
     private AsyncTask<String, Void, String> asyncTaskJsonLoader;
-    private AsyncTask<String, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
+    private AsyncTask<BmpConfig, Void, ArrayList<Bitmap>> asyncTaskBmpLoader;
     private int jsonArrayEventsLastReadIdx;
 
     // Statistics
@@ -698,7 +698,7 @@ public class Main2Activity extends AppCompatActivity
         {
             boolean jsonHasAuthors = jsonArrayAuthors.length()!=0;
             // boolean bIsTwitterAppInstalled = isTwitterAppInstalled();
-            ArrayList<String> mediaUrls = new ArrayList<>();
+            ArrayList<BmpConfig> bmpLoadConfigArr = new ArrayList<>();
             int nEnqueued = 0;
             while((nEnqueued<k_maxFetchPerRound) && (jsonArrayEventsLastReadIdx < jsonArrayEvents.length())) {
                 // Get next element
@@ -721,10 +721,17 @@ public class Main2Activity extends AppCompatActivity
                         // This should not be shown in results
                         continue;
                     }
-
                 }
+
+                // Title
+                String title = "";
+                if (jo_inside.has("title")){
+                    title = jo_inside.getString("title");
+                }
+
+                // Rest
                 boolean bExpanded = !TextViewExpandableIsLong_(text);
-                String textShort = TextViewExpandableGetShort_(text);
+                String textShort = TextViewExpandableGetShort_(text, title);
                 List<String> allmedia = Arrays.asList(jo_inside.getString("media").split(","));
                 String media = allmedia.get(0);
                 int authorId = -1;
@@ -735,6 +742,7 @@ public class Main2Activity extends AppCompatActivity
                     // Log.d("MediaURL", "has authorid> "+author);
                 }
                 float ml_rating = Float.valueOf(jo_inside.getString("ml_rating"));
+
 
                 // get callback URL
                 String eventsource = jo_inside.getString("source");
@@ -760,7 +768,10 @@ public class Main2Activity extends AppCompatActivity
                 }
 
                 // Will load the batch asyncly
-                mediaUrls.add(media);
+                BmpConfig bmpConfig = new BmpConfig();
+                bmpConfig.url = media;
+                bmpConfig.bLoadShort = !title.equals("");
+                bmpLoadConfigArr.add(bmpConfig);
 
                 // Create entry
                 EventInstance newEntry = new EventInstance();
@@ -776,6 +787,7 @@ public class Main2Activity extends AppCompatActivity
                 newEntry.bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.loadinggrey);
                 newEntry.bExpanded = bExpanded;
                 newEntry.textShort = textShort;
+                newEntry.title = title;
 
                 // Push to Array
                 eventListArray.add(newEntry);
@@ -789,9 +801,8 @@ public class Main2Activity extends AppCompatActivity
             }else{
                 // Invoke image loader and fetch images
                 Log.d("MainThread", "evenListArray size: " + String.valueOf(eventListArray.size()));
-                Log.d("MainThread", "mediaUrl size: " + String.valueOf(mediaUrls.size()));
             }
-            LaunchAsyncBmpLoader_(mediaUrls);
+            LaunchAsyncBmpLoader_(bmpLoadConfigArr);
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -849,7 +860,7 @@ public class Main2Activity extends AppCompatActivity
         return Boolean.TRUE;
     }
 
-    private void LaunchAsyncBmpLoader_(ArrayList<String> mediaUrls)
+    private void LaunchAsyncBmpLoader_(ArrayList<BmpConfig> bmpConfigArrayList)
     {
         // Cancel pending Async if any
         if(bPendingBmpLoader){
@@ -857,7 +868,7 @@ public class Main2Activity extends AppCompatActivity
         }
 
         // Launch new Async task
-        asyncTaskBmpLoader = bmpLoader.Load(mediaUrls.toArray(new String[0]));
+        asyncTaskBmpLoader = bmpLoader.Load(bmpConfigArrayList.toArray(new BmpConfig[0]));
         bPendingBmpLoader =Boolean.TRUE;
     }
 
@@ -1024,8 +1035,13 @@ public class Main2Activity extends AppCompatActivity
         return (nNewLines > k_textViewExpandableNNewLine) || (text.length() > k_textViewExpandableNChars);
     }
 
-    String TextViewExpandableGetShort_(String text){
+    String TextViewExpandableGetShort_(String text, String title){
         final String k_readMoreInBold = "<b> Read More </b>"; //"\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
+        // Read more button if title exists (showing compact view)
+        if (!title.equals("")){
+            return k_readMoreInBold;
+        }
+
         int breakIdx = 0;
         int nNewLines = 0;
         boolean bTimeToBreak = false;

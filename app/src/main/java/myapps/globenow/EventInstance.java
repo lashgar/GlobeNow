@@ -22,4 +22,5 @@ class EventInstance {
     Bitmap bmp;
     boolean bExpanded; // if true, click on the event opens url
     String textShort;
+    String title;
 }
