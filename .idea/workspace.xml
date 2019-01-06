@@ -22,9 +22,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Increase version after release: 19">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,34 +55,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="85">
+              <caret line="447" column="38" selection-start-line="447" selection-start-column="38" selection-end-line="447" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdUtility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/AdUtility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2719#2720#0" expanded="true" />
-                <element signature="e#2757#2758#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,27 +70,12 @@
       <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="29" />
+            <state relative-caret-position="188">
+              <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7550#7811#0" expanded="true" />
                 <element signature="e#7810#7811#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listview_row_withimage_compact.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_compact.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-              <folding>
-                <element signature="e#2785#2815#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2517,10 +2481,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_highdp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_button_bar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_compact.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/AdUtility.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
       </list>
     </option>
   </component>
@@ -2545,6 +2509,12 @@
               <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
               <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -2773,13 +2743,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522732504386</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Set minSdkVersion to 24 for Calendar support">
-      <created>1540959797371</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1540959797371</updated>
     </task>
     <task id="LOCAL-00015" summary="Integrate Firebase">
       <created>1540968309530</created>
@@ -3117,7 +3080,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546758440366</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Increase version after release: 19">
+      <created>1546759167399</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1546759167399</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3139,9 +3109,9 @@
       <window_info id="Image Layers" order="3" />
       <window_info id="Build Variants" order="3" sideWeight="0.31967214" side_tool="true" weight="0.19597316" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.43355703" side_tool="true" visible="true" weight="0.25985402" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.504698" side_tool="true" visible="true" weight="0.32846716" />
       <window_info anchor="right" id="Preview" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49597314" weight="0.32846716" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49530202" visible="true" weight="0.32846716" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49932885" weight="0.32689655" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32827586" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.49932885" weight="0.32551724" />
@@ -3149,7 +3119,7 @@
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6803279" visible="true" weight="0.18724832" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.56644297" visible="true" weight="0.25985402" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.56644297" weight="0.25985402" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Fabric" order="3" />
@@ -3195,7 +3165,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Increment version for release" />
     <MESSAGE value="Add buttons to view&#10;- Open link&#10;- Share event" />
     <MESSAGE value="Move add to the bottom of timeline" />
     <MESSAGE value="Increment version after publish" />
@@ -3220,7 +3189,8 @@
     <MESSAGE value="Make compact view default when title is available in Json&#10;- Increase author name field limit to 50 character" />
     <MESSAGE value="- Play animation when buttons pushed&#10;- Make button bar uniform across all layout&#10;- Address warnings" />
     <MESSAGE value="(none-functional) decouple Ad from Main2Activity&#10;- Address warnings in Main2Activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="(none-functional) decouple Ad from Main2Activity&#10;- Address warnings in Main2Activity" />
+    <MESSAGE value="Increase version after release: 19" />
+    <option name="LAST_COMMIT_MESSAGE" value="Increase version after release: 19" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3634,18 +3604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7550#7811#0" expanded="true" />
-            <element signature="e#7810#7811#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/AdUtility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -3664,19 +3622,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7550#7811#0" expanded="true" />
+            <element signature="e#7810#7811#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="447" column="38" selection-start-line="447" selection-start-column="38" selection-end-line="447" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

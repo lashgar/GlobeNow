@@ -460,7 +460,9 @@ public class Main2Activity extends AppCompatActivity
         {
             try
             {
+                //noinspection JavaReflectionMemberAccess
                 mWidthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                //noinspection JavaReflectionMemberAccess
                 mHeightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
             }
             catch (Exception ignored)
