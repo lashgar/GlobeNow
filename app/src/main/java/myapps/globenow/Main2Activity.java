@@ -1,5 +1,6 @@
 package myapps.globenow;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,11 +48,6 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -115,11 +110,8 @@ public class Main2Activity extends AppCompatActivity
     // Statistics
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    // AdMob
-    // private ArrayList<UnifiedNativeAd> unifiedNativeAdArrayList;
-    // private AdLoader adLoader;
-    private final int k_eventToAdRatio = 10; // show one ad for every 10 events
-    // private int k_adLocationOrder = 8 % k_eventToAdRatio;
+    // AdUtility
+    private AdUtility adManager = new AdUtility();
 
     // Text View Expandable
     private final int k_textViewExpandableNNewLine = 2;
@@ -149,6 +141,7 @@ public class Main2Activity extends AppCompatActivity
     /*
     @brief called from OnCreate to initialize modules
      */
+    @SuppressLint({"MissingPermission"})
     private void initializeMainActivity(){
         // Screen setup
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -158,36 +151,8 @@ public class Main2Activity extends AppCompatActivity
         // https://stackoverflow.com/questions/42520019/does-firebase-cloud-messaging-really-need-a-wake-lock-permission
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        // Initialize AdMob
-        /*
-        unifiedNativeAdArrayList = new ArrayList<>();
-        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
-        adLoader = new AdLoader.Builder(this, "/6499/example/native")
-                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                    @Override
-                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                        // Show the ad.
-                        // Log.d("NewAd",unifiedNativeAd.getHeadline());
-                        unifiedNativeAdArrayList.add(unifiedNativeAd);
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(int errorCode) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                        // Log.d("NewAd", "failed "+Integer.toString(errorCode));
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .setReturnUrlsForImageAssets(false) // populate image and uri both
-                        .setImageOrientation(NativeAdOptions.ORIENTATION_LANDSCAPE)
-                        .setRequestMultipleImages(false) // fetch only one image
-                        .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_BOTTOM_RIGHT)
-                        .build())
-                .build();
-        */
+        // AdUtility
+        adManager.init(this);
 
         // Load timeline configs from cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
@@ -479,6 +444,7 @@ public class Main2Activity extends AppCompatActivity
         return bIsWideScreen;
     }
 
+    @SuppressLint({"ObsoleteSdkInt"})
     private double GetScreenSizeInInches_(){
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
@@ -913,7 +879,7 @@ public class Main2Activity extends AppCompatActivity
             PopulateTimeline_();
             // Pre-load ads for this json
             // Disable adMob
-            // adLoader.loadAds(new AdRequest.Builder().build(), jsonArrayEvents.length() / k_eventToAdRatio + 1);
+            // adManager.PreLoadAds(jsonArrayEvents.length());
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
@@ -945,15 +911,12 @@ public class Main2Activity extends AppCompatActivity
         } else if (sourceUrl.equals("")) {
             FloatPrompt.Show(this, "No link to open");
         } else {
-            // Open a URL
-            final boolean bOpenUrlWithChrome = false; // TODO: Move this to app/settings
-            if (bOpenUrlWithChrome) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
-                startActivity(browserIntent);
-            } else {
-                Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
-                startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
-            }
+            // Open a URL in webView
+            Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
+            startActivity(inAppBrowser.putExtra("urlToShow", sourceUrl));
+            // Alternatively, use this to open in Chrome
+            // Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl));
+            // startActivity(browserIntent);
         }
     }
 
@@ -978,51 +941,22 @@ public class Main2Activity extends AppCompatActivity
     /*
     AdMob
      */
+    @SuppressWarnings({"UnusedParameters"})
     UnifiedNativeAd GetAd(int idx){
         return null;
-        /*
-        Disable adMob
-        if(unifiedNativeAdArrayList.size()!=0) {
-            return unifiedNativeAdArrayList.get(idx % unifiedNativeAdArrayList.size());
-        } else {
-            return null;
-        }
-         */
+        // return adManager.GetAd(idx);
     }
 
-    int GetEventToAdRatio(){
-        return k_eventToAdRatio;
-    }
-
+    @SuppressWarnings({"UnusedParameters"})
     boolean IsAdPosition(int position) {
         return false;
-        /*
-        // Disable AdMob
-        // Load only one ad atm
-        int positionRemainder = (position % GetEventToAdRatio());
-        return (positionRemainder == k_adLocationOrder) && (GetNumLoadedAds(position) == 0);
-        */
+        // return adManager.IsAdPosition(position);
     }
 
+    @SuppressWarnings({"UnusedParameters"})
     int GetNumLoadedAds(int position){
         return 0;
-        /*
-        // Disable AdMob
-        // Load only one ad atm
-        if (position <= k_adLocationOrder){
-            return 0;
-        }else{
-            return 1;
-        }
-        */
-        /*
-        int positionRemainder = (position % GetEventToAdRatio());
-        int nAdsSoFar = position / GetEventToAdRatio();
-        if (positionRemainder > k_adLocationOrder) {
-            nAdsSoFar += 1;
-        }
-        return nAdsSoFar;
-        */
+        // adManager.GetNumLoadedAds(position);
     }
 
     /*
