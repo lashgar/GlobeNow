@@ -37,7 +37,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
 
         // Calculate the position to load considering loaded ads
         // Making sure ads are interleaved while all events are loaded
-        EventInstance eventInstance = getItem(position-main2Activity.GetNumLoadedAds(position));
+        final EventInstance eventInstance = getItem(position-main2Activity.GetNumLoadedAds(position));
         boolean bHasTitle = eventInstance != null && !eventInstance.title.equals("");
         View rowView = new View(context);
 
@@ -104,6 +104,14 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                     imageView.setImageResource(R.mipmap.noimage);
                 } else {
                     imageView.setImageBitmap(eventInstance.bmp);
+                    // Set image callback to show large version
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ImageInspect imageInspect = new ImageInspect(context);
+                            imageInspect.OpenLargeImage(eventInstance.media);
+                        }
+                    });
                 }
             }
             else
@@ -174,6 +182,7 @@ public class EventListAdapter extends ArrayAdapter<EventInstance> {
                     main2Activity.EventClickExpandCollapseText(position);
                 }
             });
+
         }
         return rowView;
     }

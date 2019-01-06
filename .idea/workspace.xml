@@ -22,8 +22,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Increase version after release: 19">
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/AsyncBmpLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpLib.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/ImageInspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Utilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/show_large_image.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
@@ -58,10 +65,56 @@
       <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="447" column="38" selection-start-line="447" selection-start-column="38" selection-end-line="447" selection-end-column="38" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6733#6951#0" expanded="true" />
+                <element signature="e#6950#6951#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageInspect.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/ImageInspect.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#384#385#0" expanded="true" />
+                <element signature="e#420#421#0" expanded="true" />
+                <element signature="e#1317#1623#0" expanded="true" />
+                <element signature="e#1622#1623#0" expanded="true" />
+                <element signature="e#1684#1720#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoadImageUrlToBmp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="23" column="96" selection-start-line="23" selection-start-column="96" selection-end-line="23" selection-end-column="96" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show_large_image.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/show_large_image.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+              <folding>
+                <element signature="e#479#516#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,12 +123,38 @@
       <file leaf-file-name="EventListAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
+            <state relative-caret-position="17">
+              <caret line="87" column="17" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5048#5373#0" expanded="true" />
+                <element signature="e#5372#5373#0" expanded="true" />
                 <element signature="e#7550#7811#0" expanded="true" />
                 <element signature="e#7810#7811#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AsyncBmpLoader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/AsyncBmpLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BmpLib.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpLib.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="35" column="58" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,28 +166,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>WAKE</find>
-      <find>read</find>
-      <find>readm</find>
-      <find>admob</find>
-      <find>adLoader</find>
-      <find>resolve</find>
-      <find>html</find>
-      <find>Util</find>
-      <find>SearchHighlightMatch</find>
-      <find>catch</find>
       <find>json</find>
       <find>Load</find>
-      <find>LaunchAsyncBmpLoader_</find>
       <find>String</find>
-      <find>bmpLoader</find>
       <find>GetRoun</find>
       <find>title</find>
       <find>EventClickExpandCollapseText</find>
@@ -124,6 +191,18 @@
       <find>GetSho</find>
       <find>ad</find>
       <find>adLoad</find>
+      <find>Unreso</find>
+      <find>Receive</find>
+      <find>bmpLoader</find>
+      <find>asyncBmpLoader</find>
+      <find>asyncTas</find>
+      <find>LaunchAsyncBmpLoader_</find>
+      <find>cancel</find>
+      <find>AsyncBmp</find>
+      <find>callback</find>
+      <find>asyncTaskBmp</find>
+      <find>bmpConf</find>
+      <find>bLoadSho</find>
     </findStrings>
     <replaceStrings>
       <replace>GPSTracker</replace>
@@ -2469,7 +2548,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/menu/webview_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/WebViewActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpConfig.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circledark.xml" />
@@ -2483,8 +2561,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage_compact.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/AdUtility.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Utilities.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/ImageInspect.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/show_large_image.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpLib.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/AsyncBmpLoader.java" />
       </list>
     </option>
   </component>
@@ -2515,6 +2599,47 @@
               <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="globenow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GlobeNow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GlobeNow" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -2743,13 +2868,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522732504386</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Integrate Firebase">
-      <created>1540968309530</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1540968309531</updated>
     </task>
     <task id="LOCAL-00016" summary="Activate Firebase analytics">
       <created>1541053858910</created>
@@ -3087,7 +3205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546759167399</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="(none functional) Address warnings">
+      <created>1546799921203</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1546799921204</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3165,7 +3290,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add buttons to view&#10;- Open link&#10;- Share event" />
     <MESSAGE value="Move add to the bottom of timeline" />
     <MESSAGE value="Increment version after publish" />
     <MESSAGE value="Add outline to images" />
@@ -3190,7 +3314,8 @@
     <MESSAGE value="- Play animation when buttons pushed&#10;- Make button bar uniform across all layout&#10;- Address warnings" />
     <MESSAGE value="(none-functional) decouple Ad from Main2Activity&#10;- Address warnings in Main2Activity" />
     <MESSAGE value="Increase version after release: 19" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increase version after release: 19" />
+    <MESSAGE value="(none functional) Address warnings" />
+    <option name="LAST_COMMIT_MESSAGE" value="(none functional) Address warnings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3198,48 +3323,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/google-services.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="38" column="61" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/crazyapps/globenow/ApplicationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/CustomListAdapter.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_ad.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -3434,16 +3517,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventInstance.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -3544,20 +3617,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="32" column="72" selection-start-line="32" selection-start-column="72" selection-end-line="32" selection-end-column="72" />
-          <folding>
-            <element signature="e#1583#1604#0" expanded="true" />
-            <element signature="e#1769#1802#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_noimage.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3629,24 +3688,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Utilities.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
+        <state relative-caret-position="136">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_row_withimage.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="19" selection-end-column="78" />
+          <folding>
+            <element signature="e#1290#1320#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-26/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="346" selection-start-line="346" selection-end-line="346" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpLib.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="35" column="58" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/AsyncBmpLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/EventListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="87" column="17" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5048#5373#0" expanded="true" />
+            <element signature="e#5372#5373#0" expanded="true" />
             <element signature="e#7550#7811#0" expanded="true" />
             <element signature="e#7810#7811#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/show_large_image.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="447" column="38" selection-start-line="447" selection-start-column="38" selection-end-line="447" selection-end-column="38" />
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#479#516#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/LoadImageUrlToBmp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="23" column="96" selection-start-line="23" selection-start-column="96" selection-end-line="23" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/ImageInspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#1317#1623#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
+            <element signature="e#1684#1720#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6733#6951#0" expanded="true" />
+            <element signature="e#6950#6951#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -80,7 +80,7 @@ public class Main2Activity extends AppCompatActivity
 
     // Timeline and data loader
     private LoadTodayJson jsonLoader;
-    private LoadImageUrlToBmp bmpLoader;
+    private LoadImageUrlToBmp bmpLoaderForTimeline;
     private EventListAdapter eventListAdapter;
     private ArrayList<EventInstance> eventListArray;
     private ListView timeLineListView;
@@ -176,7 +176,14 @@ public class Main2Activity extends AppCompatActivity
         timeLineListView = findViewById(R.id.ListView1);
         timeLineListView.setAdapter(eventListAdapter);
         jsonLoader = new LoadTodayJson(this);
-        bmpLoader = new LoadImageUrlToBmp(this);
+        bmpLoaderForTimeline = new LoadImageUrlToBmp(
+            this,
+            new Utilities.LoadImageUrlCallback() {
+                @Override
+                public void ReceiveBmpList(ArrayList<Bitmap> bmpList) {
+                    ReceiveBmpListAsync(bmpList);
+                }
+            });
 
         // Screen is wide if it is larger than 6.0 inches
         bIsWideScreen = GetScreenSizeInInches_() > 6.0;
@@ -743,7 +750,7 @@ public class Main2Activity extends AppCompatActivity
                 // Will load the batch asyncly
                 BmpConfig bmpConfig = new BmpConfig();
                 bmpConfig.url = media;
-                bmpConfig.bLoadShort = !title.equals("");
+                bmpConfig.bLoadShort = IsWideScreen() || !title.equals("");
                 bmpLoadConfigArr.add(bmpConfig);
 
                 // Create entry
@@ -841,7 +848,7 @@ public class Main2Activity extends AppCompatActivity
         }
 
         // Launch new Async task
-        asyncTaskBmpLoader = bmpLoader.Load(bmpConfigArrayList.toArray(new BmpConfig[0]));
+        asyncTaskBmpLoader = bmpLoaderForTimeline.Load(bmpConfigArrayList.toArray(new BmpConfig[0]));
         bPendingBmpLoader =Boolean.TRUE;
     }
 
