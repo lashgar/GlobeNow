@@ -285,6 +285,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
     private void initializeBotBanner() {
+        final BackgroundAnimation animGenerator = new BackgroundAnimation();
         final int progressBarColor = Color.argb(0xFF, 177, 198, 207);
         // progress bar
         ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -294,6 +295,7 @@ public class Main2Activity extends AppCompatActivity
         final View buttonLocation = findViewById(R.id.imageButton2);
         buttonLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                animGenerator.RunAnimationAlphaFlash(v);
                 // check if GPS enabled
                 if (!bPendingGpsUpdate) {
                     bPendingGpsUpdate = true;
@@ -314,6 +316,7 @@ public class Main2Activity extends AppCompatActivity
         final View buttonExplore = findViewById(R.id.imageButton3);
         buttonExplore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                animGenerator.RunAnimationAlphaFlash(v);
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
@@ -333,6 +336,7 @@ public class Main2Activity extends AppCompatActivity
         final View buttonSearch = findViewById(R.id.imageButton4);
         buttonSearch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                animGenerator.RunAnimationAlphaFlash(v);
                 SearchBoxShow_();
             }
         });
@@ -383,6 +387,7 @@ public class Main2Activity extends AppCompatActivity
         final View buttonCalendar = findViewById(R.id.imageButton);
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                animGenerator.RunAnimationAlphaFlash(v);
                 StartTime.show();
             }
         });
@@ -1036,11 +1041,12 @@ public class Main2Activity extends AppCompatActivity
     }
 
     String TextViewExpandableGetShort_(String text, String title){
-        final String k_readMoreInBold = "<b> Read More </b>"; //"\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
         // Read more button if title exists (showing compact view)
-        if (!title.equals("")){
-            return k_readMoreInBold;
+        // Wide screen config always shows the body
+        if (!title.equals("") && !IsWideScreen()){
+            return "";
         }
+        final String k_readMoreInBold = "<b> Read More </b>"; //"\uD835\uDC2B\uD835\uDC1E\uD835\uDC1A\uD835\uDC1D \uD835\uDC26\uD835\uDC28\uD835\uDC2B\uD835\uDC1E";
 
         int breakIdx = 0;
         int nNewLines = 0;
