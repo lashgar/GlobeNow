@@ -6,8 +6,8 @@ android {
         applicationId 'myapps.globenow'
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 20
-        versionName "Buenos Aires"
+        versionCode 21
+        versionName "Tofino"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

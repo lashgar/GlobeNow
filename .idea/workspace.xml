@@ -22,18 +22,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="Increase version after release: 20">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_date.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_location_on.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_privacy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_timeline.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+    <list default="true" id="2c2daadf-16aa-430d-a99b-1802cbe896d2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
     </list>
     <ignored path="GlobeNow.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,7 +55,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main2Activity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -118,10 +109,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state />
+            <state relative-caret-position="153">
+              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -2530,11 +2523,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/show_large_image.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/BmpLib.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/AsyncBmpLoader.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/myapps/globenow/Main2Activity.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -2852,13 +2845,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522732504386</updated>
-    </task>
-    <task id="LOCAL-00018" summary="(non-functional) cleanup">
-      <created>1541061837442</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1541061837442</updated>
     </task>
     <task id="LOCAL-00019" summary="Move APP keys to strings.xml">
       <created>1541142683173</created>
@@ -3196,7 +3182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546809465274</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Replace top banner with navigation drawer">
+      <created>1553421208222</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1553421208223</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3210,15 +3203,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info id="Build Variants" order="3" sideWeight="0.31967214" side_tool="true" weight="0.19597316" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.43489933" side_tool="true" visible="true" weight="0.25985402" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.43489933" side_tool="true" visible="true" weight="0.25985402" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.4986577" weight="0.3240876" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.56510067" visible="true" weight="0.25985402" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.56510067" visible="true" weight="0.25985402" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" sideWeight="0.18482758" side_tool="true" visible="true" weight="0.24362417" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.4" />
@@ -3274,7 +3266,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add outline to images" />
     <MESSAGE value="Do GPS right" />
     <MESSAGE value="Fix error/warnings" />
     <MESSAGE value="Move ad to the bottom of timeline" />
@@ -3299,7 +3290,8 @@
     <MESSAGE value="(none functional) Address warnings" />
     <MESSAGE value="- Open full-size image on thumbnail click&#10;- Refactor LoadImageUrlToBmp to BmpLib and AsyncBmpLoader&#10;- Address warnings" />
     <MESSAGE value="Increase version after release: 20" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increase version after release: 20" />
+    <MESSAGE value="Replace top banner with navigation drawer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Replace top banner with navigation drawer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3647,11 +3639,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -3713,6 +3700,13 @@
             <element signature="e#22445#22446#0" expanded="true" />
             <element signature="e#22481#22482#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
         </state>
       </provider>
     </entry>
