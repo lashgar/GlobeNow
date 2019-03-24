@@ -22,4 +22,11 @@
 
     <string name="webViewCopyUrl">Copy URL</string>
     <string name="webViewClose">Close</string>
+
+    <string name="drawerItemTitle">Settings</string>
+    <string name="drawerItemPrivacy">Privacy Policy</string>
+    <string name="drawerItemTimeline">Timeline</string>
+    <string name="drawerItemChangeLoc">Change Location</string>
+    <string name="drawerItemChangeDat">Change Date</string>
+
 </resources>

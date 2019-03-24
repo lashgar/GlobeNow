@@ -11,19 +11,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -35,8 +34,6 @@ import android.view.MenuItem;
 
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
@@ -44,9 +41,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.common.ConnectionResult;
@@ -85,11 +80,9 @@ public class Main2Activity extends AppCompatActivity
     private ArrayList<EventInstance> eventListArray;
     private ListView timeLineListView;
 
-    private TextSwitcher townName;
-    private TextSwitcher dateTextView;
-
     // Current view configuration
     private Date currentDate;
+    private String currentDateString;
     private String currentLocationCode;
     private String currentLocationName;
 
@@ -130,11 +123,16 @@ public class Main2Activity extends AppCompatActivity
     // Screen Management
     private boolean bIsWideScreen = false;
 
+    // Navigation drawer
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.splash_screen);
         setContentView(R.layout.activity_main2);
+        initializeNavigationDrawer();
         initializeMainActivity();
     }
 
@@ -154,21 +152,21 @@ public class Main2Activity extends AppCompatActivity
         // AdUtility
         adManager.init(this);
 
+        // Initialize banners
+        initializeTopBanner();
+        initializeBotBanner();
+
         // Load timeline configs from cache
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(k_preferenceName, MODE_PRIVATE);
         Float latitude = sharedPreferences.getFloat(k_sPLastGeoLat,48.4207253242786f);
         Float longitude = sharedPreferences.getFloat(k_sPLastGeoLng,-123.38951110839844f);
         String[] closetsTown = GPSTracker.getClosestCity(latitude, longitude);
         currentLocationCode = closetsTown[0];
-        currentLocationName = closetsTown[1];
         currentDate = new Date(); // default to Today (might be cached in future)
+        UpdateTitleBar(closetsTown[1], "Today");
 
         // Initialize GPS
         m_gpsTracker = new GPSTracker(Main2Activity.this);
-
-        // Initialize banners
-        initializeTopBanner();
-        initializeBotBanner();
 
         // Set ListView Adapter
         eventListArray = new ArrayList<>();
@@ -219,43 +217,32 @@ public class Main2Activity extends AppCompatActivity
         Log.d("LOADER", "Initialized");
     }
 
+    /*
+    Top banner
+     */
     private void initializeTopBanner() {
-        final int textColor = Color.argb(0xFF, 177-80, 198-80, 207-80);
-        final Typeface fontFamily = ResourcesCompat.getFont(this, R.font.corbelb);
-        // Current Stream Date
-        dateTextView = findViewById(R.id.TextBoxDate);
-        dateTextView.setFactory(new ViewSwitcher.ViewFactory() {
-            public View makeView() {
-                // create new textView and set the properties like clolr, size etc
-                TextView myText = new TextView(Main2Activity.this);
-                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-                myText.setTextSize(20);
-                myText.setTextColor(textColor);
-                myText.setTypeface(fontFamily);
-                myText.setShadowLayer(1, 0, 0, Color.BLACK);
-                myText.setPadding(0, 0, 0, 0);
-                return myText;
-            }
-        });
-        dateTextView.setText("Today");
-
-        // City Code
-        townName = findViewById(R.id.textView4);
-        townName.setFactory(new ViewSwitcher.ViewFactory() {
-            public View makeView() {
-                // create new textView and set the properties like clolr, size etc
-                TextView myText = new TextView(Main2Activity.this);
-                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-                myText.setTextSize(30);
-                myText.setTextColor(textColor);
-                myText.setTypeface(fontFamily);
-                myText.setShadowLayer(2, 0, 0, Color.BLACK);
-                myText.setPadding(0, 4, 0, 0);
-                return myText;
-            }
-        });
+        // Set toolbar
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorSkyBlueDark));
+        toolbar.setTitle("Loading");
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
     }
 
+    private void UpdateTitleBar(String timelineCityName, String timelineCityDate)
+    {
+        currentLocationName = timelineCityName;
+        currentDateString = timelineCityDate;
+        toolbar.setTitle(currentLocationName + " on " + currentDateString);
+    }
+
+    /*
+    Bottom banner
+     */
     private void initializeBotBanner() {
         final BackgroundAnimation animGenerator = new BackgroundAnimation();
         final int progressBarColor = Color.argb(0xFF, 177, 198, 207);
@@ -289,14 +276,7 @@ public class Main2Activity extends AppCompatActivity
         buttonExplore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 animGenerator.RunAnimationAlphaFlash(v);
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                try {
-                    startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
-                    // Log.d("LocationPicker", "Closed the activity");
-                } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
-                    // Log.d("LocationPicker", "Service unavailable");
-                    e.printStackTrace();
-                }
+                DialogLaunchLocationPicker_();
             }
         });
 
@@ -331,9 +311,7 @@ public class Main2Activity extends AppCompatActivity
                             SearchBoxHide_();
                             // Load into pipeline
                             FlushTimeline_(); // FIXME: this does not flush timeline
-                            TextSwitcher tw = findViewById(R.id.TextBoxDate);
-                            TextView tv = (TextView)tw.getCurrentView();
-                            FloatPrompt.Show(v.getContext(), "Searching " + tv.getText().toString());
+                            FloatPrompt.Show(v.getContext(), "Searching " + currentDateString);
                             PopulateTimeline_();
                             return true; // consume.
                         }
@@ -343,26 +321,81 @@ public class Main2Activity extends AppCompatActivity
             }
         );
 
-        // Calendar navigation
-        Calendar newCalendar = Calendar.getInstance();
-        final DatePickerDialog  StartTime = new DatePickerDialog(this, R.style.datepicker,
-                new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Calendar newCldr = Calendar.getInstance();
-                        newCldr.set(year, monthOfYear, dayOfMonth);
-                        Date newDate = newCldr.getTime();
-                        RefreshListViewFromDate_(newDate);
-                    }
-                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
         // Calendar button
         final View buttonCalendar = findViewById(R.id.imageButton);
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 animGenerator.RunAnimationAlphaFlash(v);
-                StartTime.show();
+                // StartTime.show();
+                DialogLaunchDatePicker_();
             }
         });
+    }
+
+    /*
+    Navigation Drawer Menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
+    }
+
+    private void initializeNavigationDrawer()
+    {
+        // Set navigation drawer
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        // true below to set item as selected to persist highlight
+                        menuItem.setChecked(false);
+                        // close drawer when item is tapped
+                        drawerLayout.closeDrawers();
+                        // Add code here to update the UI based on the item selected
+                        int id = menuItem.getItemId();
+                        switch(id)
+                        {
+                            case R.id.nav_privacy:
+                                Intent inAppBrowser = new Intent(Main2Activity.this, WebViewActivity.class);
+                                String privacyPolicyUrl = "http://www.ahmado.com/GlobeNow/privacy_policy.html";
+                                startActivity(inAppBrowser.putExtra("urlToShow", privacyPolicyUrl));
+                                FloatPrompt.Show(getApplicationContext(), "Showing Privacy Policy");
+                                break;
+                            case R.id.nav_timeline:
+                                // timeline is one by default, others are pop-ups
+                                FloatPrompt.Show(getApplicationContext(), "Showing Timeline");
+                                break;
+                            case R.id.nav_chgdat:
+                                DialogLaunchDatePicker_();
+                                break;
+                            case R.id.nav_chgloc:
+                                DialogLaunchLocationPicker_();
+                                break;
+                            default: // no operation
+                        }
+                        return true;
+                    }
+                });
     }
 
     /*
@@ -520,6 +553,34 @@ public class Main2Activity extends AppCompatActivity
     }
 
     /*
+    Dialogs
+     */
+    private void DialogLaunchLocationPicker_(){
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(builder.build(Main2Activity.this), PLACE_PICKER_REQUEST);
+            // Log.d("LocationPicker", "Closed the activity");
+        } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+            // Log.d("LocationPicker", "Service unavailable");
+            e.printStackTrace();
+        }
+    }
+
+    private void DialogLaunchDatePicker_(){
+        Calendar newCalendar = Calendar.getInstance();
+        final DatePickerDialog  startTime = new DatePickerDialog(this, R.style.datepicker,
+                new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar newCldr = Calendar.getInstance();
+                        newCldr.set(year, monthOfYear, dayOfMonth);
+                        Date newDate = newCldr.getTime();
+                        RefreshListViewFromDate_(newDate);
+                    }
+                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        startTime.show();
+    }
+
+    /*
     Activity
      */
     @Override
@@ -568,91 +629,27 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
+    /*
+    Timeline Manager
+     */
     private void RefreshListViewFromCurrent_(){
-        RefreshListViewFromCityCode_(currentLocationCode, currentLocationName, (float)0.0);
+        RefreshListViewFromCityCode_(currentLocationCode, currentLocationName);
     }
 
-    public void RefreshListViewFromCityCode_(String citycode, String cityName, float distance){
-        if(LaunchAsyncJsonLoader_(citycode, currentDate)) {
-
-            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-
-            // set the animation type of textSwitcher
-            townName.setInAnimation(in);
-            townName.setOutAnimation(out);
-
-            if (distance > 40) {
-                // note distance
-                FloatPrompt.Show(getApplicationContext(), "Oops location not covered");
-                FloatPrompt.Show(getApplicationContext(), "Showing nearest location");
-            }
-            townName.setText(cityName);
+    public void RefreshListViewFromCityCode_(String cityCode, String cityName){
+        if(LaunchAsyncJsonLoader_(cityCode, currentDate)) {
+            UpdateTitleBar(cityName, currentDateString);
         }
     }
 
     private void RefreshListViewFromDate_(Date dateToLoad){
         if(LaunchAsyncJsonLoader_(currentLocationCode, dateToLoad)) {
-
             String formattedDate = new SimpleDateFormat("EEE MMM dd", Locale.CANADA).format(currentDate);
             Date today = new Date();
             if (today.getTime() == dateToLoad.getTime()) {
                 formattedDate = "Today";
             }
-            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-
-            // set the animation type of textSwitcher
-            dateTextView.setInAnimation(in);
-            dateTextView.setOutAnimation(out);
-
-            dateTextView.setText(formattedDate);
+            UpdateTitleBar(currentLocationName, formattedDate);
         }
     }
 
@@ -666,8 +663,7 @@ public class Main2Activity extends AppCompatActivity
         CacheNewLocation(lat, lng);
 
         // Update view
-        float distance = Float.parseFloat(closetsTown[2]);
-        RefreshListViewFromCityCode_(cityCode, cityName, distance);
+        RefreshListViewFromCityCode_(cityCode, cityName);
     }
 
     private void PopulateTimeline_()
